@@ -1,0 +1,261 @@
+@import "tailwindcss";
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   DESIGN TOKENS  —  AuraDecant / Dior-Versace aesthetic
+   ═══════════════════════════════════════════════════════════════════════════ */
+:root {
+  /* Gold palette */
+  --gold-bright:  #F5E1A4;
+  --gold-mid:     #D4AF37;
+  --gold-deep:    #A08850;
+  --gold-glow:    rgba(212, 175, 55, 0.28);
+
+  /* Typography */
+  --font-display: var(--font-playfair),  'Playfair Display', Georgia, serif;
+  --font-body:    var(--font-inter),     'Inter', system-ui, sans-serif;
+  --font-serif:   var(--font-cormorant), 'Cormorant Garamond', Georgia, serif;
+
+  /* Glassmorphism */
+  --glass-bg:       rgba(255, 255, 255, 0.04);
+  --glass-border:   rgba(255, 255, 255, 0.08);
+  --glass-gold:     rgba(212, 175, 55, 0.18);
+
+  /* Legacy compat */
+  --background: #0a0a0a;
+  --foreground: #ededed;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   BASE RESETS
+   ═══════════════════════════════════════════════════════════════════════════ */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+  background: #000;
+}
+
+body {
+  background: transparent;
+  color: var(--foreground);
+  font-family: var(--font-body);
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: 0.01em;
+}
+
+section[id] {
+  scroll-margin-top: 80px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   TYPOGRAPHY SYSTEM
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Display headings — Playfair italic / regular */
+.heading-display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.05;
+}
+
+/* Section eyebrow labels — Inter small-caps all-caps */
+.label-eyebrow {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.7rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold-mid);
+}
+
+/* Body text */
+.body-text {
+  font-family: var(--font-body);
+  font-weight: 300;
+  letter-spacing: 0.02em;
+  line-height: 1.7;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   GLASSMORPHISM UTILITIES
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+}
+
+.glass-strong {
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.glass-gold {
+  background: rgba(212, 175, 55, 0.06);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(212, 175, 55, 0.22);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   GOLD BUTTON SYSTEM
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.btn-gold {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 2rem;
+  border-radius: 9999px;
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #000;
+  background: linear-gradient(135deg, var(--gold-mid) 0%, var(--gold-bright) 60%, var(--gold-mid) 100%);
+  box-shadow: 0 0 0 0 rgba(212, 175, 55, 0);
+  transition: box-shadow 0.4s ease, transform 0.25s ease;
+}
+.btn-gold:hover {
+  box-shadow: 0 0 32px rgba(212, 175, 55, 0.45);
+  transform: translateY(-2px);
+}
+.btn-gold:active {
+  transform: translateY(0);
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.75rem;
+  border-radius: 9999px;
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.65);
+  border: 0.5px solid rgba(212, 175, 55, 0.35);
+  background: transparent;
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+.btn-ghost:hover {
+  color: #fff;
+  border-color: rgba(212, 175, 55, 0.7);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   THIN-LINE SEPARATORS ("Versace Blueprint" dividers — 0.5px)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.divider-gold {
+  height: 0.5px;
+  background: linear-gradient(90deg, transparent, var(--gold-mid), transparent);
+  border: none;
+  opacity: 0.4;
+}
+
+.divider-silver {
+  height: 0.5px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+  border: none;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   GLOW EFFECTS
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.glow-gold {
+  box-shadow: 0 0 30px rgba(212, 175, 55, 0.4), 0 0 60px rgba(212, 175, 55, 0.15);
+}
+.glow-gold-subtle {
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   GRADIENT TEXT UTILITY
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.text-gradient-gold {
+  background: linear-gradient(135deg, #fffbe6 0%, #f4d58d 40%, #d4af37 75%, #c8a415 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SCROLLBAR HIDE
+   ═══════════════════════════════════════════════════════════════════════════ */
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SECTION SEPARATOR — 0.5px gold gradient (Elysian style)
+   ═══════════════════════════════════════════════════════════════════════════ */
+.section-separator {
+  height: 0.5px;
+  width: 100%;
+  background: linear-gradient(90deg, transparent 0%, rgba(212,175,55,0.3) 40%, rgba(212,175,55,0.3) 60%, transparent 100%);
+  border: none;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   PRESTIGE CARD — Elysian product card base + gold hover glow
+   ═══════════════════════════════════════════════════════════════════════════ */
+.card-prestige {
+  background: #0a0800;
+  border: 1px solid rgba(212,175,55,0.15);
+  border-radius: 1rem;
+  overflow: hidden;
+  transition: transform 0.35s cubic-bezier(0.22,1,0.36,1),
+              border-color 0.35s ease,
+              box-shadow 0.35s ease;
+}
+.card-prestige:hover {
+  transform: scale(1.035) translateY(-6px);
+  border-color: rgba(212,175,55,0.50);
+  box-shadow: 0 16px 60px rgba(212,175,55,0.20), 0 0 0 1px rgba(212,175,55,0.12);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   LEAD CAPTURE INPUT — gold-border input style
+   ═══════════════════════════════════════════════════════════════════════════ */
+.input-gold {
+  width: 100%;
+  padding: 1rem 1.25rem;
+  border-radius: 0.75rem;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(212,175,55,0.35);
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.input-gold:focus {
+  border-color: rgba(212,175,55,0.70);
+  box-shadow: 0 0 20px rgba(212,175,55,0.18);
+}
+.input-gold::placeholder {
+  color: rgba(255,255,255,0.25);
+}
