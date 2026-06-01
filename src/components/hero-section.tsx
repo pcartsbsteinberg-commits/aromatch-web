@@ -76,7 +76,7 @@ export default function HeroSection() {
           className="body-text text-lg text-white/55 max-w-2xl mx-auto mb-10 leading-relaxed"
         >
           Experimenta las mejores fragancias árabes y nicho del mundo a precios accesibles.
-          Decants de perfumes de lujo seleccionados para el coleccionista exigente.
+          Perfumes de lujo 100% originales seleccionados para el coleccionista exigente.
         </motion.p>
 
         {/* CTA Button */}
@@ -103,7 +103,7 @@ export default function HeroSection() {
           transition={{ duration: 1, delay: 1.2 }}
           className="mt-16 flex flex-wrap items-center justify-center gap-10"
         >
-          {['100% Auténtico', 'Decants Premium', 'Envío Gratis'].map((badge, i) => (
+          {['100% Auténtico', 'Frasco Sellado', 'Envío Gratis'].map((badge, i) => (
             <span
               key={badge}
               className="label-eyebrow flex items-center gap-2"

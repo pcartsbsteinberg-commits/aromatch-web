@@ -3,7 +3,7 @@
 import { useRef, useState } from 'react'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
 import { perfumes, type Perfume } from '@/lib/perfumes'
-import { ArrowRight, X, ChevronLeft, ChevronRight } from 'lucide-react'
+import { ArrowRight, X } from 'lucide-react'
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Elysian-Style Perfume Card (PerfumeX reference)
@@ -31,10 +31,6 @@ function PerfumeCard({
       .join('')
   ).toUpperCase()
 
-  // Decorative price (display only, no actual price data)
-  const displayPrice = (index * 3 + 17).toString()
-  const strikePrice = (index * 3 + 17 + 14).toString()
-
   return (
     <motion.div
       ref={ref}
@@ -54,7 +50,7 @@ function PerfumeCard({
                    hover:scale-[1.03]"
       >
         {/* ── Image area ─────────────────────────────────────────────── */}
-        <div className="relative w-full aspect-[3/4] overflow-hidden flex-shrink-0 bg-[#0d0a00]">
+        <div className="relative w-full aspect-3/4 overflow-hidden shrink-0 bg-[#0d0a00]">
           {/* Radial gold glow behind image */}
           <div
             className="absolute inset-0 z-0 pointer-events-none"
@@ -99,13 +95,13 @@ function PerfumeCard({
                 className="text-[9px] tracking-[0.3em] uppercase"
                 style={{ color: 'rgba(212,175,55,0.35)', fontFamily: 'var(--font-inter), sans-serif' }}
               >
-                Decant Premium
+                Perfume Original
               </span>
             </div>
           )}
 
           {/* Bottom gradient fade */}
-          <div className="absolute bottom-0 inset-x-0 h-1/3 z-20 bg-gradient-to-t from-[#0a0800] to-transparent pointer-events-none" />
+          <div className="absolute bottom-0 inset-x-0 h-1/3 z-20 bg-linear-to-t from-[#0a0800] to-transparent pointer-events-none" />
 
 
           {/* Heart / favourite icon — top right */}
@@ -144,7 +140,7 @@ function PerfumeCard({
             {perfume.name}
           </h3>
 
-          {/* Decant availability — premium lime accent */}
+          {/* Availability — premium lime accent */}
           <p
             className="text-[#ccff00] font-bold mt-1"
             style={{
@@ -154,7 +150,7 @@ function PerfumeCard({
               textShadow: '0 0 12px rgba(204, 255, 0, 0.25)',
             }}
           >
-            Disponible en 5ml & 10ml
+            Perfume Original Sellado
           </p>
 
           {/* Circular golden arrow button — bottom right */}
@@ -203,7 +199,7 @@ function ProductDetailModal({ perfume, onClose }: { perfume: Perfume; onClose: (
         onClick={(e) => e.stopPropagation()}
         className="relative z-10 w-full max-w-4xl max-h-[90vh] overflow-y-auto
                    rounded-3xl border border-[#d4af37]/25
-                   bg-gradient-to-b from-[#0d0a00] to-[#060400]
+                   bg-linear-to-b from-[#0d0a00] to-[#060400]
                    shadow-[0_0_80px_rgba(212,175,55,0.15)]
                    scrollbar-hide"
       >
@@ -250,7 +246,7 @@ function ProductDetailModal({ perfume, onClose }: { perfume: Perfume; onClose: (
               </span>
             </div>
           )}
-          <div className="absolute bottom-0 inset-x-0 h-1/2 z-20 bg-gradient-to-t from-[#0d0a00] to-transparent" />
+          <div className="absolute bottom-0 inset-x-0 h-1/2 z-20 bg-linear-to-t from-[#0d0a00] to-transparent" />
 
           {/* Brand + Name overlay */}
           <div className="absolute bottom-6 left-8 z-30">
@@ -284,7 +280,7 @@ function ProductDetailModal({ perfume, onClose }: { perfume: Perfume; onClose: (
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay, duration: 0.5 }}
-                className="rounded-xl border border-[#d4af37]/18 bg-[#d4af37]/[0.04] p-4 text-center"
+                className="rounded-xl border border-[#d4af37]/18 bg-[#d4af37]/4 p-4 text-center"
               >
                 <p
                   className="text-[#d4af37] text-[9px] uppercase mb-3"
@@ -297,7 +293,7 @@ function ProductDetailModal({ perfume, onClose }: { perfume: Perfume; onClose: (
                     <span
                       key={note}
                       className="px-2.5 py-1 rounded-full text-[10px] text-white/80
-                                  border border-white/12 bg-white/[0.04]"
+                                  border border-white/12 bg-white/4"
                       style={{ fontFamily: 'var(--font-inter), sans-serif', letterSpacing: '0.05em' }}
                     >
                       {note}
@@ -309,7 +305,7 @@ function ProductDetailModal({ perfume, onClose }: { perfume: Perfume; onClose: (
           </div>
 
           {/* Thin separator */}
-          <div className="h-px bg-gradient-to-r from-transparent via-[#d4af37]/25 to-transparent" />
+          <div className="h-px bg-linear-to-r from-transparent via-[#d4af37]/25 to-transparent" />
 
           {/* Exhaustive description */}
           <div>
@@ -333,7 +329,7 @@ function ProductDetailModal({ perfume, onClose }: { perfume: Perfume; onClose: (
 
           {/* Occasion + Longevity */}
           <div className="grid grid-cols-2 gap-4">
-            <div className="rounded-xl border border-white/8 bg-white/[0.03] p-5">
+            <div className="rounded-xl border border-white/8 bg-white/3 p-5">
               <p
                 className="text-[#d4af37] text-[9px] uppercase mb-2"
                 style={{ fontFamily: 'var(--font-inter), sans-serif', letterSpacing: '0.28em' }}
@@ -344,7 +340,7 @@ function ProductDetailModal({ perfume, onClose }: { perfume: Perfume; onClose: (
                 {perfume.occasion}
               </p>
             </div>
-            <div className="rounded-xl border border-white/8 bg-white/[0.03] p-5">
+            <div className="rounded-xl border border-white/8 bg-white/3 p-5">
               <p
                 className="text-[#d4af37] text-[9px] uppercase mb-2"
                 style={{ fontFamily: 'var(--font-inter), sans-serif', letterSpacing: '0.28em' }}
@@ -358,7 +354,7 @@ function ProductDetailModal({ perfume, onClose }: { perfume: Perfume; onClose: (
           </div>
 
           {/* Thin separator */}
-          <div className="h-px bg-gradient-to-r from-transparent via-[#d4af37]/25 to-transparent" />
+          <div className="h-px bg-linear-to-r from-transparent via-[#d4af37]/25 to-transparent" />
 
           {/* "Tradition & Innovation" block */}
           <div>
@@ -371,8 +367,8 @@ function ProductDetailModal({ perfume, onClose }: { perfume: Perfume; onClose: (
             <div className="grid grid-cols-2 gap-4">
               {[
                 {
-                  title: 'Exclusivamente Artesanal',
-                  text: 'Cada decant es envasado individualmente con atomizador de alta precisión, garantizando la experiencia exacta del frasco original.',
+                  title: 'Frasco Original Sellado',
+                  text: 'Cada perfume se entrega en su frasco original de fábrica, cerrado y sellado, garantizando la experiencia exacta tal como el creador la concibió.',
                 },
                 {
                   title: 'Elegancia Artesanal',
@@ -383,8 +379,8 @@ function ProductDetailModal({ perfume, onClose }: { perfume: Perfume; onClose: (
                   text: 'Stock cuidadosamente seleccionado para asegurar autenticidad total. Proveniencia directa y cadena de custodia verificada.',
                 },
                 {
-                  title: 'Arte & Precisión',
-                  text: 'El envasado de decants requiere precisión milimétrica. Nuestro proceso garantiza que cada mililitro preserve íntegramente la fórmula original.',
+                  title: 'Autenticidad Garantizada',
+                  text: 'Cada frasco llega cerrado de origen con su fórmula intacta. Garantizamos la procedencia y autenticidad total de cada fragancia.',
                 },
               ].map((item, i) => (
                 <motion.div
@@ -392,7 +388,7 @@ function ProductDetailModal({ perfume, onClose }: { perfume: Perfume; onClose: (
                   initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.07, duration: 0.45 }}
-                  className="rounded-xl border border-[#d4af37]/12 bg-[#d4af37]/[0.03] p-5"
+                  className="rounded-xl border border-[#d4af37]/12 bg-[#d4af37]/3 p-5"
                 >
                   <div className="flex items-center gap-2 mb-2">
                     <span
@@ -426,7 +422,7 @@ function ProductDetailModal({ perfume, onClose }: { perfume: Perfume; onClose: (
             rel="noopener noreferrer"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.97 }}
-            className="btn-gold w-full flex items-center justify-center gap-3 !py-4"
+            className="btn-emerald w-full flex items-center justify-center gap-3 py-4!"
           >
             <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
               <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
@@ -451,7 +447,7 @@ export default function ProductsSection() {
       <section id="products" className="py-24 md:py-36 px-6 relative overflow-hidden">
 
         {/* ── Top section separator ──────────────────────────────────────── */}
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#d4af37]/30 to-transparent" />
+        <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#d4af37]/30 to-transparent" />
 
         {/* Section-level spotlight */}
         <div
@@ -504,7 +500,7 @@ export default function ProductsSection() {
               style={{ fontFamily: 'var(--font-inter), sans-serif', fontSize: '0.875rem', letterSpacing: '0.02em' }}
             >
               Bienvenido al epítome del lujo olfativo — la Colección Firma de AroMatch.
-              Fragancias seleccionadas por nuestro equipo. Cada decant en frasco de vidrio con atomizador premium.
+              Fragancias seleccionadas por nuestro equipo. Perfumes 100% originales en su frasco sellado.
             </p>
           </motion.div>
 
@@ -512,7 +508,7 @@ export default function ProductsSection() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {perfumes.map((perfume, index) => (
               <PerfumeCard
-                key={perfume.image}
+                key={perfume.name}
                 perfume={perfume}
                 index={index}
                 onOpen={setSelectedPerfume}
@@ -526,7 +522,7 @@ export default function ProductsSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 py-10 border-t border-b border-white/[0.06]"
+            className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 py-10 border-t border-b border-white/6"
           >
             {[
               { value: '16',   label: 'Fragancias en Stock'      },
@@ -569,7 +565,7 @@ export default function ProductsSection() {
         </div>
 
         {/* ── Bottom section separator ───────────────────────────────── */}
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#d4af37]/30 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#d4af37]/30 to-transparent" />
       </section>
 
       {/* ── Product Detail Modal ──────────────────────────────────────── */}

@@ -31,7 +31,7 @@ const modalData: Record<string, { title: string, content: React.ReactNode }> = {
     title: 'Política de Devoluciones',
     content: (
       <div className="space-y-4 text-white/80 text-sm leading-relaxed">
-        <p>Por cuestiones de higiene y la naturaleza del producto, los decants no tienen devolución una vez despachados.</p>
+        <p>Por cuestiones de higiene y la naturaleza del producto, los perfumes no tienen devolución una vez despachados.</p>
         <p>Si tu pedido llega dañado, contactanos dentro de las 24hs con fotos y resolveremos el inconveniente de inmediato.</p>
       </div>
     )
@@ -40,8 +40,8 @@ const modalData: Record<string, { title: string, content: React.ReactNode }> = {
     title: 'Nuestra Historia',
     content: (
       <div className="space-y-4 text-white/80 leading-relaxed font-serif text-sm">
-        <p>Nuestra misión es hacer la perfumería nicho y de lujo completamente accesible a través de decants de alta calidad.</p>
-        <p>Creemos que no deberías tener que comprar una botella completa a ciegas. Nuestros decants te permiten explorar y encontrar tu identidad olfativa de forma accesible y auténtica.</p>
+        <p>Nuestra misión es acercarte la perfumería árabe y de nicho de lujo con perfumes 100% originales y al mejor precio.</p>
+        <p>Creemos que tu fragancia es parte de tu identidad. Por eso seleccionamos perfumes auténticos que te permiten expresar quién sos de forma genuina.</p>
       </div>
     )
   },
@@ -53,19 +53,19 @@ const modalData: Record<string, { title: string, content: React.ReactNode }> = {
           <h4 className="text-white font-medium mb-1 flex items-center gap-2">
             <Check className="w-4 h-4 text-[#d4af37]"/> Garantía 100% Original
           </h4>
-          <p className="text-sm">Garantizamos que todos nuestros decants son 100% originales, extraídos directamente de la botella de diseño original.</p>
+          <p className="text-sm">Garantizamos que todos nuestros perfumes son 100% originales, en su frasco sellado de fábrica.</p>
         </div>
         <div>
           <h4 className="text-white font-medium mb-1 flex items-center gap-2">
             <Check className="w-4 h-4 text-[#d4af37]"/> Verificación de Batch Code
           </h4>
-          <p className="text-sm">Con cada compra entregamos el Batch Code correspondiente a la botella original. Transparencia total en cada decant.</p>
+          <p className="text-sm">Con cada compra entregamos el Batch Code correspondiente al frasco original. Transparencia total en cada perfume.</p>
         </div>
         <div>
           <h4 className="text-white font-medium mb-1 flex items-center gap-2">
-            <Check className="w-4 h-4 text-[#d4af37]"/> Atomizadores Premium
+            <Check className="w-4 h-4 text-[#d4af37]"/> Frasco Sellado de Fábrica
           </h4>
-          <p className="text-sm">Utilizamos cápsulas de vidrio grueso con atomizadores de spray de alta precisión. Garantizamos conservación perfecta y cero alteración.</p>
+          <p className="text-sm">Todos nuestros perfumes llegan en su frasco original cerrado y sellado de fábrica. Conservación perfecta y cero alteración de la fórmula.</p>
         </div>
       </div>
     )
@@ -91,8 +91,8 @@ export default function FooterSection() {
 
   const footerLinks: Record<string, Array<{ name: string; href?: string; action?: string }>> = {
     shop: [
-      { name: 'Todos los Decants', href: '#decant-showcase' },
-      { name: 'Mas Vendidos', href: '#' },
+      { name: 'Todos los Perfumes', href: '#products' },
+      { name: 'Mas Vendidos', href: '#products' },
     ],
     support: [
       { name: 'Info de Envios', action: 'envios' },
@@ -237,7 +237,7 @@ export default function FooterSection() {
                 </span>
               </a>
               <p className="text-white/40 text-sm leading-relaxed mb-6 max-w-xs">
-                Decants premium de perfumes árabes y nicho. Experimentá fragancias de lujo sin el precio de lujo.
+                Perfumes árabes y de nicho 100% originales. Experimentá fragancias de lujo sin el precio de lujo.
               </p>
               {/* Social Links */}
               <div className="flex gap-3">
@@ -294,7 +294,7 @@ export default function FooterSection() {
           {/* Bottom Bar */}
           <div className="mt-12 pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-white/30 text-sm text-center md:text-left">
-              © {new Date().getFullYear()} AroMatch.ar. Todos los derechos reservados. Decants premium de perfumes nicho.
+              © {new Date().getFullYear()} AroMatch.ar. Todos los derechos reservados. Perfumes árabes y de nicho originales.
             </p>
             <div className="flex gap-6 text-sm">
               <a href="#" className="text-white/30 hover:text-white/60 transition-colors">

@@ -12,7 +12,19 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Scripts utilitarios de Node (no forman parte de la app)
+    "export-context.js",
+    "add-url.js",
   ]),
+  // Componentes/hooks generados por shadcn/ui: código vendido, se relajan
+  // reglas estrictas que no aportan valor en boilerplate de terceros.
+  {
+    files: ["src/components/ui/**", "src/hooks/**"],
+    rules: {
+      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/no-unused-vars": "off",
+    },
+  },
 ]);
 
 export default eslintConfig;

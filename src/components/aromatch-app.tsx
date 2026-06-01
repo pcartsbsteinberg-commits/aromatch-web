@@ -5,7 +5,6 @@ import { motion, AnimatePresence } from 'framer-motion'
 import {
   Heart,
   Briefcase,
-  Coffee,
   PartyPopper,
   Sun,
   Moon,
@@ -22,7 +21,7 @@ import {
   ArrowRight,
 } from 'lucide-react'
 import PrestigeShowcase from '@/components/prestige-showcase'
-import { perfumes, type Perfume } from '@/lib/perfumes'
+import { perfumes, type Perfume, type MatchResult } from '@/lib/perfumes'
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Quiz option definitions
@@ -64,17 +63,77 @@ const occasionOptions = [
 ]
 
 const seasonOptions = [
-  { id: 'summer' as const, label: 'Verano', icon: Sun, color: '#f4d58d' },
-  { id: 'winter' as const, label: 'Invierno', icon: Snowflake, color: '#a8d4e6' },
-  { id: 'spring' as const, label: 'Primavera', icon: Leaf, color: '#90b77d' },
-  { id: 'fall' as const, label: 'Otoño', icon: CloudSun, color: '#cd7f32' },
+  {
+    id: 'summer' as const,
+    label: 'Verano',
+    icon: Sun,
+    color: '#f4d58d',
+    bgImage:
+      'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600&q=80&auto=format&fit=crop',
+  },
+  {
+    id: 'winter' as const,
+    label: 'Invierno',
+    icon: Snowflake,
+    color: '#a8d4e6',
+    bgImage:
+      'https://images.unsplash.com/photo-1418985991508-e47386d96a71?w=1600&q=80&auto=format&fit=crop',
+  },
+  {
+    id: 'spring' as const,
+    label: 'Primavera',
+    icon: Leaf,
+    color: '#90b77d',
+    bgImage:
+      'https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=1600&q=80&auto=format&fit=crop',
+  },
+  {
+    id: 'fall' as const,
+    label: 'Otoño',
+    icon: CloudSun,
+    color: '#cd7f32',
+    bgImage:
+      'https://images.unsplash.com/photo-1507371341162-763b5e419408?w=1600&q=80&auto=format&fit=crop',
+  },
 ]
 
 const scentStyleOptions = [
-  { id: 'dulce' as const, label: 'Dulces y Adictivos', description: 'Vainilla, Postres, Dulzor', icon: Heart, color: '#e6a8d7' },
-  { id: 'fresco' as const, label: 'Frescos y Limpios', description: 'Cítricos, Mar, Energía', icon: Wind, color: '#a8e6cf' },
-  { id: 'maderoso' as const, label: 'Maderosos y Elegantes', description: 'Bosque, Cuero, Autoridad', icon: Briefcase, color: '#cda97f' },
-  { id: 'especiado' as const, label: 'Especiados y Misteriosos', description: 'Pimienta, Canela, Árabe', icon: Flame, color: '#d48a37' },
+  {
+    id: 'dulce' as const,
+    label: 'Dulces y Adictivos',
+    description: 'Vainilla, Postres, Dulzor',
+    icon: Heart,
+    color: '#e6a8d7',
+    bgImage:
+      'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=1600&q=80&auto=format&fit=crop',
+  },
+  {
+    id: 'fresco' as const,
+    label: 'Frescos y Limpios',
+    description: 'Cítricos, Mar, Energía',
+    icon: Wind,
+    color: '#a8e6cf',
+    bgImage:
+      'https://images.unsplash.com/photo-1528821128474-27f963b062bf?w=1600&q=80&auto=format&fit=crop',
+  },
+  {
+    id: 'maderoso' as const,
+    label: 'Maderosos y Elegantes',
+    description: 'Bosque, Cuero, Autoridad',
+    icon: Briefcase,
+    color: '#cda97f',
+    bgImage:
+      'https://images.unsplash.com/photo-1448375240586-882707db888b?w=1600&q=80&auto=format&fit=crop',
+  },
+  {
+    id: 'especiado' as const,
+    label: 'Especiados y Misteriosos',
+    description: 'Pimienta, Canela, Árabe',
+    icon: Flame,
+    color: '#d48a37',
+    bgImage:
+      'https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=1600&q=80&auto=format&fit=crop',
+  },
 ]
 
 const longevityOptions = [
@@ -82,22 +141,28 @@ const longevityOptions = [
     id: 'moderate' as const,
     label: 'Moderada',
     icon: Wind,
-    description: 'Perfecta para el día a día',
+    description: 'Discreta e íntima. Se percibe en la cercanía — perfecta para la oficina y el día a día.',
     color: '#a8d4e6',
+    bgImage:
+      'https://images.unsplash.com/photo-1541643600914-78b084683601?w=1600&q=80&auto=format&fit=crop',
   },
   {
     id: 'high' as const,
     label: 'Alta',
     icon: Flame,
-    description: 'Acompaña sin desvanecerse',
+    description: 'Equilibrio ideal. Deja una estela elegante que te acompaña durante horas.',
     color: '#d4af37',
+    bgImage:
+      'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=1600&q=80&auto=format&fit=crop',
   },
   {
     id: 'beast' as const,
     label: 'Beast Mode',
     icon: Zap,
-    description: 'Proyección extrema',
+    description: 'Proyección extrema. Tu aroma llena el ambiente y entra a la sala antes que vos.',
     color: '#c0394b',
+    bgImage:
+      'https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=1600&q=80&auto=format&fit=crop',
   },
 ]
 
@@ -116,28 +181,78 @@ interface Selection {
   longevity: Longevity | null
 }
 
-function findBestMatch(sel: Selection): Perfume {
-  const scored = perfumes.map((p) => {
-    let score = 0
+function scorePerfume(p: Perfume, sel: Selection): MatchResult {
+  let score = 0
+  const reasons: string[] = []
 
-    // Scent Style is the strongest signal (5 pts)
-    if (sel.scentStyle && p.scentStyle?.includes(sel.scentStyle)) score += 5
-    // Occasion is the second strongest (3 pts)
-    if (sel.occasion && p.occasions?.includes(sel.occasion)) score += 3
-    // Longevity (2 pts)
-    if (sel.longevity && p.longevities?.includes(sel.longevity)) score += 2
-    // Season (1 pt)
-    if (sel.season && p.seasons?.includes(sel.season)) score += 1
+  if (sel.scentStyle && p.scentStyle?.includes(sel.scentStyle)) {
+    score += 10
+    if (p.scentStyle.length === 1) {
+      score += 4
+      reasons.push(`Especialista en aromas ${sel.scentStyle}s`)
+    } else {
+      reasons.push(`Perfil ${sel.scentStyle} confirmado`)
+    }
+  }
 
-    // Bonus: beast-only perfumes get +1 when user picks beast
-    if (sel.longevity === 'beast' && p.longevities?.length === 1 && p.longevities[0] === 'beast') score += 1
+  if (sel.occasion && p.occasions?.includes(sel.occasion)) {
+    score += 6
+    const occasionLabels: Record<string, string> = {
+      cita_nocturna: 'ideal para salidas nocturnas',
+      oficina_diario: 'perfecto para el día a día',
+      evento_especial: 'diseñado para ocasiones especiales',
+      deporte_aire_libre: 'formulado para actividad al aire libre',
+    }
+    reasons.push(occasionLabels[sel.occasion] || 'ocasión compatible')
+  }
 
-    return { perfume: p, score }
-  })
+  if (sel.longevity && p.longevities?.includes(sel.longevity)) {
+    score += 4
+    if (sel.longevity === 'beast' && p.longevities.length === 1) {
+      score += 3
+      reasons.push('Beast Mode real — proyección extrema garantizada')
+    } else if (sel.longevity === 'beast') {
+      reasons.push('Alta proyección y duración')
+    } else if (sel.longevity === 'high') {
+      reasons.push('Duración de 8–12 horas en piel')
+    } else {
+      reasons.push('Proyección íntima y elegante')
+    }
+  }
 
-  // Sort by score desc; tiebreak by name (deterministic)
-  scored.sort((a, b) => b.score - a.score || a.perfume.name.localeCompare(b.perfume.name))
-  return scored[0].perfume
+  if (sel.season && p.seasons?.includes(sel.season)) {
+    score += 2
+    if (p.seasons.length === 4) score += 1
+    const seasonLabels: Record<string, string> = {
+      summer: 'verano', winter: 'invierno',
+      spring: 'primavera', fall: 'otoño',
+    }
+    reasons.push(`Recomendado para ${seasonLabels[sel.season] || sel.season}`)
+  }
+
+  const MAX_SCORE = 30
+  const percentage = Math.round((score / MAX_SCORE) * 100)
+  return { perfume: p, score, percentage, matchReasons: reasons }
+}
+
+function findTop3Matches(sel: Selection): MatchResult[] {
+  const scored = perfumes
+    .map(p => scorePerfume(p, sel))
+    .sort((a, b) => {
+      if (b.score !== a.score) return b.score - a.score
+      if (b.matchReasons.length !== a.matchReasons.length)
+        return b.matchReasons.length - a.matchReasons.length
+      const aSpec = a.perfume.occasions.length
+      const bSpec = b.perfume.occasions.length
+      if (aSpec !== bSpec) return aSpec - bSpec
+      return a.perfume.name.localeCompare(b.perfume.name)
+    })
+
+  if (scored[0].score === 0) {
+    console.warn('[Aromatch] Warning: ningún perfume matcheó con la selección', sel)
+  }
+
+  return scored.slice(0, 3)
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -255,11 +370,11 @@ export default function AroMatchApp() {
   const [showLeadCapture, setShowLeadCapture] = useState(false)
   const [showResult, setShowResult] = useState(false)
   const [capturedEmail, setCapturedEmail] = useState<string>('')
-  const [hoveredOccasion, setHoveredOccasion] = useState<string | null>(null)
+  const [hoveredBg, setHoveredBg] = useState<string | null>(null)
   const [selection, setSelection] = useState<Selection>({
     occasion: null, season: null, scentStyle: null, longevity: null,
   })
-  const [result, setResult] = useState<Perfume | null>(null)
+  const [matchResults, setMatchResults] = useState<MatchResult[]>([])
   const [savedFinalSel, setSavedFinalSel] = useState<Selection | null>(null)
 
   const handleSelect = <K extends keyof Selection>(type: K, value: Selection[K]) => {
@@ -288,7 +403,7 @@ export default function AroMatchApp() {
   const runMatch = (finalSel: Selection) => {
     setIsLoading(true)
     setTimeout(() => {
-      setResult(findBestMatch(finalSel))
+      setMatchResults(findTop3Matches(finalSel))
       setIsLoading(false)
       setShowResult(true)
     }, 2200)
@@ -306,11 +421,11 @@ export default function AroMatchApp() {
   const handleReset = () => {
     setStep(1)
     setSelection({ occasion: null, season: null, scentStyle: null, longevity: null })
-    setResult(null)
+    setMatchResults([])
     setShowResult(false)
     setShowLeadCapture(false)
     setSavedFinalSel(null)
-    setHoveredOccasion(null)
+    setHoveredBg(null)
     setCapturedEmail('')
   }
 
@@ -321,7 +436,7 @@ export default function AroMatchApp() {
     '¿Qué longevidad buscas?',
   ]
 
-  const activeBg = occasionOptions.find(o => o.id === hoveredOccasion)?.bgImage ?? null
+  const activeBg = hoveredBg
 
   const showProgressBar = !showResult && !isLoading && !showLeadCapture
 
@@ -372,19 +487,19 @@ export default function AroMatchApp() {
               AroMatch
             </h2>
             <p className="body-text text-white/45 max-w-lg mx-auto text-sm">
-              Cuatro preguntas sencillas y de instinto para hallar el decant perfecto.
+              Cuatro preguntas sencillas y de instinto para hallar el perfume perfecto.
             </p>
           </motion.div>
         )}
 
-        {showResult && result && (
+        {showResult && matchResults.length > 0 && (
           <motion.div
             key="showcase"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <PrestigeShowcase perfume={result} onReset={handleReset} capturedEmail={capturedEmail} />
+            <PrestigeShowcase results={matchResults} onReset={handleReset} capturedEmail={capturedEmail} />
           </motion.div>
         )}
 
@@ -462,8 +577,8 @@ export default function AroMatchApp() {
                         whileHover={{ scale: 1.04, y: -4 }}
                         whileTap={{ scale: 0.97 }}
                         onClick={() => handleSelect('occasion', opt.id)}
-                        onMouseEnter={() => setHoveredOccasion(opt.id)}
-                        onMouseLeave={() => setHoveredOccasion(null)}
+                        onMouseEnter={() => setHoveredBg(opt.bgImage)}
+                        onMouseLeave={() => setHoveredBg(null)}
                         className={`p-6 rounded-xl flex flex-col items-center gap-3 transition-all duration-300
                                    bg-white/[0.04] backdrop-blur-xl border ${
                           selection.occasion === opt.id
@@ -490,6 +605,8 @@ export default function AroMatchApp() {
                         whileHover={{ scale: 1.04, y: -4 }}
                         whileTap={{ scale: 0.97 }}
                         onClick={() => handleSelect('season', opt.id)}
+                        onMouseEnter={() => setHoveredBg(opt.bgImage)}
+                        onMouseLeave={() => setHoveredBg(null)}
                         className={`p-6 rounded-xl flex flex-col items-center gap-3 transition-all duration-300
                                    bg-white/[0.04] backdrop-blur-xl border ${
                           selection.season === opt.id
@@ -513,6 +630,8 @@ export default function AroMatchApp() {
                         whileHover={{ scale: 1.04, y: -4 }}
                         whileTap={{ scale: 0.97 }}
                         onClick={() => handleSelect('scentStyle', opt.id)}
+                        onMouseEnter={() => setHoveredBg(opt.bgImage)}
+                        onMouseLeave={() => setHoveredBg(null)}
                         className={`p-6 rounded-xl flex flex-col items-center justify-center gap-3 transition-all duration-300
                                    bg-white/[0.04] backdrop-blur-xl border ${
                           selection.scentStyle === opt.id
@@ -537,6 +656,8 @@ export default function AroMatchApp() {
                         whileHover={{ scale: 1.04, y: -4 }}
                         whileTap={{ scale: 0.97 }}
                         onClick={() => handleSelect('longevity', opt.id)}
+                        onMouseEnter={() => setHoveredBg(opt.bgImage)}
+                        onMouseLeave={() => setHoveredBg(null)}
                         className={`p-8 rounded-xl flex flex-col items-center gap-3 transition-all duration-300
                                    bg-white/[0.04] backdrop-blur-xl border ${
                           selection.longevity === opt.id
@@ -546,7 +667,7 @@ export default function AroMatchApp() {
                       >
                         <opt.icon className="w-10 h-10" style={{ color: opt.color }} />
                         <span className="text-lg text-white font-medium">{opt.label}</span>
-                        <span className="text-sm text-white/50 text-center">{opt.description}</span>
+                        <span className="text-xs md:text-sm text-white/55 text-center leading-relaxed max-w-[200px]">{opt.description}</span>
                       </motion.button>
                     ))}
                   </div>
@@ -578,7 +699,7 @@ export default function AroMatchApp() {
                   <Sparkles className="absolute inset-0 m-auto w-8 h-8 text-[#d4af37]" />
                 </div>
                 <p className="text-xl font-serif text-white mb-2">Analizando tu perfil...</p>
-                <p className="text-sm text-white/40">Explorando nuestra colección de decants</p>
+                <p className="text-sm text-white/40">Explorando nuestra colección de perfumes</p>
               </motion.div>
             )}
 

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { Cormorant_Garamond, Inter, Playfair_Display } from 'next/font/google'
+import { Cormorant_Garamond, Manrope, Playfair_Display } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { perfumes } from '@/lib/perfumes'
 import './globals.css'
@@ -11,8 +11,9 @@ const cormorant = Cormorant_Garamond({
   display: 'swap',
 });
 
-const inter = Inter({ 
+const manrope = Manrope({
   subsets: ["latin"],
+  weight: ['300', '400', '500', '600', '700', '800'],
   variable: '--font-inter',
   display: 'swap',
 });
@@ -26,32 +27,16 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: 'AroMatch | Decants de Perfumes Árabes y Nicho Originales',
-  description: 'Descubrí el lujo árabe en frascos de 5ml y 10ml. Decants 100% originales con Batch Code garantizado. Encontrá tu fragancia ideal con nuestro AroMatch Quiz.',
-  keywords: 'decants perfumes árabes, fragancias nicho argentina, Lattafa decants, perfumes fraccionados',
+  title: 'AroMatch | Perfumes Árabes y de Nicho Originales',
+  description: 'Descubrí el lujo árabe en perfumes 100% originales y sellados, con Batch Code garantizado. Encontrá tu fragancia ideal con nuestro AroMatch Quiz.',
+  keywords: 'perfumes árabes originales, fragancias nicho argentina, Lattafa argentina, perfumes de lujo',
   generator: 'Auradecant.ar',
   openGraph: {
     title: 'AroMatch - Encuentra Tu Match Olfativo',
-    description: 'Decants premium de perfumes arabes y nicho. Experimenta fragancias de lujo a precios accesibles.',
+    description: 'Perfumes árabes y de nicho 100% originales. Experimenta fragancias de lujo a precios accesibles.',
     type: 'website',
   },
-  icons: {
-    icon: [
-      {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
-      },
-    ],
-    apple: '/apple-icon.png',
-  },
+  // El favicon se detecta automáticamente desde src/app/favicon.ico
 }
 
 export const viewport: Viewport = {
@@ -70,13 +55,13 @@ export default function RootLayout({
     "@type": "Organization",
     "name": "AroMatch",
     "url": "https://auradecant.ar",
-    "logo": "https://auradecant.ar/icon.svg"
+    "logo": "https://auradecant.ar/favicon.ico"
   };
 
   const productListSchema = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    "name": "Colección de Perfumes Decant",
+    "name": "Colección de Perfumes Originales",
     "itemListElement": perfumes.map((perfume, index) => ({
       "@type": "ListItem",
       "position": index + 1,
@@ -88,14 +73,14 @@ export default function RootLayout({
           "name": perfume.brand
         },
         "description": perfume.description,
-        "category": "Perfume Decant",
+        "category": "Perfume",
         "image": `https://auradecant.ar${perfume.image}`
       }
     }))
   };
 
   return (
-    <html lang="es" className={`${cormorant.variable} ${inter.variable} ${playfair.variable}`}>
+    <html lang="es" className={`${cormorant.variable} ${manrope.variable} ${playfair.variable}`}>
       <head>
         <script
           type="application/ld+json"
@@ -122,6 +107,15 @@ export default function RootLayout({
           style={{
             background:
               'radial-gradient(ellipse 90% 70% at 50% 30%, rgba(212,175,55,0.10) 0%, rgba(10,10,10,0.75) 55%, rgba(0,0,0,0.97) 100%)',
+          }}
+        />
+        {/* ── Organic ambience blooms — warm amber + a whisper of niche violet ── */}
+        <div
+          className="fixed inset-0 -z-10 pointer-events-none"
+          style={{
+            background:
+              'radial-gradient(420px 420px at 16% 14%, rgba(194,112,42,0.16) 0%, transparent 68%),' +
+              'radial-gradient(460px 460px at 88% 82%, rgba(90,58,134,0.16) 0%, transparent 68%)',
           }}
         />
         {children}

@@ -12,13 +12,34 @@
 
   /* Typography */
   --font-display: var(--font-playfair),  'Playfair Display', Georgia, serif;
-  --font-body:    var(--font-inter),     'Inter', system-ui, sans-serif;
+  --font-body:    var(--font-inter),     'Manrope', system-ui, sans-serif;
   --font-serif:   var(--font-cormorant), 'Cormorant Garamond', Georgia, serif;
 
   /* Glassmorphism */
   --glass-bg:       rgba(255, 255, 255, 0.04);
   --glass-border:   rgba(255, 255, 255, 0.08);
   --glass-gold:     rgba(212, 175, 55, 0.18);
+
+  /* Action colors — emerald = own stock / WhatsApp, night = affiliate */
+  --emerald:          #12A36B;
+  --emerald-gradient: linear-gradient(135deg, #1FBF7F 0%, #0C7A4F 100%);
+  --emerald-ring:     rgba(18, 163, 107, 0.40);
+  --night:            #2E4A8A;
+  --night-gradient:   linear-gradient(135deg, #3A5BA8 0%, #16213F 100%);
+  --night-ring:       rgba(46, 74, 138, 0.40);
+
+  /* Signal yellow — sealed / certified labels */
+  --signal: #EAC417;
+
+  /* Motion */
+  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Elevation / glow shadows */
+  --shadow-card:      0 18px 48px -18px rgba(0, 0, 0, 0.80);
+  --shadow-float:     0 28px 70px -20px rgba(0, 0, 0, 0.85);
+  --glow-gold-shadow: 0 14px 40px -8px rgba(212, 175, 55, 0.45);
+  --glow-emerald:     0 14px 38px -10px rgba(18, 163, 107, 0.55);
+  --glow-inner-line:  inset 0 1px 0 rgba(255, 255, 255, 0.06);
 
   /* Legacy compat */
   --background: #0a0a0a;
@@ -69,7 +90,7 @@ section[id] {
   line-height: 1.05;
 }
 
-/* Section eyebrow labels — Inter small-caps all-caps */
+/* Section eyebrow labels — Manrope small-caps all-caps */
 .label-eyebrow {
   font-family: var(--font-body);
   font-weight: 400;
@@ -103,6 +124,7 @@ section[id] {
   backdrop-filter: blur(28px);
   -webkit-backdrop-filter: blur(28px);
   border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: var(--shadow-float), var(--glow-inner-line);
 }
 
 .glass-gold {
@@ -110,6 +132,15 @@ section[id] {
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border: 1px solid rgba(212, 175, 55, 0.22);
+}
+
+/* Focal glass card — warm, premium float + inner top highlight (design system) */
+.glass-focal {
+  background: rgba(22, 16, 12, 0.55);
+  backdrop-filter: blur(22px) saturate(150%);
+  -webkit-backdrop-filter: blur(22px) saturate(150%);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-float), var(--glow-inner-line);
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -162,6 +193,55 @@ section[id] {
   color: #fff;
   border-color: rgba(212, 175, 55, 0.7);
 }
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   ACTION BUTTONS — emerald (own stock / WhatsApp) · night (affiliate)
+   ───────────────────────────────────────────────────────────────────────────── */
+.btn-emerald {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 1rem 2rem;
+  border-radius: 9999px;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #F2FBF6;
+  background: var(--emerald-gradient);
+  border: none;
+  box-shadow: var(--glow-emerald);
+  transition: transform 0.2s var(--ease-soft), box-shadow 0.3s ease;
+}
+.btn-emerald:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 46px -10px rgba(18, 163, 107, 0.7);
+}
+.btn-emerald:active { transform: translateY(0); }
+
+.btn-night {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 1rem 2rem;
+  border-radius: 9999px;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #EAF0FF;
+  background: var(--night-gradient);
+  border: none;
+  box-shadow: 0 14px 34px -12px rgba(46, 74, 138, 0.7);
+  transition: transform 0.2s var(--ease-soft), box-shadow 0.3s ease;
+}
+.btn-night:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 44px -10px rgba(46, 74, 138, 0.85);
+}
+.btn-night:active { transform: translateY(0); }
 
 /* ═══════════════════════════════════════════════════════════════════════════
    THIN-LINE SEPARATORS ("Versace Blueprint" dividers — 0.5px)

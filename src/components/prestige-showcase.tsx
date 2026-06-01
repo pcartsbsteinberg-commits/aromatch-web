@@ -2,8 +2,8 @@
 
 import { useState, useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { perfumes, type Perfume } from '@/lib/perfumes'
-import { ArrowRight, RotateCcw, MessageCircle } from 'lucide-react'
+import { perfumes, type Perfume, type MatchResult } from '@/lib/perfumes'
+import { ArrowRight, RotateCcw, MessageCircle, Sparkles } from 'lucide-react'
 
 const WA_NUMBER = '5491162066609'
 
@@ -33,7 +33,7 @@ function getPoints(p: Perfume) {
     right: [
       {
         title: 'Elegancia Artesanal',
-        body: `La creación de ${p.name} trasciende lo ordinario, encarnando elegancia artesanal en su cénit en cada decant fabricado a mano.`,
+        body: `La creación de ${p.name} trasciende lo ordinario, encarnando elegancia artesanal en su cénit en cada frasco original.`,
       },
       {
         title: 'Raro y Exquisito',
@@ -166,7 +166,7 @@ function CentralStage({ perfume, onWA }: { perfume: Perfume; onWA: () => void })
                 className="text-[9px] uppercase tracking-[0.28em]"
                 style={{ color: 'rgba(212,175,55,0.4)', fontFamily: 'var(--font-inter), sans-serif' }}
               >
-                Decant Premium
+                Perfume Original
               </span>
             </div>
           )}
@@ -248,13 +248,13 @@ function WhatsAppCTA({ perfume, capturedEmail }: { perfume: Perfume; capturedEma
         className="w-full max-w-md flex items-center justify-center gap-3 rounded-2xl font-semibold"
         style={{
           padding: '1rem 2rem',
-          background: 'linear-gradient(135deg, #d4af37 0%, #f4d58d 50%, #d4af37 100%)',
-          color: '#000',
+          background: 'var(--emerald-gradient)',
+          color: '#F2FBF6',
           fontFamily: 'var(--font-inter), sans-serif',
           fontSize: '0.9rem',
           letterSpacing: '0.08em',
           textTransform: 'uppercase',
-          boxShadow: '0 8px 32px rgba(212,175,55,0.35), 0 2px 8px rgba(212,175,55,0.2)',
+          boxShadow: 'var(--glow-emerald)',
         }}
       >
         <MessageCircle className="w-5 h-5 flex-shrink-0" />
@@ -267,7 +267,7 @@ function WhatsAppCTA({ perfume, capturedEmail }: { perfume: Perfume; capturedEma
         className="text-white/28 text-[11px] text-center"
         style={{ fontFamily: 'var(--font-inter), sans-serif', letterSpacing: '0.02em' }}
       >
-        Decants disponibles según stock. Sin costo por la consulta.
+        Perfumes disponibles según stock. Sin costo por la consulta.
       </p>
     </motion.div>
   )
@@ -379,19 +379,145 @@ function ElysianBanner({ perfume }: { perfume: Perfume }) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
+// Secondary match card — #2 and #3 results
+// ─────────────────────────────────────────────────────────────────────────────
+function AlternativeCard({
+  result,
+  rank,
+  capturedEmail,
+}: {
+  result: MatchResult
+  rank: number
+  capturedEmail?: string
+}) {
+  const [imgErr, setImgErr] = useState(false)
+  const { perfume, percentage, matchReasons } = result
+  const message = encodeURIComponent(
+    `Hola! Me interesa *${perfume.name}* de tu catálogo.${capturedEmail ? ` Mi email: ${capturedEmail}` : ''}`
+  )
+  const url = `https://wa.me/${WA_NUMBER}?text=${message}`
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: 0.1 + rank * 0.12 }}
+      className="flex gap-4 p-4 rounded-2xl border border-[#d4af37]/15 bg-white/[0.02] hover:border-[#d4af37]/28 transition-all duration-300"
+    >
+      {/* Image */}
+      <div
+        className="w-14 h-20 rounded-lg overflow-hidden flex-shrink-0"
+        style={{ border: '1px solid rgba(212,175,55,0.14)' }}
+      >
+        {!imgErr ? (
+          <img
+            src={perfume.image}
+            alt={perfume.name}
+            className="w-full h-full object-cover"
+            onError={() => setImgErr(true)}
+          />
+        ) : (
+          <div className="w-full h-full bg-[#060300] flex items-center justify-center">
+            <span
+              className="text-lg font-bold"
+              style={{
+                fontFamily: 'var(--font-playfair), serif',
+                background: 'linear-gradient(135deg,#fffbe6 0%,#d4af37 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+              }}
+            >
+              {perfume.name[0]}
+            </span>
+          </div>
+        )}
+      </div>
+
+      {/* Info */}
+      <div className="flex-1 min-w-0">
+        <div className="flex items-start justify-between gap-3 mb-2">
+          <div className="min-w-0">
+            <p
+              className="text-[#d4af37]/55 text-[10px] uppercase tracking-[0.12em] mb-0.5"
+              style={{ fontFamily: 'var(--font-inter), sans-serif' }}
+            >
+              {perfume.brand}
+            </p>
+            <p
+              className="text-white/90 font-medium leading-tight text-sm"
+              style={{ fontFamily: 'var(--font-playfair), serif' }}
+            >
+              {perfume.name}
+            </p>
+          </div>
+          <div
+            className="flex-shrink-0 px-2.5 py-1 rounded-full border"
+            style={{ borderColor: 'rgba(212,175,55,0.30)', background: 'rgba(212,175,55,0.06)' }}
+          >
+            <span
+              className="font-bold text-xs"
+              style={{
+                fontFamily: 'var(--font-inter), sans-serif',
+                background: 'linear-gradient(135deg,#fffbe6 0%,#d4af37 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+              }}
+            >
+              {percentage}%
+            </span>
+          </div>
+        </div>
+
+        <div className="flex flex-wrap gap-1.5 mb-3">
+          {matchReasons.slice(0, 3).map((reason, i) => (
+            <span
+              key={i}
+              className="text-[10px] px-2 py-0.5 rounded-full border border-white/[0.08] text-white/40"
+              style={{ fontFamily: 'var(--font-inter), sans-serif', background: 'rgba(255,255,255,0.03)' }}
+            >
+              {reason}
+            </span>
+          ))}
+        </div>
+
+        <motion.a
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          whileHover={{ x: 2 }}
+          className="inline-flex items-center gap-1.5 text-white/40 hover:text-white/70 transition-colors"
+          style={{ fontFamily: 'var(--font-inter), sans-serif', fontSize: '0.72rem', letterSpacing: '0.04em' }}
+        >
+          <MessageCircle className="w-3.5 h-3.5 flex-shrink-0" />
+          Consultar disponibilidad
+          <ArrowRight className="w-3 h-3 flex-shrink-0" />
+        </motion.a>
+      </div>
+    </motion.div>
+  )
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 // PrestigeShowcase — main export
 // ─────────────────────────────────────────────────────────────────────────────
 export default function PrestigeShowcase({
-  perfume,
+  results,
   onReset,
   capturedEmail,
 }: {
-  perfume: Perfume
+  results: MatchResult[]
   onReset: () => void
   capturedEmail?: string
 }) {
   const ref = useRef(null)
   useInView(ref, { once: true })
+
+  const topResult = results[0]
+  const perfume = topResult.perfume
+  const secondaryResults = results.slice(1)
+
   const { left, right } = getPoints(perfume)
   const waUrl = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(`Hola! Hice match con *${perfume.name}* y quiero consultar disponibilidad.${capturedEmail ? ` Mi email: ${capturedEmail}` : ''}`)}`
 
@@ -403,6 +529,40 @@ export default function PrestigeShowcase({
       transition={{ duration: 0.5 }}
       className="w-full"
     >
+      {/* ── MATCH BADGE ──────────────────────────────────────────────────────── */}
+      <motion.div
+        initial={{ opacity: 0, y: -8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.1 }}
+        className="flex items-center justify-center mb-6"
+      >
+        <div
+          className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border"
+          style={{ borderColor: 'rgba(212,175,55,0.32)', background: 'rgba(212,175,55,0.07)' }}
+        >
+          <Sparkles className="w-3.5 h-3.5 text-[#d4af37]" />
+          <span
+            className="text-[#d4af37]/75 text-xs uppercase tracking-[0.14em]"
+            style={{ fontFamily: 'var(--font-inter), sans-serif' }}
+          >
+            Tu Match Perfecto
+          </span>
+          <span style={{ color: 'rgba(212,175,55,0.30)' }}>·</span>
+          <span
+            className="font-bold text-sm"
+            style={{
+              fontFamily: 'var(--font-inter), sans-serif',
+              background: 'linear-gradient(135deg,#fffbe6 0%,#d4af37 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+            }}
+          >
+            {topResult.percentage}% afinidad
+          </span>
+        </div>
+      </motion.div>
+
       {/* ── TOP HEADER — 2-column (serif title LEFT | subtitle + CTA RIGHT) ── */}
       <motion.div
         initial={{ opacity: 0, y: 16 }}
@@ -503,8 +663,59 @@ export default function PrestigeShowcase({
         </div>
       </div>
 
+      {/* ── MATCH REASONS ─────────────────────────────────────────────────────── */}
+      {topResult.matchReasons.length > 0 && (
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.45 }}
+          className="flex flex-wrap gap-2 justify-center py-4"
+        >
+          {topResult.matchReasons.map((reason, i) => (
+            <span
+              key={i}
+              className="text-xs px-3.5 py-1.5 rounded-full border text-white/55"
+              style={{
+                fontFamily: 'var(--font-inter), sans-serif',
+                borderColor: 'rgba(212,175,55,0.20)',
+                background: 'rgba(212,175,55,0.04)',
+                letterSpacing: '0.03em',
+              }}
+            >
+              ✓ {reason}
+            </span>
+          ))}
+        </motion.div>
+      )}
+
       {/* ── PROMINENT WHATSAPP CTA ──────────────────────────────────────────── */}
       <WhatsAppCTA perfume={perfume} capturedEmail={capturedEmail} />
+
+      {/* ── SECONDARY MATCHES ─────────────────────────────────────────────────── */}
+      {secondaryResults.length > 0 && (
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.65 }}
+          className="mt-10 pt-8 border-t border-[#d4af37]/12"
+        >
+          <div className="flex items-center gap-3 mb-6">
+            <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#d4af37]/18 to-transparent" />
+            <p
+              className="text-[#d4af37]/50 text-[11px] uppercase tracking-[0.18em] flex-shrink-0"
+              style={{ fontFamily: 'var(--font-inter), sans-serif' }}
+            >
+              También te puede gustar
+            </p>
+            <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#d4af37]/18 to-transparent" />
+          </div>
+          <div className="grid md:grid-cols-2 gap-4">
+            {secondaryResults.map((r, i) => (
+              <AlternativeCard key={r.perfume.name} result={r} rank={i} capturedEmail={capturedEmail} />
+            ))}
+          </div>
+        </motion.div>
+      )}
 
       {/* ── ELYSIAN PRESTIGE BANNER ─────────────────────────────────────────── */}
       <ElysianBanner perfume={perfume} />
