@@ -433,7 +433,7 @@ export default function AroMatchApp() {
     '¿Para qué ocasión es la fragancia?',
     '¿Para qué estación del año?',
     '¿Qué estilo te representa?',
-    '¿Qué longevidad buscas?',
+    '¿Qué proyección buscas?',
   ]
 
   const activeBg = hoveredBg
