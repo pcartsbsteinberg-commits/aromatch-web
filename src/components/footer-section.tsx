@@ -23,6 +23,7 @@ const modalData: Record<string, { title: string, content: React.ReactNode }> = {
     content: (
       <div className="space-y-4 text-white/80">
         <p>Envíos a todo el país vía <span className="text-[#d4af37] font-medium">Correo Argentino</span> y <span className="text-[#d4af37] font-medium">Andreani</span>.</p>
+        <p>Envío <span className="text-[#d4af37] font-medium">gratis</span> a partir de la compra de <span className="text-white font-medium">2 unidades</span>.</p>
         <p>Retiros en <span className="text-white font-medium">Vicente López</span> disponibles.</p>
       </div>
     )
@@ -192,7 +193,7 @@ export default function FooterSection() {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   disabled={isLoading}
-                  className="px-8 py-4 bg-gradient-to-r from-[#d4af37] to-[#a08850] text-black font-medium rounded-full flex items-center justify-center gap-2 glow-gold-subtle hover:glow-gold transition-all disabled:opacity-50"
+                  className="px-8 py-4 bg-linear-to-r from-[#d4af37] to-[#a08850] text-black font-medium rounded-full flex items-center justify-center gap-2 glow-gold-subtle hover:glow-gold transition-all disabled:opacity-50"
                 >
                   {isLoading ? (
                     <div className="w-5 h-5 border-2 border-black/30 border-t-black rounded-full animate-spin" />

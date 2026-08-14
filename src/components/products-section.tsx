@@ -353,68 +353,6 @@ function ProductDetailModal({ perfume, onClose }: { perfume: Perfume; onClose: (
             </div>
           </div>
 
-          {/* Thin separator */}
-          <div className="h-px bg-linear-to-r from-transparent via-[#d4af37]/25 to-transparent" />
-
-          {/* "Tradition & Innovation" block */}
-          <div>
-            <p
-              className="text-[#d4af37] text-[10px] uppercase mb-6"
-              style={{ fontFamily: 'var(--font-inter), sans-serif', letterSpacing: '0.3em' }}
-            >
-              Tradición & Innovación
-            </p>
-            <div className="grid grid-cols-2 gap-4">
-              {[
-                {
-                  title: 'Frasco Original Sellado',
-                  text: 'Cada perfume se entrega en su frasco original de fábrica, cerrado y sellado, garantizando la experiencia exacta tal como el creador la concibió.',
-                },
-                {
-                  title: 'Elegancia Artesanal',
-                  text: 'Las fragancias árabes representan siglos de tradición olfativa. Cada una es una obra maestra destilada del arte perfumero del Medio Oriente.',
-                },
-                {
-                  title: 'Edición Limitada de Lujo',
-                  text: 'Stock cuidadosamente seleccionado para asegurar autenticidad total. Proveniencia directa y cadena de custodia verificada.',
-                },
-                {
-                  title: 'Autenticidad Garantizada',
-                  text: 'Cada frasco llega cerrado de origen con su fórmula intacta. Garantizamos la procedencia y autenticidad total de cada fragancia.',
-                },
-              ].map((item, i) => (
-                <motion.div
-                  key={item.title}
-                  initial={{ opacity: 0, y: 15 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.07, duration: 0.45 }}
-                  className="rounded-xl border border-[#d4af37]/12 bg-[#d4af37]/3 p-5"
-                >
-                  <div className="flex items-center gap-2 mb-2">
-                    <span
-                      className="text-[#d4af37]"
-                      style={{ fontSize: '0.7rem', fontFamily: 'var(--font-inter), sans-serif', letterSpacing: '0.12em' }}
-                    >
-                      ✦
-                    </span>
-                    <p
-                      className="text-white text-xs font-semibold"
-                      style={{ fontFamily: 'var(--font-inter), sans-serif', letterSpacing: '0.05em' }}
-                    >
-                      {item.title}
-                    </p>
-                  </div>
-                  <p
-                    className="text-white/50 text-xs leading-relaxed"
-                    style={{ fontFamily: 'var(--font-inter), sans-serif' }}
-                  >
-                    {item.text}
-                  </p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-
           {/* WhatsApp CTA */}
           <motion.a
             href={`https://wa.me/5491162066609?text=Hola%20AuraDecant!%20Quiero%20info%20sobre%20*${encodeURIComponent(perfume.name)}*`}

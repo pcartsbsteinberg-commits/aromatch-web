@@ -16,19 +16,19 @@ export default function HeroSection() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.3 }}
           transition={{ duration: 2 }}
-          className="absolute top-20 left-10 w-px h-40 bg-gradient-to-b from-transparent via-[#d4af37] to-transparent"
+          className="absolute top-20 left-10 w-px h-40 bg-linear-to-b from-transparent via-[#d4af37] to-transparent"
         />
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.3 }}
           transition={{ duration: 2, delay: 0.5 }}
-          className="absolute top-40 right-20 w-px h-60 bg-gradient-to-b from-transparent via-[#d4af37] to-transparent"
+          className="absolute top-40 right-20 w-px h-60 bg-linear-to-b from-transparent via-[#d4af37] to-transparent"
         />
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.2 }}
           transition={{ duration: 2, delay: 1 }}
-          className="absolute bottom-40 left-1/4 w-32 h-px bg-gradient-to-r from-transparent via-[#d4af37] to-transparent"
+          className="absolute bottom-40 left-1/4 w-32 h-px bg-linear-to-r from-transparent via-[#d4af37] to-transparent"
         />
       </div>
 

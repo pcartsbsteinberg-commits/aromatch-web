@@ -16,9 +16,8 @@ import {
   Zap,
   ArrowLeft,
   Sparkles,
-  AlertCircle,
-  Mail,
   ArrowRight,
+  User,
 } from 'lucide-react'
 import PrestigeShowcase from '@/components/prestige-showcase'
 import { perfumes, type Perfume, type MatchResult } from '@/lib/perfumes'
@@ -26,6 +25,25 @@ import { perfumes, type Perfume, type MatchResult } from '@/lib/perfumes'
 // ─────────────────────────────────────────────────────────────────────────────
 // Quiz option definitions
 // ─────────────────────────────────────────────────────────────────────────────
+
+const genderOptions = [
+  {
+    id: 'masculino' as const,
+    label: 'Para Él',
+    icon: User,
+    color: '#a8d4e6',
+    bgImage:
+      'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=1600&q=80&auto=format&fit=crop',
+  },
+  {
+    id: 'femenino' as const,
+    label: 'Para Ella',
+    icon: Heart,
+    color: '#e6a8d7',
+    bgImage:
+      'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=1600&q=80&auto=format&fit=crop',
+  },
+]
 
 const occasionOptions = [
   {
@@ -54,9 +72,9 @@ const occasionOptions = [
   },
   {
     id: 'deporte_aire_libre' as const,
-    label: 'Deporte / Aire Libre',
+    label: 'Casual / Sport',
     icon: Zap,
-    color: '#a8d4e6',
+    color: '#a8e6cf',
     bgImage:
       'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=1600&q=80&auto=format&fit=crop',
   },
@@ -136,7 +154,7 @@ const scentStyleOptions = [
   },
 ]
 
-const longevityOptions = [
+const projectionOptions = [
   {
     id: 'moderate' as const,
     label: 'Moderada',
@@ -169,77 +187,128 @@ const longevityOptions = [
 // ─────────────────────────────────────────────────────────────────────────────
 // Filtering engine — score-based
 // ─────────────────────────────────────────────────────────────────────────────
+type Gender    = typeof genderOptions[number]['id']
 type Occasion  = typeof occasionOptions[number]['id']
 type Season    = typeof seasonOptions[number]['id']
 type ScentStyle= typeof scentStyleOptions[number]['id']
-type Longevity = typeof longevityOptions[number]['id']
+type Projection = typeof projectionOptions[number]['id']
 
 interface Selection {
+  gender: Gender | null
   occasion: Occasion | null
   season: Season | null
-  scentStyle: ScentStyle | null
-  longevity: Longevity | null
+  scentStyle: ScentStyle[]
+  projection: Projection | null
 }
+
+// La proyección es una escala ordinal: pedir "Alta" y recibir "Beast Mode" es un
+// acierto parcial, no un fallo. Sin esto, elegir "Moderada" no puntuaba a casi
+// ningún perfume y el paso 5 quedaba sin efecto sobre el resultado.
+const PROJECTION_RANK: Record<Projection, number> = { moderate: 0, high: 1, beast: 2 }
 
 function scorePerfume(p: Perfume, sel: Selection): MatchResult {
   let score = 0
+  // El máximo depende solo de lo que respondió el usuario (no del perfume), así
+  // que el porcentaje mide afinidad real y es comparable entre resultados.
+  let maxScore = 0
   const reasons: string[] = []
 
-  if (sel.scentStyle && p.scentStyle?.includes(sel.scentStyle)) {
-    score += 10
-    if (p.scentStyle.length === 1) {
-      score += 4
-      reasons.push(`Especialista en aromas ${sel.scentStyle}s`)
-    } else {
-      reasons.push(`Perfil ${sel.scentStyle} confirmado`)
+  // Estilo olfativo (multi-select) — el criterio de mayor peso
+  if (sel.scentStyle.length > 0) {
+    // Ningún perfume declara más de 2 estilos: ese es el techo alcanzable
+    maxScore += sel.scentStyle.length > 1 ? 12 : 13
+    const matchedStyles = sel.scentStyle.filter(s => p.scentStyle?.includes(s))
+    if (matchedStyles.length > 0) {
+      score += 10
+      if (sel.scentStyle.length > 1) {
+        score += 2 * (Math.min(matchedStyles.length, 2) - 1)
+        reasons.push(
+          matchedStyles.length > 1
+            ? `Combina ${matchedStyles.join(' y ')} perfectamente`
+            : `Perfil ${matchedStyles[0]} confirmado`
+        )
+      } else if (p.scentStyle.length === 1) {
+        score += 3
+        reasons.push(`Especialista en aroma ${matchedStyles[0]}`)
+      } else {
+        reasons.push(`Perfil ${matchedStyles[0]} confirmado`)
+      }
     }
   }
 
-  if (sel.occasion && p.occasions?.includes(sel.occasion)) {
-    score += 6
-    const occasionLabels: Record<string, string> = {
-      cita_nocturna: 'ideal para salidas nocturnas',
-      oficina_diario: 'perfecto para el día a día',
-      evento_especial: 'diseñado para ocasiones especiales',
-      deporte_aire_libre: 'formulado para actividad al aire libre',
+  if (sel.occasion) {
+    maxScore += 6
+    if (p.occasions?.includes(sel.occasion)) {
+      score += 6
+      const occasionLabels: Record<string, string> = {
+        cita_nocturna: 'ideal para salidas nocturnas',
+        oficina_diario: 'perfecto para el día a día',
+        evento_especial: 'diseñado para ocasiones especiales',
+        deporte_aire_libre: 'ideal para salidas casuales y sport',
+      }
+      reasons.push(occasionLabels[sel.occasion] || 'ocasión compatible')
     }
-    reasons.push(occasionLabels[sel.occasion] || 'ocasión compatible')
   }
 
-  if (sel.longevity && p.longevities?.includes(sel.longevity)) {
-    score += 4
-    if (sel.longevity === 'beast' && p.longevities.length === 1) {
+  if (sel.projection) {
+    maxScore += 7
+    const target = PROJECTION_RANK[sel.projection]
+    const distance = Math.min(
+      ...(p.projections ?? []).map(l => Math.abs(PROJECTION_RANK[l] - target))
+    )
+    if (distance === 0) {
+      score += 7
+      const projectionLabels: Record<Projection, string> = {
+        beast: 'Beast Mode real — proyección extrema garantizada',
+        high: 'Proyección alta con estela envolvente',
+        moderate: 'Proyección íntima y elegante',
+      }
+      reasons.push(projectionLabels[sel.projection])
+    } else if (distance === 1) {
       score += 3
-      reasons.push('Beast Mode real — proyección extrema garantizada')
-    } else if (sel.longevity === 'beast') {
-      reasons.push('Alta proyección y duración')
-    } else if (sel.longevity === 'high') {
-      reasons.push('Duración de 8–12 horas en piel')
-    } else {
-      reasons.push('Proyección íntima y elegante')
+      reasons.push('Proyección cercana a la que buscás')
     }
   }
 
-  if (sel.season && p.seasons?.includes(sel.season)) {
-    score += 2
-    if (p.seasons.length === 4) score += 1
-    const seasonLabels: Record<string, string> = {
-      summer: 'verano', winter: 'invierno',
-      spring: 'primavera', fall: 'otoño',
+  if (sel.season) {
+    maxScore += 4
+    if (p.seasons?.includes(sel.season)) {
+      score += 3
+      if (p.seasons.length === 4) score += 1
+      const seasonLabels: Record<string, string> = {
+        summer: 'verano', winter: 'invierno',
+        spring: 'primavera', fall: 'otoño',
+      }
+      reasons.push(`Recomendado para ${seasonLabels[sel.season] || sel.season}`)
     }
-    reasons.push(`Recomendado para ${seasonLabels[sel.season] || sel.season}`)
   }
 
-  const MAX_SCORE = 30
-  const percentage = Math.round((score / MAX_SCORE) * 100)
+  // Afinidad de género: exacto por encima de unisex (desempate silencioso)
+  if (sel.gender) {
+    maxScore += 2
+    if (p.gender === sel.gender) score += 2
+    else if (p.gender === 'unisex') score += 1
+  }
+
+  const percentage = maxScore > 0 ? Math.round((score / maxScore) * 100) : 0
   return { perfume: p, score, percentage, matchReasons: reasons }
 }
 
 function findTop3Matches(sel: Selection): MatchResult[] {
-  const scored = perfumes
+  // Gender hard filter: exclude opposite gender, keep same gender + unisex
+  const compatible = perfumes.filter(p => {
+    if (!sel.gender) return true
+    if (sel.gender === 'masculino') return p.gender !== 'femenino'
+    if (sel.gender === 'femenino') return p.gender !== 'masculino'
+    return true
+  })
+
+  const scored = compatible
     .map(p => scorePerfume(p, sel))
     .sort((a, b) => {
       if (b.score !== a.score) return b.score - a.score
+      // El stock desempata, pero no infla el % — ese mide afinidad, no disponibilidad
+      if (a.perfume.inStock !== b.perfume.inStock) return a.perfume.inStock ? -1 : 1
       if (b.matchReasons.length !== a.matchReasons.length)
         return b.matchReasons.length - a.matchReasons.length
       const aSpec = a.perfume.occasions.length
@@ -248,7 +317,7 @@ function findTop3Matches(sel: Selection): MatchResult[] {
       return a.perfume.name.localeCompare(b.perfume.name)
     })
 
-  if (scored[0].score === 0) {
+  if (scored.length > 0 && scored[0].score === 0) {
     console.warn('[Aromatch] Warning: ningún perfume matcheó con la selección', sel)
   }
 
@@ -256,148 +325,53 @@ function findTop3Matches(sel: Selection): MatchResult[] {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Lead Capture Screen
-// ─────────────────────────────────────────────────────────────────────────────
-function LeadCaptureScreen({ onSubmit }: { onSubmit: (email: string) => void }) {
-  const [email, setEmail] = useState('')
-  const [error, setError] = useState('')
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      setError('Por favor ingresá un correo válido.')
-      return
-    }
-    setError('')
-    onSubmit(email)
-  }
-
-  return (
-    <motion.div
-      key="lead-capture"
-      initial={{ opacity: 0, x: 40 }}
-      animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -40 }}
-      transition={{ duration: 0.38 }}
-      className="flex flex-col items-center justify-center py-8 text-center"
-    >
-      <div
-        className="w-16 h-16 rounded-full flex items-center justify-center mb-6"
-        style={{
-          background: 'radial-gradient(circle, rgba(212,175,55,0.15) 0%, transparent 70%)',
-          border: '1px solid rgba(212,175,55,0.30)',
-        }}
-      >
-        <Mail className="w-7 h-7 text-[#d4af37]" />
-      </div>
-
-      <h3
-        style={{ fontFamily: 'var(--font-display)' }}
-        className="text-2xl md:text-3xl font-bold text-white mb-3 leading-tight max-w-sm"
-      >
-        Tu esencia ideal está lista
-      </h3>
-
-      <div className="h-px w-16 bg-gradient-to-r from-transparent via-[#d4af37] to-transparent mb-4 opacity-50" />
-
-      <p className="text-white/55 text-sm leading-relaxed mb-8 max-w-xs" style={{ fontFamily: 'var(--font-body)' }}>
-        ¿A dónde te enviamos tu perfil olfativo?
-      </p>
-
-      <form onSubmit={handleSubmit} className="w-full max-w-sm space-y-4">
-        <div className="relative">
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => { setEmail(e.target.value); setError('') }}
-            placeholder="tu@correo.com"
-            className="w-full px-5 py-4 rounded-xl bg-white/[0.04] backdrop-blur-sm
-                        text-white placeholder-white/25
-                        transition-all duration-300
-                        outline-none focus:ring-0"
-            style={{
-              fontFamily: 'var(--font-body)',
-              fontSize: '0.9rem',
-              letterSpacing: '0.02em',
-              border: '1px solid rgba(212,175,55,0.35)',
-              boxShadow: email ? '0 0 16px rgba(212,175,55,0.15)' : 'none',
-            }}
-            onFocus={(e) => {
-              e.target.style.borderColor = 'rgba(212,175,55,0.7)'
-              e.target.style.boxShadow = '0 0 20px rgba(212,175,55,0.2)'
-            }}
-            onBlur={(e) => {
-              e.target.style.borderColor = 'rgba(212,175,55,0.35)'
-              e.target.style.boxShadow = email ? '0 0 16px rgba(212,175,55,0.15)' : 'none'
-            }}
-          />
-        </div>
-
-        {error && (
-          <p className="text-red-400/80 text-xs flex items-center gap-1.5" style={{ fontFamily: 'var(--font-body)' }}>
-            <AlertCircle className="w-3.5 h-3.5 flex-shrink-0" />
-            {error}
-          </p>
-        )}
-
-        <motion.button
-          type="submit"
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.97 }}
-          className="btn-gold w-full flex items-center justify-center gap-3"
-        >
-          <Sparkles className="w-4 h-4" />
-          Ver mi Match
-          <ArrowRight className="w-4 h-4" />
-        </motion.button>
-      </form>
-
-      <p className="text-white/20 text-xs mt-5 max-w-xs" style={{ fontFamily: 'var(--font-body)' }}>
-        Solo usamos tu correo para enviarte tu perfil olfativo. Sin spam.
-      </p>
-    </motion.div>
-  )
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
 // Main AroMatchApp component
 // ─────────────────────────────────────────────────────────────────────────────
-const TOTAL_STEPS = 4
+const TOTAL_STEPS = 5
 
 export default function AroMatchApp() {
   const [step, setStep] = useState(1)
   const [isLoading, setIsLoading] = useState(false)
-  const [showLeadCapture, setShowLeadCapture] = useState(false)
   const [showResult, setShowResult] = useState(false)
   const [capturedEmail, setCapturedEmail] = useState<string>('')
   const [hoveredBg, setHoveredBg] = useState<string | null>(null)
   const [selection, setSelection] = useState<Selection>({
-    occasion: null, season: null, scentStyle: null, longevity: null,
+    gender: null, occasion: null, season: null, scentStyle: [], projection: null,
   })
   const [matchResults, setMatchResults] = useState<MatchResult[]>([])
-  const [savedFinalSel, setSavedFinalSel] = useState<Selection | null>(null)
 
-  const handleSelect = <K extends keyof Selection>(type: K, value: Selection[K]) => {
+  const handleSelect = <K extends 'gender' | 'occasion' | 'season' | 'projection'>(
+    type: K,
+    value: NonNullable<Selection[K]>
+  ) => {
     const updated = { ...selection, [type]: value }
     setSelection(updated)
 
     setTimeout(() => {
-      if (type === 'occasion')  setStep(2)
-      else if (type === 'season') setStep(3)
-      else if (type === 'scentStyle') setStep(4)
-      else if (type === 'longevity') {
-        setSavedFinalSel(updated)
-        setShowLeadCapture(true)
-      }
+      if (type === 'gender')         setStep(2)
+      else if (type === 'occasion')  setStep(3)
+      else if (type === 'season')    setStep(4)
+      else if (type === 'projection') runMatch(updated)
     }, 300)
   }
 
-  const handleLeadSubmit = (email: string) => {
+  const handleScentStyleToggle = (style: ScentStyle) => {
+    setSelection(prev => ({
+      ...prev,
+      scentStyle: prev.scentStyle.includes(style)
+        ? prev.scentStyle.filter(s => s !== style)
+        : [...prev.scentStyle, style],
+    }))
+  }
+
+  const handleScentStyleContinue = () => {
+    setTimeout(() => setStep(5), 300)
+  }
+
+  const handleEmailOptIn = (email: string) => {
     setCapturedEmail(email)
     try { localStorage.setItem('aromatch_lead_email', email) } catch {}
     console.log('[AroMatch Lead]', email, new Date().toISOString())
-    setShowLeadCapture(false)
-    runMatch(savedFinalSel!)
   }
 
   const runMatch = (finalSel: Selection) => {
@@ -410,35 +384,31 @@ export default function AroMatchApp() {
   }
 
   const handleBack = () => {
-    if (showLeadCapture) {
-      setShowLeadCapture(false)
-      setStep(4)
-    } else if (step > 1) {
+    if (step > 1) {
       setStep(step - 1)
     }
   }
 
   const handleReset = () => {
     setStep(1)
-    setSelection({ occasion: null, season: null, scentStyle: null, longevity: null })
+    setSelection({ gender: null, occasion: null, season: null, scentStyle: [], projection: null })
     setMatchResults([])
     setShowResult(false)
-    setShowLeadCapture(false)
-    setSavedFinalSel(null)
     setHoveredBg(null)
     setCapturedEmail('')
   }
 
   const stepTitles = [
-    '¿Para qué ocasión es la fragancia?',
+    '¿Para quién es la fragancia?',
+    '¿Para qué ocasión?',
     '¿Para qué estación del año?',
     '¿Qué estilo te representa?',
-    '¿Qué proyección buscas?',
+    '¿Qué proyección buscás?',
   ]
 
   const activeBg = hoveredBg
 
-  const showProgressBar = !showResult && !isLoading && !showLeadCapture
+  const showProgressBar = !showResult && !isLoading
 
   return (
     <section
@@ -479,7 +449,7 @@ export default function AroMatchApp() {
             <span className="label-eyebrow mb-4 block">
               Experiencia Interactiva
             </span>
-            <hr className="divider-gold max-w-[80px] mx-auto mb-6" />
+            <hr className="divider-gold max-w-20 mx-auto mb-6" />
             <h2
               style={{ fontFamily: 'var(--font-display)' }}
               className="text-4xl md:text-5xl font-bold uppercase tracking-widest mb-4 text-white"
@@ -487,7 +457,7 @@ export default function AroMatchApp() {
               AroMatch
             </h2>
             <p className="body-text text-white/45 max-w-lg mx-auto text-sm">
-              Cuatro preguntas sencillas y de instinto para hallar el perfume perfecto.
+              Cinco preguntas de instinto para hallar el perfume perfecto.
             </p>
           </motion.div>
         )}
@@ -499,7 +469,12 @@ export default function AroMatchApp() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <PrestigeShowcase results={matchResults} onReset={handleReset} capturedEmail={capturedEmail} />
+            <PrestigeShowcase
+              results={matchResults}
+              onReset={handleReset}
+              capturedEmail={capturedEmail}
+              onEmailSubmit={handleEmailOptIn}
+            />
           </motion.div>
         )}
 
@@ -509,7 +484,7 @@ export default function AroMatchApp() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="glass-strong rounded-3xl p-6 md:p-10 min-h-[520px] relative overflow-hidden border border-[#d4af37]/15 hover:border-[#d4af37]/30 transition-colors duration-500"
+          className="glass-strong rounded-3xl p-6 md:p-10 min-h-130 relative overflow-hidden border border-[#d4af37]/15 hover:border-[#d4af37]/30 transition-colors duration-500"
         >
 
           {showProgressBar && (
@@ -533,27 +508,15 @@ export default function AroMatchApp() {
                   initial={{ width: 0 }}
                   animate={{ width: `${(step / TOTAL_STEPS) * 100}%` }}
                   transition={{ duration: 0.5 }}
-                  className="h-full bg-gradient-to-r from-[#d4af37] to-[#f4d58d]"
+                  className="h-full bg-linear-to-r from-[#d4af37] to-[#f4d58d]"
                 />
               </div>
             </div>
           )}
 
-          {showLeadCapture && (
-            <div className="mb-6">
-              <button
-                onClick={handleBack}
-                className="flex items-center gap-2 text-sm text-white/50 hover:text-white transition-colors"
-              >
-                <ArrowLeft className="w-4 h-4" />
-                Volver
-              </button>
-            </div>
-          )}
-
           <AnimatePresence mode="wait">
 
-            {!isLoading && !showResult && !showLeadCapture && (
+            {!isLoading && !showResult && (
               <motion.div
                 key={`step-${step}`}
                 initial={{ opacity: 0, x: 40 }}
@@ -568,8 +531,36 @@ export default function AroMatchApp() {
                   {stepTitles[step - 1]}
                 </h3>
 
-                {/* STEP 1 – Occasion */}
+                {/* STEP 1 – Gender */}
                 {step === 1 && (
+                  <div className="grid grid-cols-2 gap-4 max-w-sm mx-auto">
+                    {genderOptions.map((opt) => (
+                      <motion.button
+                        key={opt.id}
+                        whileHover={{ scale: 1.04, y: -4 }}
+                        whileTap={{ scale: 0.97 }}
+                        onClick={() => handleSelect('gender', opt.id)}
+                        onMouseEnter={() => setHoveredBg(opt.bgImage)}
+                        onMouseLeave={() => setHoveredBg(null)}
+                        className={`p-6 rounded-xl flex flex-col items-center gap-3 transition-all duration-300
+                                   bg-white/4 backdrop-blur-xl border ${
+                          selection.gender === opt.id
+                            ? 'border-[#d4af37]/70 shadow-[0_0_20px_rgba(212,175,55,0.3)]'
+                            : 'border-white/8 hover:border-[#d4af37]/40 hover:shadow-[0_0_20px_rgba(212,175,55,0.15)]'
+                        }`}
+                      >
+                        <opt.icon className="w-8 h-8" style={{ color: opt.color }} />
+                        <span
+                          className="label-eyebrow text-center leading-tight"
+                          style={{ color: 'rgba(255,255,255,0.8)', letterSpacing: '0.10em', fontSize: '0.65rem' }}
+                        >{opt.label}</span>
+                      </motion.button>
+                    ))}
+                  </div>
+                )}
+
+                {/* STEP 2 – Occasion */}
+                {step === 2 && (
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     {occasionOptions.map((opt) => (
                       <motion.button
@@ -580,10 +571,10 @@ export default function AroMatchApp() {
                         onMouseEnter={() => setHoveredBg(opt.bgImage)}
                         onMouseLeave={() => setHoveredBg(null)}
                         className={`p-6 rounded-xl flex flex-col items-center gap-3 transition-all duration-300
-                                   bg-white/[0.04] backdrop-blur-xl border ${
+                                   bg-white/4 backdrop-blur-xl border ${
                           selection.occasion === opt.id
                             ? 'border-[#d4af37]/70 shadow-[0_0_20px_rgba(212,175,55,0.3)]'
-                            : 'border-white/[0.08] hover:border-[#d4af37]/40 hover:shadow-[0_0_20px_rgba(212,175,55,0.15)]'
+                            : 'border-white/8 hover:border-[#d4af37]/40 hover:shadow-[0_0_20px_rgba(212,175,55,0.15)]'
                         }`}
                       >
                         <opt.icon className="w-8 h-8" style={{ color: opt.color }} />
@@ -596,8 +587,8 @@ export default function AroMatchApp() {
                   </div>
                 )}
 
-                {/* STEP 2 – Season */}
-                {step === 2 && (
+                {/* STEP 3 – Season */}
+                {step === 3 && (
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     {seasonOptions.map((opt) => (
                       <motion.button
@@ -608,10 +599,10 @@ export default function AroMatchApp() {
                         onMouseEnter={() => setHoveredBg(opt.bgImage)}
                         onMouseLeave={() => setHoveredBg(null)}
                         className={`p-6 rounded-xl flex flex-col items-center gap-3 transition-all duration-300
-                                   bg-white/[0.04] backdrop-blur-xl border ${
+                                   bg-white/4 backdrop-blur-xl border ${
                           selection.season === opt.id
                             ? 'border-[#d4af37]/70 shadow-[0_0_20px_rgba(212,175,55,0.3)]'
-                            : 'border-white/[0.08] hover:border-[#d4af37]/40 hover:shadow-[0_0_20px_rgba(212,175,55,0.15)]'
+                            : 'border-white/8 hover:border-[#d4af37]/40 hover:shadow-[0_0_20px_rgba(212,175,55,0.15)]'
                         }`}
                       >
                         <opt.icon className="w-8 h-8" style={{ color: opt.color }} />
@@ -621,63 +612,93 @@ export default function AroMatchApp() {
                   </div>
                 )}
 
-                {/* STEP 3 – Scent Style (NEW CORE) */}
-                {step === 3 && (
-                  <div className="grid md:grid-cols-2 gap-4">
-                    {scentStyleOptions.map((opt) => (
-                      <motion.button
-                        key={opt.id}
-                        whileHover={{ scale: 1.04, y: -4 }}
-                        whileTap={{ scale: 0.97 }}
-                        onClick={() => handleSelect('scentStyle', opt.id)}
-                        onMouseEnter={() => setHoveredBg(opt.bgImage)}
-                        onMouseLeave={() => setHoveredBg(null)}
-                        className={`p-6 rounded-xl flex flex-col items-center justify-center gap-3 transition-all duration-300
-                                   bg-white/[0.04] backdrop-blur-xl border ${
-                          selection.scentStyle === opt.id
-                            ? 'border-[#d4af37]/70 shadow-[0_0_20px_rgba(212,175,55,0.3)]'
-                            : 'border-white/[0.08] hover:border-[#d4af37]/40 hover:shadow-[0_0_20px_rgba(212,175,55,0.15)]'
-                        }`}
-                      >
-                        <opt.icon className="w-10 h-10 mb-1" style={{ color: opt.color }} />
-                        <span className="text-lg text-white font-medium text-center">{opt.label}</span>
-                        <span className="text-xs text-white/50 text-center uppercase tracking-widest">{opt.description}</span>
-                      </motion.button>
-                    ))}
+                {/* STEP 4 – Scent Style (multi-select) */}
+                {step === 4 && (
+                  <div>
+                    <div className="grid md:grid-cols-2 gap-4 mb-6">
+                      {scentStyleOptions.map((opt) => {
+                        const isSelected = selection.scentStyle.includes(opt.id)
+                        return (
+                          <motion.button
+                            key={opt.id}
+                            whileHover={{ scale: 1.02, y: -2 }}
+                            whileTap={{ scale: 0.97 }}
+                            onClick={() => handleScentStyleToggle(opt.id)}
+                            onMouseEnter={() => setHoveredBg(opt.bgImage)}
+                            onMouseLeave={() => setHoveredBg(null)}
+                            className={`p-6 rounded-xl flex flex-col items-center justify-center gap-3 transition-all duration-300 relative
+                                       bg-white/4 backdrop-blur-xl border ${
+                              isSelected
+                                ? 'border-[#d4af37]/70 shadow-[0_0_20px_rgba(212,175,55,0.3)]'
+                                : 'border-white/8 hover:border-[#d4af37]/40 hover:shadow-[0_0_20px_rgba(212,175,55,0.15)]'
+                            }`}
+                          >
+                            {isSelected && (
+                              <div
+                                className="absolute top-3 right-3 w-5 h-5 rounded-full flex items-center justify-center"
+                                style={{ background: '#d4af37' }}
+                              >
+                                <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
+                                  <path d="M1 4L3.5 6.5L9 1" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                                </svg>
+                              </div>
+                            )}
+                            <opt.icon className="w-10 h-10 mb-1" style={{ color: opt.color }} />
+                            <span className="text-lg text-white font-medium text-center">{opt.label}</span>
+                            <span className="text-xs text-white/50 text-center uppercase tracking-widest">{opt.description}</span>
+                          </motion.button>
+                        )
+                      })}
+                    </div>
+
+                    <AnimatePresence>
+                      {selection.scentStyle.length > 0 && (
+                        <motion.button
+                          key="continuar-btn"
+                          initial={{ opacity: 0, y: 8 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: 8 }}
+                          transition={{ duration: 0.25 }}
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.97 }}
+                          onClick={handleScentStyleContinue}
+                          className="btn-gold w-full flex items-center justify-center gap-3"
+                        >
+                          <Sparkles className="w-4 h-4" />
+                          Continuar
+                          <ArrowRight className="w-4 h-4" />
+                        </motion.button>
+                      )}
+                    </AnimatePresence>
                   </div>
                 )}
 
-                {/* STEP 4 – Longevity */}
-                {step === 4 && (
+                {/* STEP 5 – Longevity */}
+                {step === 5 && (
                   <div className="grid md:grid-cols-3 gap-4">
-                    {longevityOptions.map((opt) => (
+                    {projectionOptions.map((opt) => (
                       <motion.button
                         key={opt.id}
                         whileHover={{ scale: 1.04, y: -4 }}
                         whileTap={{ scale: 0.97 }}
-                        onClick={() => handleSelect('longevity', opt.id)}
+                        onClick={() => handleSelect('projection', opt.id)}
                         onMouseEnter={() => setHoveredBg(opt.bgImage)}
                         onMouseLeave={() => setHoveredBg(null)}
                         className={`p-8 rounded-xl flex flex-col items-center gap-3 transition-all duration-300
-                                   bg-white/[0.04] backdrop-blur-xl border ${
-                          selection.longevity === opt.id
+                                   bg-white/4 backdrop-blur-xl border ${
+                          selection.projection === opt.id
                             ? 'border-[#d4af37]/70 shadow-[0_0_20px_rgba(212,175,55,0.3)]'
-                            : 'border-white/[0.08] hover:border-[#d4af37]/40 hover:shadow-[0_0_20px_rgba(212,175,55,0.15)]'
+                            : 'border-white/8 hover:border-[#d4af37]/40 hover:shadow-[0_0_20px_rgba(212,175,55,0.15)]'
                         }`}
                       >
                         <opt.icon className="w-10 h-10" style={{ color: opt.color }} />
                         <span className="text-lg text-white font-medium">{opt.label}</span>
-                        <span className="text-xs md:text-sm text-white/55 text-center leading-relaxed max-w-[200px]">{opt.description}</span>
+                        <span className="text-xs md:text-sm text-white/55 text-center leading-relaxed max-w-50">{opt.description}</span>
                       </motion.button>
                     ))}
                   </div>
                 )}
               </motion.div>
-            )}
-
-            {/* ── Lead Capture ─────────────────────────────────────────── */}
-            {!isLoading && !showResult && showLeadCapture && (
-              <LeadCaptureScreen onSubmit={handleLeadSubmit} />
             )}
 
             {/* ── Loading ───────────────────────────────────────────────── */}

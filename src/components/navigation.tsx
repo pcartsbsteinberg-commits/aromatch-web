@@ -39,7 +39,7 @@ export default function Navigation() {
           {/* ── Brand: AroMatch top-left ─────────────────────────────────── */}
           <motion.a
             href="#"
-            className="flex items-center gap-2 flex-shrink-0 min-w-0"
+            className="flex items-center gap-2 shrink-0 min-w-0"
             whileHover={{ scale: 1.02 }}
           >
             <Sparkles className="w-5 h-5 text-[#d4af37]" />
@@ -137,7 +137,7 @@ export default function Navigation() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="mt-4 px-8 py-3 bg-gradient-to-r from-[#d4af37] to-[#a08850] text-black font-medium rounded-full glow-gold"
+                className="mt-4 px-8 py-3 bg-linear-to-r from-[#d4af37] to-[#a08850] text-black font-medium rounded-full glow-gold"
               >
                 Encuentra Tu Match
               </motion.a>

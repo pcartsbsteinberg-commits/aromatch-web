@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from 'react'
+import { useState, useSyncExternalStore } from 'react'
 import {
   motion,
   useMotionValue,
@@ -222,7 +222,7 @@ function EduCard({
           rotateY: hoverEnabled ? rotateY : 0,
           transformStyle: 'preserve-3d',
         }}
-        className={`edu-card group relative flex h-full min-h-[340px] flex-col overflow-hidden rounded-2xl border bg-[#0a0800] ${
+        className={`edu-card group relative flex h-full min-h-85 flex-col overflow-hidden rounded-2xl border bg-[#0a0800] ${
           active ? 'is-active' : ''
         }`}
       >
@@ -303,7 +303,7 @@ function EduCard({
               {level.label}
             </span>
           </div>
-          <div className="mt-3 h-px w-12 bg-gradient-to-r from-[#d4af37] to-transparent" />
+          <div className="mt-3 h-px w-12 bg-linear-to-r from-[#d4af37] to-transparent" />
           <div className="scrollbar-hide mt-3 flex-1 overflow-y-auto pr-1">
             <p className="edu-prose">{renderRich(topic.content)}</p>
           </div>
@@ -313,13 +313,28 @@ function EduCard({
   )
 }
 
-export default function EducationSection() {
-  const [hoverEnabled, setHoverEnabled] = useState(false)
+function subscribeHoverCapability(callback: () => void) {
+  if (typeof window === 'undefined' || !window.matchMedia) return () => {}
+  const mql = window.matchMedia('(hover: hover) and (pointer: fine)')
+  mql.addEventListener('change', callback)
+  return () => mql.removeEventListener('change', callback)
+}
 
-  useEffect(() => {
-    if (typeof window === 'undefined' || !window.matchMedia) return
-    setHoverEnabled(window.matchMedia('(hover: hover) and (pointer: fine)').matches)
-  }, [])
+function getHoverCapability() {
+  if (typeof window === 'undefined' || !window.matchMedia) return false
+  return window.matchMedia('(hover: hover) and (pointer: fine)').matches
+}
+
+function getHoverCapabilityServerSnapshot() {
+  return false
+}
+
+export default function EducationSection() {
+  const hoverEnabled = useSyncExternalStore(
+    subscribeHoverCapability,
+    getHoverCapability,
+    getHoverCapabilityServerSnapshot
+  )
 
   const headerContainer = {
     hidden: {},
@@ -440,7 +455,7 @@ export default function EducationSection() {
 
           <motion.div
             variants={headerWord}
-            className="mx-auto mt-7 h-px w-28 bg-gradient-to-r from-transparent via-[#d4af37] to-transparent"
+            className="mx-auto mt-7 h-px w-28 bg-linear-to-r from-transparent via-[#d4af37] to-transparent"
           />
         </motion.div>
 

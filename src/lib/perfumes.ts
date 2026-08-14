@@ -29,12 +29,13 @@ export interface Perfume {
   deliveryDays: string
   tier: number
   mlSales: string
+  gender: 'masculino' | 'femenino' | 'unisex'
 
   // Campos de matching (algoritmo)
   occasions: Array<'cita_nocturna' | 'oficina_diario' | 'evento_especial' | 'deporte_aire_libre'>
   seasons: Array<'summer' | 'winter' | 'spring' | 'fall'>
   scentStyle: Array<'dulce' | 'fresco' | 'maderoso' | 'especiado'>
-  longevities: Array<'moderate' | 'high' | 'beast'>
+  projections: Array<'moderate' | 'high' | 'beast'>
 }
 
 export interface MatchResult {
@@ -74,10 +75,11 @@ export const perfumes: Perfume[] = [
     deliveryDays: 'mismo día',
     tier: 1,
     mlSales: '+5000 vendidos ML AR',
+    gender: 'unisex',
     occasions: ['cita_nocturna', 'evento_especial'],
     seasons: ['winter', 'fall'],
     scentStyle: ['dulce', 'especiado'],
-    longevities: ['beast'],
+    projections: ['beast'],
   },
 
   {
@@ -104,10 +106,11 @@ export const perfumes: Perfume[] = [
     deliveryDays: 'mismo día',
     tier: 1,
     mlSales: '+5000 vendidos ML AR',
-    occasions: ['oficina_diario', 'evento_especial'],
+    gender: 'femenino',
+    occasions: ['oficina_diario', 'evento_especial', 'deporte_aire_libre'],
     seasons: ['spring', 'summer', 'fall'],
     scentStyle: ['dulce'],
-    longevities: ['high'],
+    projections: ['high'],
   },
 
   {
@@ -134,10 +137,11 @@ export const perfumes: Perfume[] = [
     deliveryDays: 'mismo día',
     tier: 1,
     mlSales: '+10000 vendidos ML AR — 5° ranking general',
+    gender: 'femenino',
     occasions: ['cita_nocturna', 'oficina_diario', 'evento_especial'],
     seasons: ['summer', 'winter', 'spring', 'fall'],
     scentStyle: ['dulce', 'fresco'],
-    longevities: ['high'],
+    projections: ['moderate', 'high'],
   },
 
   {
@@ -164,10 +168,11 @@ export const perfumes: Perfume[] = [
     deliveryDays: 'mismo día',
     tier: 1,
     mlSales: '+10000 vendidos ML AR — 6° ranking general',
-    occasions: ['oficina_diario', 'evento_especial', 'cita_nocturna'],
+    gender: 'unisex',
+    occasions: ['oficina_diario', 'evento_especial', 'cita_nocturna', 'deporte_aire_libre'],
     seasons: ['spring', 'summer', 'fall'],
     scentStyle: ['dulce', 'fresco'],
-    longevities: ['high', 'beast'],
+    projections: ['high'],
   },
 
   {
@@ -194,10 +199,11 @@ export const perfumes: Perfume[] = [
     deliveryDays: 'mismo día',
     tier: 1,
     mlSales: '+50000 vendidos ML AR — top masculino árabe',
+    gender: 'masculino',
     occasions: ['cita_nocturna', 'evento_especial', 'oficina_diario'],
     seasons: ['fall', 'winter', 'spring'],
     scentStyle: ['fresco', 'maderoso'],
-    longevities: ['beast'],
+    projections: ['beast'],
   },
 
   {
@@ -224,10 +230,11 @@ export const perfumes: Perfume[] = [
     deliveryDays: 'mismo día',
     tier: 1,
     mlSales: '+1000 vendidos ML AR',
+    gender: 'masculino',
     occasions: ['cita_nocturna', 'evento_especial'],
     seasons: ['fall', 'winter'],
     scentStyle: ['dulce', 'especiado'],
-    longevities: ['beast'],
+    projections: ['beast'],
   },
 
   {
@@ -254,10 +261,11 @@ export const perfumes: Perfume[] = [
     deliveryDays: 'mismo día',
     tier: 1,
     mlSales: '+1000 vendidos ML AR — top unisex premium AR',
+    gender: 'unisex',
     occasions: ['evento_especial', 'cita_nocturna'],
     seasons: ['fall', 'winter'],
     scentStyle: ['maderoso', 'especiado'],
-    longevities: ['beast'],
+    projections: ['beast'],
   },
 
   // ═══════════════════════════════════════════════════
@@ -288,10 +296,11 @@ export const perfumes: Perfume[] = [
     deliveryDays: '5-8 días hábiles',
     tier: 2,
     mlSales: '+500 vendidos ML AR',
+    gender: 'masculino',
     occasions: ['cita_nocturna', 'evento_especial'],
     seasons: ['fall', 'winter'],
     scentStyle: ['especiado', 'maderoso'],
-    longevities: ['high', 'beast'],
+    projections: ['high'],
   },
 
   {
@@ -318,10 +327,11 @@ export const perfumes: Perfume[] = [
     deliveryDays: '5-8 días hábiles',
     tier: 2,
     mlSales: '+500 vendidos ML AR',
+    gender: 'masculino',
     occasions: ['cita_nocturna', 'evento_especial'],
     seasons: ['fall', 'winter'],
     scentStyle: ['maderoso', 'especiado'],
-    longevities: ['beast'],
+    projections: ['high'],
   },
 
   {
@@ -348,10 +358,11 @@ export const perfumes: Perfume[] = [
     deliveryDays: '5-8 días hábiles',
     tier: 2,
     mlSales: '+500 vendidos ML AR',
-    occasions: ['oficina_diario', 'evento_especial'],
+    gender: 'masculino',
+    occasions: ['oficina_diario', 'evento_especial', 'deporte_aire_libre'],
     seasons: ['summer', 'winter', 'spring', 'fall'],
     scentStyle: ['fresco', 'especiado'],
-    longevities: ['high'],
+    projections: ['moderate', 'high'],
   },
 
   {
@@ -378,10 +389,11 @@ export const perfumes: Perfume[] = [
     deliveryDays: '5-8 días hábiles',
     tier: 2,
     mlSales: '+1000 vendidos ML AR',
+    gender: 'masculino',
     occasions: ['cita_nocturna', 'evento_especial', 'oficina_diario'],
     seasons: ['fall', 'winter', 'spring'],
     scentStyle: ['maderoso', 'especiado'],
-    longevities: ['high', 'beast'],
+    projections: ['high'],
   },
 
   {
@@ -408,10 +420,11 @@ export const perfumes: Perfume[] = [
     deliveryDays: '5-8 días hábiles',
     tier: 2,
     mlSales: '+500 vendidos ML AR',
+    gender: 'femenino',
     occasions: ['cita_nocturna', 'evento_especial'],
     seasons: ['fall', 'winter'],
     scentStyle: ['dulce', 'especiado'],
-    longevities: ['high', 'beast'],
+    projections: ['high'],
   },
 
   {
@@ -438,10 +451,11 @@ export const perfumes: Perfume[] = [
     deliveryDays: '5-8 días hábiles',
     tier: 2,
     mlSales: '+500 vendidos ML AR',
+    gender: 'femenino',
     occasions: ['evento_especial', 'cita_nocturna'],
     seasons: ['spring', 'fall'],
     scentStyle: ['dulce', 'maderoso'],
-    longevities: ['high'],
+    projections: ['moderate', 'high'],
   },
 
   {
@@ -468,10 +482,11 @@ export const perfumes: Perfume[] = [
     deliveryDays: '5-8 días hábiles',
     tier: 2,
     mlSales: '+500 vendidos ML AR',
+    gender: 'femenino',
     occasions: ['evento_especial', 'oficina_diario'],
     seasons: ['spring', 'summer'],
     scentStyle: ['dulce', 'fresco'],
-    longevities: ['high'],
+    projections: ['moderate'],
   },
 
   {
@@ -498,10 +513,11 @@ export const perfumes: Perfume[] = [
     deliveryDays: '5-8 días hábiles',
     tier: 2,
     mlSales: '+500 vendidos ML AR',
+    gender: 'masculino',
     occasions: ['cita_nocturna', 'evento_especial'],
     seasons: ['fall', 'winter'],
     scentStyle: ['especiado', 'maderoso'],
-    longevities: ['beast'],
+    projections: ['beast'],
   },
 
   {
@@ -528,10 +544,11 @@ export const perfumes: Perfume[] = [
     deliveryDays: '5-8 días hábiles',
     tier: 2,
     mlSales: '+500 vendidos ML AR',
+    gender: 'unisex',
     occasions: ['evento_especial', 'oficina_diario'],
     seasons: ['fall', 'winter'],
     scentStyle: ['especiado', 'maderoso'],
-    longevities: ['high'],
+    projections: ['high'],
   },
 
   {
@@ -558,10 +575,11 @@ export const perfumes: Perfume[] = [
     deliveryDays: '5-8 días hábiles',
     tier: 2,
     mlSales: '+300 vendidos ML AR',
+    gender: 'femenino',
     occasions: ['evento_especial', 'cita_nocturna'],
     seasons: ['fall', 'winter'],
     scentStyle: ['especiado', 'maderoso'],
-    longevities: ['high'],
+    projections: ['moderate', 'high'],
   },
 
   // ═══════════════════════════════════════════════════
@@ -592,10 +610,11 @@ export const perfumes: Perfume[] = [
     deliveryDays: '5-8 días hábiles',
     tier: 3,
     mlSales: '+200 vendidos ML AR',
+    gender: 'unisex',
     occasions: ['cita_nocturna'],
     seasons: ['fall', 'winter'],
     scentStyle: ['maderoso', 'especiado'],
-    longevities: ['beast'],
+    projections: ['high'],
   },
 
   {
@@ -622,10 +641,11 @@ export const perfumes: Perfume[] = [
     deliveryDays: '5-8 días hábiles',
     tier: 3,
     mlSales: '+200 vendidos ML AR',
-    occasions: ['evento_especial', 'oficina_diario'],
+    gender: 'masculino',
+    occasions: ['evento_especial', 'oficina_diario', 'deporte_aire_libre'],
     seasons: ['spring', 'fall'],
     scentStyle: ['fresco', 'maderoso'],
-    longevities: ['high'],
+    projections: ['moderate'],
   },
 
   {
@@ -652,10 +672,11 @@ export const perfumes: Perfume[] = [
     deliveryDays: '5-8 días hábiles',
     tier: 3,
     mlSales: '+200 vendidos ML AR',
-    occasions: ['evento_especial', 'oficina_diario'],
+    gender: 'femenino',
+    occasions: ['evento_especial', 'oficina_diario', 'deporte_aire_libre'],
     seasons: ['spring', 'summer'],
     scentStyle: ['dulce', 'fresco'],
-    longevities: ['moderate'],
+    projections: ['moderate'],
   },
 
   {
@@ -682,10 +703,11 @@ export const perfumes: Perfume[] = [
     deliveryDays: '5-8 días hábiles',
     tier: 3,
     mlSales: '+100 vendidos ML AR',
+    gender: 'unisex',
     occasions: ['evento_especial', 'cita_nocturna'],
     seasons: ['fall', 'winter'],
     scentStyle: ['especiado', 'maderoso'],
-    longevities: ['beast'],
+    projections: ['beast'],
   },
 
   {
@@ -712,10 +734,11 @@ export const perfumes: Perfume[] = [
     deliveryDays: '5-8 días hábiles',
     tier: 3,
     mlSales: '+100 vendidos ML AR',
+    gender: 'unisex',
     occasions: ['evento_especial', 'cita_nocturna'],
     seasons: ['fall', 'winter'],
     scentStyle: ['especiado', 'maderoso'],
-    longevities: ['beast'],
+    projections: ['beast'],
   },
 
 ]

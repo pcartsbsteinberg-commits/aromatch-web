@@ -965,7 +965,7 @@ function LeadCaptureScreen({ onSubmit }: { onSubmit: (email: string) => void }) 
         Tu esencia ideal está lista
       </h3>
 
-      <div className="h-px w-16 bg-gradient-to-r from-transparent via-[#d4af37] to-transparent mb-4 opacity-50" />
+      <div className="h-px w-16 bg-linear-to-r from-transparent via-[#d4af37] to-transparent mb-4 opacity-50" />
 
       <p className="text-white/55 text-sm leading-relaxed mb-8 max-w-xs" style={{ fontFamily: 'var(--font-body)' }}>
         ¿A dónde te enviamos tu perfil olfativo?
@@ -978,7 +978,7 @@ function LeadCaptureScreen({ onSubmit }: { onSubmit: (email: string) => void }) 
             value={email}
             onChange={(e) => { setEmail(e.target.value); setError('') }}
             placeholder="tu@correo.com"
-            className="w-full px-5 py-4 rounded-xl bg-white/[0.04] backdrop-blur-sm
+            className="w-full px-5 py-4 rounded-xl bg-white/4 backdrop-blur-sm
                         text-white placeholder-white/25
                         transition-all duration-300
                         outline-none focus:ring-0"
@@ -1002,7 +1002,7 @@ function LeadCaptureScreen({ onSubmit }: { onSubmit: (email: string) => void }) 
 
         {error && (
           <p className="text-red-400/80 text-xs flex items-center gap-1.5" style={{ fontFamily: 'var(--font-body)' }}>
-            <AlertCircle className="w-3.5 h-3.5 flex-shrink-0" />
+            <AlertCircle className="w-3.5 h-3.5 shrink-0" />
             {error}
           </p>
         )}
@@ -1200,7 +1200,7 @@ export default function AroMatchApp() {
                   initial={{ width: 0 }}
                   animate={{ width: `${(step / TOTAL_STEPS) * 100}%` }}
                   transition={{ duration: 0.5 }}
-                  className="h-full bg-gradient-to-r from-[#d4af37] to-[#f4d58d]"
+                  className="h-full bg-linear-to-r from-[#d4af37] to-[#f4d58d]"
                 />
               </div>
             </div>
@@ -1247,10 +1247,10 @@ export default function AroMatchApp() {
                         onMouseEnter={() => setHoveredOccasion(opt.id)}
                         onMouseLeave={() => setHoveredOccasion(null)}
                         className={`p-6 rounded-xl flex flex-col items-center gap-3 transition-all duration-300
-                                   bg-white/[0.04] backdrop-blur-xl border ${
+                                   bg-white/4 backdrop-blur-xl border ${
                           selection.occasion === opt.id
                             ? 'border-[#d4af37]/70 shadow-[0_0_20px_rgba(212,175,55,0.3)]'
-                            : 'border-white/[0.08] hover:border-[#d4af37]/40 hover:shadow-[0_0_20px_rgba(212,175,55,0.15)]'
+                            : 'border-white/8 hover:border-[#d4af37]/40 hover:shadow-[0_0_20px_rgba(212,175,55,0.15)]'
                         }`}
                       >
                         <opt.icon className="w-8 h-8" style={{ color: opt.color }} />
@@ -1273,10 +1273,10 @@ export default function AroMatchApp() {
                         whileTap={{ scale: 0.97 }}
                         onClick={() => handleSelect('season', opt.id)}
                         className={`p-6 rounded-xl flex flex-col items-center gap-3 transition-all duration-300
-                                   bg-white/[0.04] backdrop-blur-xl border ${
+                                   bg-white/4 backdrop-blur-xl border ${
                           selection.season === opt.id
                             ? 'border-[#d4af37]/70 shadow-[0_0_20px_rgba(212,175,55,0.3)]'
-                            : 'border-white/[0.08] hover:border-[#d4af37]/40 hover:shadow-[0_0_20px_rgba(212,175,55,0.15)]'
+                            : 'border-white/8 hover:border-[#d4af37]/40 hover:shadow-[0_0_20px_rgba(212,175,55,0.15)]'
                         }`}
                       >
                         <opt.icon className="w-8 h-8" style={{ color: opt.color }} />
@@ -1296,10 +1296,10 @@ export default function AroMatchApp() {
                         whileTap={{ scale: 0.97 }}
                         onClick={() => handleSelect('scentStyle', opt.id)}
                         className={`p-6 rounded-xl flex flex-col items-center justify-center gap-3 transition-all duration-300
-                                   bg-white/[0.04] backdrop-blur-xl border ${
+                                   bg-white/4 backdrop-blur-xl border ${
                           selection.scentStyle === opt.id
                             ? 'border-[#d4af37]/70 shadow-[0_0_20px_rgba(212,175,55,0.3)]'
-                            : 'border-white/[0.08] hover:border-[#d4af37]/40 hover:shadow-[0_0_20px_rgba(212,175,55,0.15)]'
+                            : 'border-white/8 hover:border-[#d4af37]/40 hover:shadow-[0_0_20px_rgba(212,175,55,0.15)]'
                         }`}
                       >
                         <opt.icon className="w-10 h-10 mb-1" style={{ color: opt.color }} />
@@ -1320,10 +1320,10 @@ export default function AroMatchApp() {
                         whileTap={{ scale: 0.97 }}
                         onClick={() => handleSelect('longevity', opt.id)}
                         className={`p-8 rounded-xl flex flex-col items-center gap-3 transition-all duration-300
-                                   bg-white/[0.04] backdrop-blur-xl border ${
+                                   bg-white/4 backdrop-blur-xl border ${
                           selection.longevity === opt.id
                             ? 'border-[#d4af37]/70 shadow-[0_0_20px_rgba(212,175,55,0.3)]'
-                            : 'border-white/[0.08] hover:border-[#d4af37]/40 hover:shadow-[0_0_20px_rgba(212,175,55,0.15)]'
+                            : 'border-white/8 hover:border-[#d4af37]/40 hover:shadow-[0_0_20px_rgba(212,175,55,0.15)]'
                         }`}
                       >
                         <opt.icon className="w-10 h-10" style={{ color: opt.color }} />
@@ -1427,7 +1427,7 @@ function FeatureBlock({ feature, isActive, onHover }: { feature: any, isActive: 
       className={`relative p-5 glass rounded-xl border transition-all duration-300 cursor-pointer ${isActive ? 'bg-amber-400/10 border-amber-400/50 scale-105 shadow-[0_10px_30px_rgba(212,175,55,0.1)]' : 'bg-black/40 border-white/5 hover:border-amber-400/30'}`}
     >
       <div className="flex items-start gap-3">
-        <CheckCircle2 className={`w-5 h-5 flex-shrink-0 mt-0.5 transition-colors ${isActive ? 'text-amber-400' : 'text-amber-400/50'}`} />
+        <CheckCircle2 className={`w-5 h-5 shrink-0 mt-0.5 transition-colors ${isActive ? 'text-amber-400' : 'text-amber-400/50'}`} />
         <div>
           <h3 className={`font-serif text-sm xl:text-base font-bold mb-1.5 transition-colors ${isActive ? 'text-amber-400' : 'text-amber-400/80'}`}>
             {feature.title}
@@ -1491,7 +1491,7 @@ export default function DecantShowcase() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="relative w-[140px] md:w-[160px] lg:w-[180px] h-[450px] md:h-[500px] flex-shrink-0 order-1 lg:order-2 mx-auto"
+            className="relative w-[140px] md:w-[160px] lg:w-[180px] h-[450px] md:h-[500px] shrink-0 order-1 lg:order-2 mx-auto"
           >
             <div className="relative w-full h-full">
               {/* Programmed SVG Decant Bottle */}
@@ -1771,7 +1771,7 @@ export default function EducationSection() {
                   <motion.div
                     animate={{ rotate: expandedId === topic.id ? 180 : 0 }}
                     transition={{ duration: 0.3 }}
-                    className="flex-shrink-0"
+                    className="shrink-0"
                   >
                     <ChevronDown className="w-5 h-5 text-white/30" />
                   </motion.div>
@@ -2029,7 +2029,7 @@ export default function FooterSection() {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   disabled={isLoading}
-                  className="px-8 py-4 bg-gradient-to-r from-[#d4af37] to-[#a08850] text-black font-medium rounded-full flex items-center justify-center gap-2 glow-gold-subtle hover:glow-gold transition-all disabled:opacity-50"
+                  className="px-8 py-4 bg-linear-to-r from-[#d4af37] to-[#a08850] text-black font-medium rounded-full flex items-center justify-center gap-2 glow-gold-subtle hover:glow-gold transition-all disabled:opacity-50"
                 >
                   {isLoading ? (
                     <div className="w-5 h-5 border-2 border-black/30 border-t-black rounded-full animate-spin" />
@@ -2173,19 +2173,19 @@ export default function HeroSection() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.3 }}
           transition={{ duration: 2 }}
-          className="absolute top-20 left-10 w-px h-40 bg-gradient-to-b from-transparent via-[#d4af37] to-transparent"
+          className="absolute top-20 left-10 w-px h-40 bg-linear-to-b from-transparent via-[#d4af37] to-transparent"
         />
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.3 }}
           transition={{ duration: 2, delay: 0.5 }}
-          className="absolute top-40 right-20 w-px h-60 bg-gradient-to-b from-transparent via-[#d4af37] to-transparent"
+          className="absolute top-40 right-20 w-px h-60 bg-linear-to-b from-transparent via-[#d4af37] to-transparent"
         />
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.2 }}
           transition={{ duration: 2, delay: 1 }}
-          className="absolute bottom-40 left-1/4 w-32 h-px bg-gradient-to-r from-transparent via-[#d4af37] to-transparent"
+          className="absolute bottom-40 left-1/4 w-32 h-px bg-linear-to-r from-transparent via-[#d4af37] to-transparent"
         />
       </div>
 
@@ -2338,7 +2338,7 @@ export default function Navigation() {
           {/* ── Brand: AroMatch top-left ─────────────────────────────────── */}
           <motion.a
             href="#"
-            className="flex items-center gap-2 flex-shrink-0 min-w-0"
+            className="flex items-center gap-2 shrink-0 min-w-0"
             whileHover={{ scale: 1.02 }}
           >
             <Sparkles className="w-5 h-5 text-[#d4af37]" />
@@ -2436,7 +2436,7 @@ export default function Navigation() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="mt-4 px-8 py-3 bg-gradient-to-r from-[#d4af37] to-[#a08850] text-black font-medium rounded-full glow-gold"
+                className="mt-4 px-8 py-3 bg-linear-to-r from-[#d4af37] to-[#a08850] text-black font-medium rounded-full glow-gold"
               >
                 Encuentra Tu Match
               </motion.a>
@@ -2533,11 +2533,11 @@ function FeatureBlock({
         {isLeft ? (
           <>
             <div className="flex-1 border-t border-dashed border-[#d4af37]/35" />
-            <div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: '#d4af37', boxShadow: '0 0 6px rgba(212,175,55,0.7)' }} />
+            <div className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: '#d4af37', boxShadow: '0 0 6px rgba(212,175,55,0.7)' }} />
           </>
         ) : (
           <>
-            <div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: '#d4af37', boxShadow: '0 0 6px rgba(212,175,55,0.7)' }} />
+            <div className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: '#d4af37', boxShadow: '0 0 6px rgba(212,175,55,0.7)' }} />
             <div className="flex-1 border-t border-dashed border-[#d4af37]/35" />
           </>
         )}
@@ -2589,7 +2589,7 @@ function CentralStage({ perfume, onWA }: { perfume: Perfume; onWA: () => void })
           }}
         />
         <div
-          className="relative z-10 w-48 sm:w-52 md:w-56 lg:w-52 xl:w-60 aspect-[2/3] rounded-xl overflow-hidden"
+          className="relative z-10 w-48 sm:w-52 md:w-56 lg:w-52 xl:w-60 aspect-2/3 rounded-xl overflow-hidden"
           style={{ border: '1px solid rgba(212,175,55,0.20)' }}
         >
           {!imgErr ? (
@@ -2644,12 +2644,12 @@ function CentralStage({ perfume, onWA }: { perfume: Perfume; onWA: () => void })
           transition={{ duration: 0.8, delay: 0.6 }}
           className="flex-1 max-w-[60px] border-t border-dashed border-[#d4af37]/40 origin-right"
         />
-        <div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: 'rgba(212,175,55,0.6)' }} />
+        <div className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: 'rgba(212,175,55,0.6)' }} />
         <motion.button
           whileHover={{ scale: 1.04, y: -1 }}
           whileTap={{ scale: 0.97 }}
           onClick={onWA}
-          className="flex-shrink-0 flex items-center gap-2 rounded-full border border-[#d4af37]/40 hover:border-[#d4af37]/80 transition-all duration-300"
+          className="shrink-0 flex items-center gap-2 rounded-full border border-[#d4af37]/40 hover:border-[#d4af37]/80 transition-all duration-300"
           style={{
             padding: '0.55rem 1.2rem',
             fontFamily: 'var(--font-inter), sans-serif',
@@ -2659,12 +2659,12 @@ function CentralStage({ perfume, onWA }: { perfume: Perfume; onWA: () => void })
             color: 'rgba(255,255,255,0.75)',
           }}
         >
-          <span className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: '#d4af37' }}>
+          <span className="w-5 h-5 rounded-full flex items-center justify-center shrink-0" style={{ background: '#d4af37' }}>
             <ArrowRight className="w-3 h-3 text-black" />
           </span>
           Explorar Lujo
         </motion.button>
-        <div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: 'rgba(212,175,55,0.6)' }} />
+        <div className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: 'rgba(212,175,55,0.6)' }} />
         <motion.div
           initial={{ opacity: 0, scaleX: 0 }}
           animate={{ opacity: 1, scaleX: 1 }}
@@ -2711,9 +2711,9 @@ function WhatsAppCTA({ perfume, capturedEmail }: { perfume: Perfume; capturedEma
           boxShadow: '0 8px 32px rgba(212,175,55,0.35), 0 2px 8px rgba(212,175,55,0.2)',
         }}
       >
-        <MessageCircle className="w-5 h-5 flex-shrink-0" />
+        <MessageCircle className="w-5 h-5 shrink-0" />
         Consultar Disponibilidad por WhatsApp
-        <ArrowRight className="w-4 h-4 flex-shrink-0" />
+        <ArrowRight className="w-4 h-4 shrink-0" />
       </motion.a>
 
       {/* Disclaimer */}
@@ -2767,7 +2767,7 @@ function ElysianBanner({ perfume }: { perfume: Perfume }) {
         </div>
 
         {/* RIGHT — description + CTA + thumbnails */}
-        <div className="flex flex-col gap-5 flex-shrink-0 md:max-w-xs xl:max-w-sm">
+        <div className="flex flex-col gap-5 shrink-0 md:max-w-xs xl:max-w-sm">
           <p
             className="text-white/40 leading-relaxed"
             style={{ fontFamily: 'var(--font-inter), sans-serif', fontSize: '0.84rem' }}
@@ -2782,7 +2782,7 @@ function ElysianBanner({ perfume }: { perfume: Perfume }) {
               href="#products"
               whileHover={{ scale: 1.04, y: -1 }}
               whileTap={{ scale: 0.97 }}
-              className="flex-shrink-0 flex items-center gap-2 rounded-full border border-[#d4af37]/40 hover:border-[#d4af37]/80 transition-all duration-300"
+              className="shrink-0 flex items-center gap-2 rounded-full border border-[#d4af37]/40 hover:border-[#d4af37]/80 transition-all duration-300"
               style={{
                 padding: '0.6rem 1.35rem',
                 fontFamily: 'var(--font-inter), sans-serif',
@@ -2792,7 +2792,7 @@ function ElysianBanner({ perfume }: { perfume: Perfume }) {
                 color: 'rgba(255,255,255,0.75)',
               }}
             >
-              <span className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: '#d4af37' }}>
+              <span className="w-5 h-5 rounded-full flex items-center justify-center shrink-0" style={{ background: '#d4af37' }}>
                 <ArrowRight className="w-3 h-3 text-black" />
               </span>
               Descubrir la Colección
@@ -2804,19 +2804,19 @@ function ElysianBanner({ perfume }: { perfume: Perfume }) {
               {[0, 1, 2].map((i) => (
                 <div
                   key={i}
-                  className="rounded-full border border-[#d4af37]/30 flex-shrink-0"
+                  className="rounded-full border border-[#d4af37]/30 shrink-0"
                   style={{ width: `${18 - i * 3}px`, height: `${18 - i * 3}px`, marginLeft: `-${4 + i}px` }}
                 />
               ))}
               <div className="w-6 border-t border-dashed border-[#d4af37]/25" />
-              <ArrowRight className="w-3 h-3 flex-shrink-0" style={{ color: 'rgba(212,175,55,0.35)' }} />
+              <ArrowRight className="w-3 h-3 shrink-0" style={{ color: 'rgba(212,175,55,0.35)' }} />
             </div>
           </div>
 
           {/* Thumbnail strip */}
           <div className="flex -space-x-2">
             {relatedImages.map((imgSrc, i) => (
-              <div key={i} className="w-10 h-14 rounded-lg overflow-hidden border border-[#d4af37]/18 flex-shrink-0 bg-[#060300]">
+              <div key={i} className="w-10 h-14 rounded-lg overflow-hidden border border-[#d4af37]/18 shrink-0 bg-[#060300]">
                 <img
                   src={imgSrc}
                   alt=""
@@ -2888,7 +2888,7 @@ export default function PrestigeShowcase({
         </div>
 
         {/* Right: subtitle + "Ver detalles completos" button + rings */}
-        <div className="flex flex-col gap-4 flex-shrink-0 md:max-w-[280px] xl:max-w-xs">
+        <div className="flex flex-col gap-4 shrink-0 md:max-w-[280px] xl:max-w-xs">
           <p
             className="text-white/38 leading-relaxed"
             style={{ fontFamily: 'var(--font-inter), sans-serif', fontSize: '0.8rem' }}
@@ -2901,7 +2901,7 @@ export default function PrestigeShowcase({
               whileHover={{ scale: 1.04, y: -1 }}
               whileTap={{ scale: 0.97 }}
               onClick={() => window.open(waUrl, '_blank')}
-              className="flex-shrink-0 flex items-center gap-2 rounded-full"
+              className="shrink-0 flex items-center gap-2 rounded-full"
               style={{
                 padding: '0.6rem 1.2rem',
                 background: '#d4af37',
@@ -2913,7 +2913,7 @@ export default function PrestigeShowcase({
                 fontWeight: 500,
               }}
             >
-              <span className="w-5 h-5 rounded-full border border-black/20 flex items-center justify-center flex-shrink-0">
+              <span className="w-5 h-5 rounded-full border border-black/20 flex items-center justify-center shrink-0">
                 <ArrowRight className="w-3 h-3 text-black" />
               </span>
               Ver Detalles Completos
@@ -2924,12 +2924,12 @@ export default function PrestigeShowcase({
               {[20, 16, 12].map((sz, i) => (
                 <div
                   key={i}
-                  className="rounded-full border border-[#d4af37]/35 flex-shrink-0"
+                  className="rounded-full border border-[#d4af37]/35 shrink-0"
                   style={{ width: sz, height: sz, marginLeft: i === 0 ? 4 : -6 }}
                 />
               ))}
               <div className="w-4 border-t border-dashed border-[#d4af37]/20" />
-              <ArrowRight className="w-3 h-3 flex-shrink-0" style={{ color: 'rgba(212,175,55,0.30)' }} />
+              <ArrowRight className="w-3 h-3 shrink-0" style={{ color: 'rgba(212,175,55,0.30)' }} />
             </div>
           </div>
         </div>
@@ -2938,7 +2938,7 @@ export default function PrestigeShowcase({
       {/* ── THREE-COLUMN EDITORIAL BODY ────────────────────────────────────── */}
       <div className="flex flex-col lg:flex-row items-start lg:items-center gap-10 lg:gap-6 xl:gap-8 py-8">
         {/* LEFT */}
-        <div className="flex flex-col gap-8 lg:gap-10 w-full lg:w-60 xl:w-72 flex-shrink-0 lg:pr-8 xl:pr-10">
+        <div className="flex flex-col gap-8 lg:gap-10 w-full lg:w-60 xl:w-72 shrink-0 lg:pr-8 xl:pr-10">
           {left.map((pt, i) => (
             <FeatureBlock key={pt.title} title={pt.title} body={pt.body} side="left" animDelay={0.15 + i * 0.12} />
           ))}
@@ -2950,7 +2950,7 @@ export default function PrestigeShowcase({
         </div>
 
         {/* RIGHT */}
-        <div className="flex flex-col gap-8 lg:gap-10 w-full lg:w-60 xl:w-72 flex-shrink-0 lg:pl-8 xl:pl-10">
+        <div className="flex flex-col gap-8 lg:gap-10 w-full lg:w-60 xl:w-72 shrink-0 lg:pl-8 xl:pl-10">
           {right.map((pt, i) => (
             <FeatureBlock key={pt.title} title={pt.title} body={pt.body} side="right" animDelay={0.27 + i * 0.12} />
           ))}
@@ -3038,7 +3038,7 @@ function PerfumeCard({
                    hover:scale-[1.03]"
       >
         {/* ── Image area ─────────────────────────────────────────────── */}
-        <div className="relative w-full aspect-[3/4] overflow-hidden flex-shrink-0 bg-[#0d0a00]">
+        <div className="relative w-full aspect-3/4 overflow-hidden shrink-0 bg-[#0d0a00]">
           {/* Radial gold glow behind image */}
           <div
             className="absolute inset-0 z-0 pointer-events-none"
@@ -3089,7 +3089,7 @@ function PerfumeCard({
           )}
 
           {/* Bottom gradient fade */}
-          <div className="absolute bottom-0 inset-x-0 h-1/3 z-20 bg-gradient-to-t from-[#0a0800] to-transparent pointer-events-none" />
+          <div className="absolute bottom-0 inset-x-0 h-1/3 z-20 bg-linear-to-t from-[#0a0800] to-transparent pointer-events-none" />
 
 
           {/* Heart / favourite icon — top right */}
@@ -3187,7 +3187,7 @@ function ProductDetailModal({ perfume, onClose }: { perfume: Perfume; onClose: (
         onClick={(e) => e.stopPropagation()}
         className="relative z-10 w-full max-w-4xl max-h-[90vh] overflow-y-auto
                    rounded-3xl border border-[#d4af37]/25
-                   bg-gradient-to-b from-[#0d0a00] to-[#060400]
+                   bg-linear-to-b from-[#0d0a00] to-[#060400]
                    shadow-[0_0_80px_rgba(212,175,55,0.15)]
                    scrollbar-hide"
       >
@@ -3234,7 +3234,7 @@ function ProductDetailModal({ perfume, onClose }: { perfume: Perfume; onClose: (
               </span>
             </div>
           )}
-          <div className="absolute bottom-0 inset-x-0 h-1/2 z-20 bg-gradient-to-t from-[#0d0a00] to-transparent" />
+          <div className="absolute bottom-0 inset-x-0 h-1/2 z-20 bg-linear-to-t from-[#0d0a00] to-transparent" />
 
           {/* Brand + Name overlay */}
           <div className="absolute bottom-6 left-8 z-30">
@@ -3268,7 +3268,7 @@ function ProductDetailModal({ perfume, onClose }: { perfume: Perfume; onClose: (
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay, duration: 0.5 }}
-                className="rounded-xl border border-[#d4af37]/18 bg-[#d4af37]/[0.04] p-4 text-center"
+                className="rounded-xl border border-[#d4af37]/18 bg-[#d4af37]/4 p-4 text-center"
               >
                 <p
                   className="text-[#d4af37] text-[9px] uppercase mb-3"
@@ -3281,7 +3281,7 @@ function ProductDetailModal({ perfume, onClose }: { perfume: Perfume; onClose: (
                     <span
                       key={note}
                       className="px-2.5 py-1 rounded-full text-[10px] text-white/80
-                                  border border-white/12 bg-white/[0.04]"
+                                  border border-white/12 bg-white/4"
                       style={{ fontFamily: 'var(--font-inter), sans-serif', letterSpacing: '0.05em' }}
                     >
                       {note}
@@ -3293,7 +3293,7 @@ function ProductDetailModal({ perfume, onClose }: { perfume: Perfume; onClose: (
           </div>
 
           {/* Thin separator */}
-          <div className="h-px bg-gradient-to-r from-transparent via-[#d4af37]/25 to-transparent" />
+          <div className="h-px bg-linear-to-r from-transparent via-[#d4af37]/25 to-transparent" />
 
           {/* Exhaustive description */}
           <div>
@@ -3317,7 +3317,7 @@ function ProductDetailModal({ perfume, onClose }: { perfume: Perfume; onClose: (
 
           {/* Occasion + Longevity */}
           <div className="grid grid-cols-2 gap-4">
-            <div className="rounded-xl border border-white/8 bg-white/[0.03] p-5">
+            <div className="rounded-xl border border-white/8 bg-white/3 p-5">
               <p
                 className="text-[#d4af37] text-[9px] uppercase mb-2"
                 style={{ fontFamily: 'var(--font-inter), sans-serif', letterSpacing: '0.28em' }}
@@ -3328,7 +3328,7 @@ function ProductDetailModal({ perfume, onClose }: { perfume: Perfume; onClose: (
                 {perfume.occasion}
               </p>
             </div>
-            <div className="rounded-xl border border-white/8 bg-white/[0.03] p-5">
+            <div className="rounded-xl border border-white/8 bg-white/3 p-5">
               <p
                 className="text-[#d4af37] text-[9px] uppercase mb-2"
                 style={{ fontFamily: 'var(--font-inter), sans-serif', letterSpacing: '0.28em' }}
@@ -3342,7 +3342,7 @@ function ProductDetailModal({ perfume, onClose }: { perfume: Perfume; onClose: (
           </div>
 
           {/* Thin separator */}
-          <div className="h-px bg-gradient-to-r from-transparent via-[#d4af37]/25 to-transparent" />
+          <div className="h-px bg-linear-to-r from-transparent via-[#d4af37]/25 to-transparent" />
 
           {/* "Tradition & Innovation" block */}
           <div>
@@ -3376,7 +3376,7 @@ function ProductDetailModal({ perfume, onClose }: { perfume: Perfume; onClose: (
                   initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.07, duration: 0.45 }}
-                  className="rounded-xl border border-[#d4af37]/12 bg-[#d4af37]/[0.03] p-5"
+                  className="rounded-xl border border-[#d4af37]/12 bg-[#d4af37]/3 p-5"
                 >
                   <div className="flex items-center gap-2 mb-2">
                     <span
@@ -3410,7 +3410,7 @@ function ProductDetailModal({ perfume, onClose }: { perfume: Perfume; onClose: (
             rel="noopener noreferrer"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.97 }}
-            className="btn-gold w-full flex items-center justify-center gap-3 !py-4"
+            className="btn-gold w-full flex items-center justify-center gap-3 py-4!"
           >
             <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
               <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
@@ -3435,7 +3435,7 @@ export default function ProductsSection() {
       <section id="products" className="py-24 md:py-36 px-6 relative overflow-hidden">
 
         {/* ── Top section separator ──────────────────────────────────────── */}
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#d4af37]/30 to-transparent" />
+        <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#d4af37]/30 to-transparent" />
 
         {/* Section-level spotlight */}
         <div
@@ -3510,7 +3510,7 @@ export default function ProductsSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 py-10 border-t border-b border-white/[0.06]"
+            className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 py-10 border-t border-b border-white/6"
           >
             {[
               { value: '16',   label: 'Fragancias en Stock'      },
@@ -3553,7 +3553,7 @@ export default function ProductsSection() {
         </div>
 
         {/* ── Bottom section separator ───────────────────────────────── */}
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#d4af37]/30 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#d4af37]/30 to-transparent" />
       </section>
 
       {/* ── Product Detail Modal ──────────────────────────────────────── */}
@@ -3828,7 +3828,7 @@ import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
 
 const alertVariants = cva(
-  'relative w-full rounded-lg border px-4 py-3 text-sm grid has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr] grid-cols-[0_1fr] has-[>svg]:gap-x-3 gap-y-0.5 items-start [&>svg]:size-4 [&>svg]:translate-y-0.5 [&>svg]:text-current',
+  'relative w-full rounded-lg border px-4 py-3 text-sm grid has-[>svg]:grid-cols-[--spacing(4)_1fr] grid-cols-[0_1fr] has-[>svg]:gap-x-3 gap-y-0.5 items-start [&>svg]:size-4 [&>svg]:translate-y-0.5 [&>svg]:text-current',
   {
     variants: {
       variant: {
@@ -4033,7 +4033,7 @@ function BreadcrumbList({ className, ...props }: React.ComponentProps<'ol'>) {
     <ol
       data-slot="breadcrumb-list"
       className={cn(
-        'text-muted-foreground flex flex-wrap items-center gap-1.5 text-sm break-words sm:gap-2.5',
+        'text-muted-foreground flex flex-wrap items-center gap-1.5 text-sm wrap-break-word sm:gap-2.5',
         className,
       )}
       {...props}
@@ -4139,7 +4139,7 @@ import { cn } from '@/lib/utils'
 import { Separator } from '@/components/ui/separator'
 
 const buttonGroupVariants = cva(
-  "flex w-fit items-stretch [&>*]:focus-visible:z-10 [&>*]:focus-visible:relative [&>[data-slot=select-trigger]:not([class*='w-'])]:w-fit [&>input]:flex-1 has-[select[aria-hidden=true]:last-child]:[&>[data-slot=select-trigger]:last-of-type]:rounded-r-md has-[>[data-slot=button-group]]:gap-2",
+  "flex w-fit items-stretch *:focus-visible:z-10 *:focus-visible:relative [&>[data-slot=select-trigger]:not([class*='w-'])]:w-fit [&>input]:flex-1 has-[select[aria-hidden=true]:last-child]:[&>[data-slot=select-trigger]:last-of-type]:rounded-r-md has-[>[data-slot=button-group]]:gap-2",
   {
     variants: {
       orientation: {
@@ -4201,7 +4201,7 @@ function ButtonGroupSeparator({
       data-slot="button-group-separator"
       orientation={orientation}
       className={cn(
-        'bg-input relative !m-0 self-stretch data-[orientation=vertical]:h-auto',
+        'bg-input relative m-0! self-stretch data-[orientation=vertical]:h-auto',
         className,
       )}
       {...props}
@@ -4316,7 +4316,7 @@ function Calendar({
     <DayPicker
       showOutsideDays={showOutsideDays}
       className={cn(
-        'bg-background group/calendar p-3 [--cell-size:--spacing(8)] [[data-slot=card-content]_&]:bg-transparent [[data-slot=popover-content]_&]:bg-transparent',
+        'bg-background group/calendar p-3 [--cell-size:--spacing(8)] in-data-[slot=card-content]:bg-transparent in-data-[slot=popover-content]:bg-transparent',
         String.raw`rtl:**:[.rdp-button\_next>svg]:rotate-180`,
         String.raw`rtl:**:[.rdp-button\_previous>svg]:rotate-180`,
         className,
@@ -5021,7 +5021,7 @@ function ChartTooltipContent({
   return (
     <div
       className={cn(
-        'border-border/50 bg-background grid min-w-[8rem] items-start gap-1.5 rounded-lg border px-2.5 py-1.5 text-xs shadow-xl',
+        'border-border/50 bg-background grid min-w-32 items-start gap-1.5 rounded-lg border px-2.5 py-1.5 text-xs shadow-xl',
         className,
       )}
     >
@@ -5333,7 +5333,7 @@ function CommandDialog({
         className={cn('overflow-hidden p-0', className)}
         showCloseButton={showCloseButton}
       >
-        <Command className="[&_[cmdk-group-heading]]:text-muted-foreground **:data-[slot=command-input-wrapper]:h-12 [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group]]:px-2 [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 [&_[cmdk-input]]:h-12 [&_[cmdk-item]]:px-2 [&_[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:h-5 [&_[cmdk-item]_svg]:w-5">
+        <Command className="[&_[cmdk-group-heading]]:text-muted-foreground **:data-[slot=command-input-wrapper]:h-12 **:[[cmdk-group-heading]]:px-2 **:[[cmdk-group-heading]]:font-medium **:[[cmdk-group]]:px-2 [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 **:[[cmdk-input]]:h-12 **:[[cmdk-item]]:px-2 **:[[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:h-5 [&_[cmdk-item]_svg]:w-5">
           {children}
         </Command>
       </DialogContent>
@@ -5399,7 +5399,7 @@ function CommandGroup({
     <CommandPrimitive.Group
       data-slot="command-group"
       className={cn(
-        'text-foreground [&_[cmdk-group-heading]]:text-muted-foreground overflow-hidden p-1 [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium',
+        'text-foreground [&_[cmdk-group-heading]]:text-muted-foreground overflow-hidden p-1 **:[[cmdk-group-heading]]:px-2 **:[[cmdk-group-heading]]:py-1.5 **:[[cmdk-group-heading]]:text-xs **:[[cmdk-group-heading]]:font-medium',
         className,
       )}
       {...props}
@@ -5536,7 +5536,7 @@ function ContextMenuSubTrigger({
       data-slot="context-menu-sub-trigger"
       data-inset={inset}
       className={cn(
-        "focus:bg-accent focus:text-accent-foreground data-[state=open]:bg-accent data-[state=open]:text-accent-foreground [&_svg:not([class*='text-'])]:text-muted-foreground flex cursor-default items-center rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-[inset]:pl-8 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "focus:bg-accent focus:text-accent-foreground data-[state=open]:bg-accent data-[state=open]:text-accent-foreground [&_svg:not([class*='text-'])]:text-muted-foreground flex cursor-default items-center rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-inset:pl-8 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className,
       )}
       {...props}
@@ -5555,7 +5555,7 @@ function ContextMenuSubContent({
     <ContextMenuPrimitive.SubContent
       data-slot="context-menu-sub-content"
       className={cn(
-        'bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 min-w-[8rem] origin-(--radix-context-menu-content-transform-origin) overflow-hidden rounded-md border p-1 shadow-lg',
+        'bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 min-w-32 origin-(--radix-context-menu-content-transform-origin) overflow-hidden rounded-md border p-1 shadow-lg',
         className,
       )}
       {...props}
@@ -5572,7 +5572,7 @@ function ContextMenuContent({
       <ContextMenuPrimitive.Content
         data-slot="context-menu-content"
         className={cn(
-          'bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 max-h-(--radix-context-menu-content-available-height) min-w-[8rem] origin-(--radix-context-menu-content-transform-origin) overflow-x-hidden overflow-y-auto rounded-md border p-1 shadow-md',
+          'bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 max-h-(--radix-context-menu-content-available-height) min-w-32 origin-(--radix-context-menu-content-transform-origin) overflow-x-hidden overflow-y-auto rounded-md border p-1 shadow-md',
           className,
         )}
         {...props}
@@ -5596,7 +5596,7 @@ function ContextMenuItem({
       data-inset={inset}
       data-variant={variant}
       className={cn(
-        "focus:bg-accent focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:!text-destructive [&_svg:not([class*='text-'])]:text-muted-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 data-[inset]:pl-8 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "focus:bg-accent focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:!text-destructive [&_svg:not([class*='text-'])]:text-muted-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 data-inset:pl-8 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className,
       )}
       {...props}
@@ -5614,7 +5614,7 @@ function ContextMenuCheckboxItem({
     <ContextMenuPrimitive.CheckboxItem
       data-slot="context-menu-checkbox-item"
       className={cn(
-        "focus:bg-accent focus:text-accent-foreground relative flex cursor-default items-center gap-2 rounded-sm py-1.5 pr-2 pl-8 text-sm outline-hidden select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "focus:bg-accent focus:text-accent-foreground relative flex cursor-default items-center gap-2 rounded-sm py-1.5 pr-2 pl-8 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className,
       )}
       checked={checked}
@@ -5639,7 +5639,7 @@ function ContextMenuRadioItem({
     <ContextMenuPrimitive.RadioItem
       data-slot="context-menu-radio-item"
       className={cn(
-        "focus:bg-accent focus:text-accent-foreground relative flex cursor-default items-center gap-2 rounded-sm py-1.5 pr-2 pl-8 text-sm outline-hidden select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "focus:bg-accent focus:text-accent-foreground relative flex cursor-default items-center gap-2 rounded-sm py-1.5 pr-2 pl-8 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className,
       )}
       {...props}
@@ -5666,7 +5666,7 @@ function ContextMenuLabel({
       data-slot="context-menu-label"
       data-inset={inset}
       className={cn(
-        'text-foreground px-2 py-1.5 text-sm font-medium data-[inset]:pl-8',
+        'text-foreground px-2 py-1.5 text-sm font-medium data-inset:pl-8',
         className,
       )}
       {...props}
@@ -6057,7 +6057,7 @@ function DropdownMenuContent({
         data-slot="dropdown-menu-content"
         sideOffset={sideOffset}
         className={cn(
-          'bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 max-h-(--radix-dropdown-menu-content-available-height) min-w-[8rem] origin-(--radix-dropdown-menu-content-transform-origin) overflow-x-hidden overflow-y-auto rounded-md border p-1 shadow-md',
+          'bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 max-h-(--radix-dropdown-menu-content-available-height) min-w-32 origin-(--radix-dropdown-menu-content-transform-origin) overflow-x-hidden overflow-y-auto rounded-md border p-1 shadow-md',
           className,
         )}
         {...props}
@@ -6089,7 +6089,7 @@ function DropdownMenuItem({
       data-inset={inset}
       data-variant={variant}
       className={cn(
-        "focus:bg-accent focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:!text-destructive [&_svg:not([class*='text-'])]:text-muted-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 data-[inset]:pl-8 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "focus:bg-accent focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:!text-destructive [&_svg:not([class*='text-'])]:text-muted-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 data-inset:pl-8 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className,
       )}
       {...props}
@@ -6107,7 +6107,7 @@ function DropdownMenuCheckboxItem({
     <DropdownMenuPrimitive.CheckboxItem
       data-slot="dropdown-menu-checkbox-item"
       className={cn(
-        "focus:bg-accent focus:text-accent-foreground relative flex cursor-default items-center gap-2 rounded-sm py-1.5 pr-2 pl-8 text-sm outline-hidden select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "focus:bg-accent focus:text-accent-foreground relative flex cursor-default items-center gap-2 rounded-sm py-1.5 pr-2 pl-8 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className,
       )}
       checked={checked}
@@ -6143,7 +6143,7 @@ function DropdownMenuRadioItem({
     <DropdownMenuPrimitive.RadioItem
       data-slot="dropdown-menu-radio-item"
       className={cn(
-        "focus:bg-accent focus:text-accent-foreground relative flex cursor-default items-center gap-2 rounded-sm py-1.5 pr-2 pl-8 text-sm outline-hidden select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "focus:bg-accent focus:text-accent-foreground relative flex cursor-default items-center gap-2 rounded-sm py-1.5 pr-2 pl-8 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className,
       )}
       {...props}
@@ -6170,7 +6170,7 @@ function DropdownMenuLabel({
       data-slot="dropdown-menu-label"
       data-inset={inset}
       className={cn(
-        'px-2 py-1.5 text-sm font-medium data-[inset]:pl-8',
+        'px-2 py-1.5 text-sm font-medium data-inset:pl-8',
         className,
       )}
       {...props}
@@ -6226,7 +6226,7 @@ function DropdownMenuSubTrigger({
       data-slot="dropdown-menu-sub-trigger"
       data-inset={inset}
       className={cn(
-        "focus:bg-accent focus:text-accent-foreground data-[state=open]:bg-accent data-[state=open]:text-accent-foreground [&_svg:not([class*='text-'])]:text-muted-foreground flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-[inset]:pl-8 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "focus:bg-accent focus:text-accent-foreground data-[state=open]:bg-accent data-[state=open]:text-accent-foreground [&_svg:not([class*='text-'])]:text-muted-foreground flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-inset:pl-8 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className,
       )}
       {...props}
@@ -6245,7 +6245,7 @@ function DropdownMenuSubContent({
     <DropdownMenuPrimitive.SubContent
       data-slot="dropdown-menu-sub-content"
       className={cn(
-        'bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 min-w-[8rem] origin-(--radix-dropdown-menu-content-transform-origin) overflow-hidden rounded-md border p-1 shadow-lg',
+        'bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 min-w-32 origin-(--radix-dropdown-menu-content-transform-origin) overflow-hidden rounded-md border p-1 shadow-lg',
         className,
       )}
       {...props}
@@ -6432,7 +6432,7 @@ function FieldGroup({ className, ...props }: React.ComponentProps<'div'>) {
     <div
       data-slot="field-group"
       className={cn(
-        'group/field-group @container/field-group flex w-full flex-col gap-7 data-[slot=checkbox-group]:gap-3 [&>[data-slot=field-group]]:gap-4',
+        'group/field-group @container/field-group flex w-full flex-col gap-7 data-[slot=checkbox-group]:gap-3 *:data-[slot=field-group]:gap-4',
         className,
       )}
       {...props}
@@ -6445,15 +6445,15 @@ const fieldVariants = cva(
   {
     variants: {
       orientation: {
-        vertical: ['flex-col [&>*]:w-full [&>.sr-only]:w-auto'],
+        vertical: ['flex-col *:w-full [&>.sr-only]:w-auto'],
         horizontal: [
           'flex-row items-center',
-          '[&>[data-slot=field-label]]:flex-auto',
+          '*:data-[slot=field-label]:flex-auto',
           'has-[>[data-slot=field-content]]:items-start has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px',
         ],
         responsive: [
-          'flex-col [&>*]:w-full [&>.sr-only]:w-auto @md/field-group:flex-row @md/field-group:items-center @md/field-group:[&>*]:w-auto',
-          '@md/field-group:[&>[data-slot=field-label]]:flex-auto',
+          'flex-col *:w-full [&>.sr-only]:w-auto @md/field-group:flex-row @md/field-group:items-center @md/field-group:*:w-auto',
+          '@md/field-group:*:data-[slot=field-label]:flex-auto',
           '@md/field-group:has-[>[data-slot=field-content]]:items-start @md/field-group:has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px',
         ],
       },
@@ -6502,7 +6502,7 @@ function FieldLabel({
       data-slot="field-label"
       className={cn(
         'group/field-label peer/field-label flex w-fit gap-2 leading-snug group-data-[disabled=true]/field:opacity-50',
-        'has-[>[data-slot=field]]:w-full has-[>[data-slot=field]]:flex-col has-[>[data-slot=field]]:rounded-md has-[>[data-slot=field]]:border [&>*]:data-[slot=field]:p-4',
+        'has-[>[data-slot=field]]:w-full has-[>[data-slot=field]]:flex-col has-[>[data-slot=field]]:rounded-md has-[>[data-slot=field]]:border *:data-[slot=field]:p-4',
         'has-data-[state=checked]:bg-primary/5 has-data-[state=checked]:border-primary dark:has-data-[state=checked]:bg-primary/10',
         className,
       )}
@@ -6529,7 +6529,7 @@ function FieldDescription({ className, ...props }: React.ComponentProps<'p'>) {
     <p
       data-slot="field-description"
       className={cn(
-        'text-muted-foreground text-sm leading-normal font-normal group-has-[[data-orientation=horizontal]]/field:text-balance',
+        'text-muted-foreground text-sm leading-normal font-normal group-has-data-[orientation=horizontal]/field:text-balance',
         'last:mt-0 nth-last-2:-mt-1 [[data-variant=legend]+&]:-mt-1.5',
         '[&>a:hover]:text-primary [&>a]:underline [&>a]:underline-offset-4',
         className,
@@ -7210,7 +7210,7 @@ function Item({
 }
 
 const itemMediaVariants = cva(
-  'flex shrink-0 items-center justify-center gap-2 group-has-[[data-slot=item-description]]/item:self-start [&_svg]:pointer-events-none group-has-[[data-slot=item-description]]/item:translate-y-0.5',
+  'flex shrink-0 items-center justify-center gap-2 group-has-data-[slot=item-description]/item:self-start [&_svg]:pointer-events-none group-has-data-[slot=item-description]/item:translate-y-0.5',
   {
     variants: {
       variant: {
@@ -7343,7 +7343,7 @@ function Kbd({ className, ...props }: React.ComponentProps<'kbd'>) {
       className={cn(
         'bg-muted w-fit text-muted-foreground pointer-events-none inline-flex h-5 min-w-5 items-center justify-center gap-1 rounded-sm px-1 font-sans text-xs font-medium select-none',
         "[&_svg:not([class*='size-'])]:size-3",
-        '[[data-slot=tooltip-content]_&]:bg-background/20 [[data-slot=tooltip-content]_&]:text-background dark:[[data-slot=tooltip-content]_&]:bg-background/10',
+        'in-data-[slot=tooltip-content]:bg-background/20 in-data-[slot=tooltip-content]:text-background dark:in-data-[slot=tooltip-content]:bg-background/10',
         className,
       )}
       {...props}
@@ -7477,7 +7477,7 @@ function MenubarContent({
         alignOffset={alignOffset}
         sideOffset={sideOffset}
         className={cn(
-          'bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 min-w-[12rem] origin-(--radix-menubar-content-transform-origin) overflow-hidden rounded-md border p-1 shadow-md',
+          'bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 min-w-48 origin-(--radix-menubar-content-transform-origin) overflow-hidden rounded-md border p-1 shadow-md',
           className,
         )}
         {...props}
@@ -7501,7 +7501,7 @@ function MenubarItem({
       data-inset={inset}
       data-variant={variant}
       className={cn(
-        "focus:bg-accent focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:!text-destructive [&_svg:not([class*='text-'])]:text-muted-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 data-[inset]:pl-8 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "focus:bg-accent focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:!text-destructive [&_svg:not([class*='text-'])]:text-muted-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 data-inset:pl-8 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className,
       )}
       {...props}
@@ -7519,7 +7519,7 @@ function MenubarCheckboxItem({
     <MenubarPrimitive.CheckboxItem
       data-slot="menubar-checkbox-item"
       className={cn(
-        "focus:bg-accent focus:text-accent-foreground relative flex cursor-default items-center gap-2 rounded-xs py-1.5 pr-2 pl-8 text-sm outline-hidden select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "focus:bg-accent focus:text-accent-foreground relative flex cursor-default items-center gap-2 rounded-xs py-1.5 pr-2 pl-8 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className,
       )}
       checked={checked}
@@ -7544,7 +7544,7 @@ function MenubarRadioItem({
     <MenubarPrimitive.RadioItem
       data-slot="menubar-radio-item"
       className={cn(
-        "focus:bg-accent focus:text-accent-foreground relative flex cursor-default items-center gap-2 rounded-xs py-1.5 pr-2 pl-8 text-sm outline-hidden select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "focus:bg-accent focus:text-accent-foreground relative flex cursor-default items-center gap-2 rounded-xs py-1.5 pr-2 pl-8 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className,
       )}
       {...props}
@@ -7571,7 +7571,7 @@ function MenubarLabel({
       data-slot="menubar-label"
       data-inset={inset}
       className={cn(
-        'px-2 py-1.5 text-sm font-medium data-[inset]:pl-8',
+        'px-2 py-1.5 text-sm font-medium data-inset:pl-8',
         className,
       )}
       {...props}
@@ -7627,7 +7627,7 @@ function MenubarSubTrigger({
       data-slot="menubar-sub-trigger"
       data-inset={inset}
       className={cn(
-        'focus:bg-accent focus:text-accent-foreground data-[state=open]:bg-accent data-[state=open]:text-accent-foreground flex cursor-default items-center rounded-sm px-2 py-1.5 text-sm outline-none select-none data-[inset]:pl-8',
+        'focus:bg-accent focus:text-accent-foreground data-[state=open]:bg-accent data-[state=open]:text-accent-foreground flex cursor-default items-center rounded-sm px-2 py-1.5 text-sm outline-none select-none data-inset:pl-8',
         className,
       )}
       {...props}
@@ -7646,7 +7646,7 @@ function MenubarSubContent({
     <MenubarPrimitive.SubContent
       data-slot="menubar-sub-content"
       className={cn(
-        'bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 min-w-[8rem] origin-(--radix-menubar-content-transform-origin) overflow-hidden rounded-md border p-1 shadow-lg',
+        'bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 min-w-32 origin-(--radix-menubar-content-transform-origin) overflow-hidden rounded-md border p-1 shadow-lg',
         className,
       )}
       {...props}
@@ -7754,7 +7754,7 @@ function NavigationMenuTrigger({
     >
       {children}{' '}
       <ChevronDownIcon
-        className="relative top-[1px] ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
+        className="relative top-px ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
         aria-hidden="true"
       />
     </NavigationMenuPrimitive.Trigger>
@@ -7789,7 +7789,7 @@ function NavigationMenuViewport({
       <NavigationMenuPrimitive.Viewport
         data-slot="navigation-menu-viewport"
         className={cn(
-          'origin-top-center bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-90 relative mt-1.5 h-[var(--radix-navigation-menu-viewport-height)] w-full overflow-hidden rounded-md border shadow md:w-[var(--radix-navigation-menu-viewport-width)]',
+          'origin-top-center bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-90 relative mt-1.5 h-(--radix-navigation-menu-viewport-height) w-full overflow-hidden rounded-md border shadow md:w-(--radix-navigation-menu-viewport-width)',
           className,
         )}
         {...props}
@@ -7822,7 +7822,7 @@ function NavigationMenuIndicator({
     <NavigationMenuPrimitive.Indicator
       data-slot="navigation-menu-indicator"
       className={cn(
-        'data-[state=visible]:animate-in data-[state=hidden]:animate-out data-[state=hidden]:fade-out data-[state=visible]:fade-in top-full z-[1] flex h-1.5 items-end justify-center overflow-hidden',
+        'data-[state=visible]:animate-in data-[state=hidden]:animate-out data-[state=hidden]:fade-out data-[state=visible]:fade-in top-full z-1 flex h-1.5 items-end justify-center overflow-hidden',
         className,
       )}
       {...props}
@@ -8306,7 +8306,7 @@ function SelectContent({
       <SelectPrimitive.Content
         data-slot="select-content"
         className={cn(
-          'bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 relative z-50 max-h-(--radix-select-content-available-height) min-w-[8rem] origin-(--radix-select-content-transform-origin) overflow-x-hidden overflow-y-auto rounded-md border shadow-md',
+          'bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 relative z-50 max-h-(--radix-select-content-available-height) min-w-32 origin-(--radix-select-content-transform-origin) overflow-x-hidden overflow-y-auto rounded-md border shadow-md',
           position === 'popper' &&
             'data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1',
           className,
@@ -8319,7 +8319,7 @@ function SelectContent({
           className={cn(
             'p-1',
             position === 'popper' &&
-              'h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)] scroll-my-1',
+              'h-(--radix-select-trigger-height) w-full min-w-(--radix-select-trigger-width) scroll-my-1',
           )}
         >
           {children}
@@ -8352,7 +8352,7 @@ function SelectItem({
     <SelectPrimitive.Item
       data-slot="select-item"
       className={cn(
-        "focus:bg-accent focus:text-accent-foreground [&_svg:not([class*='text-'])]:text-muted-foreground relative flex w-full cursor-default items-center gap-2 rounded-sm py-1.5 pr-8 pl-2 text-sm outline-hidden select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 *:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2",
+        "focus:bg-accent focus:text-accent-foreground [&_svg:not([class*='text-'])]:text-muted-foreground relative flex w-full cursor-default items-center gap-2 rounded-sm py-1.5 pr-8 pl-2 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 *:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2",
         className,
       )}
       {...props}
@@ -8843,8 +8843,8 @@ function Sidebar({
         className={cn(
           'fixed inset-y-0 z-10 hidden h-svh w-(--sidebar-width) transition-[left,right,width] duration-200 ease-linear md:flex',
           side === 'left'
-            ? 'left-0 group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)]'
-            : 'right-0 group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width)*-1)]',
+            ? 'left-0 group-data-[collapsible=offcanvas]:-left-(--sidebar-width)'
+            : 'right-0 group-data-[collapsible=offcanvas]:-right-(--sidebar-width)',
           // Adjust the padding for floating and inset variants.
           variant === 'floating' || variant === 'inset'
             ? 'p-2 group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4))+2px)]'
@@ -9393,7 +9393,7 @@ function Slider({
       min={min}
       max={max}
       className={cn(
-        'relative flex w-full touch-none items-center select-none data-[disabled]:opacity-50 data-[orientation=vertical]:h-full data-[orientation=vertical]:min-h-44 data-[orientation=vertical]:w-auto data-[orientation=vertical]:flex-col',
+        'relative flex w-full touch-none items-center select-none data-disabled:opacity-50 data-[orientation=vertical]:h-full data-[orientation=vertical]:min-h-44 data-[orientation=vertical]:w-auto data-[orientation=vertical]:flex-col',
         className,
       )}
       {...props}
@@ -9587,7 +9587,7 @@ function TableHead({ className, ...props }: React.ComponentProps<'th'>) {
     <th
       data-slot="table-head"
       className={cn(
-        'text-foreground h-10 px-2 text-left align-middle font-medium whitespace-nowrap [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]',
+        'text-foreground h-10 px-2 text-left align-middle font-medium whitespace-nowrap has-[[role=checkbox]]:pr-0 *:[[role=checkbox]]:translate-y-[2px]',
         className,
       )}
       {...props}
@@ -9600,7 +9600,7 @@ function TableCell({ className, ...props }: React.ComponentProps<'td'>) {
     <td
       data-slot="table-cell"
       className={cn(
-        'p-2 align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]',
+        'p-2 align-middle whitespace-nowrap has-[[role=checkbox]]:pr-0 *:[[role=checkbox]]:translate-y-[2px]',
         className,
       )}
       {...props}
@@ -9748,7 +9748,7 @@ const ToastViewport = React.forwardRef<
   <ToastPrimitives.Viewport
     ref={ref}
     className={cn(
-      'fixed top-0 z-[100] flex max-h-screen w-full flex-col-reverse p-4 sm:bottom-0 sm:right-0 sm:top-auto sm:flex-col md:max-w-[420px]',
+      'fixed top-0 z-100 flex max-h-screen w-full flex-col-reverse p-4 sm:bottom-0 sm:right-0 sm:top-auto sm:flex-col md:max-w-[420px]',
       className,
     )}
     {...props}
@@ -9757,7 +9757,7 @@ const ToastViewport = React.forwardRef<
 ToastViewport.displayName = ToastPrimitives.Viewport.displayName
 
 const toastVariants = cva(
-  'group pointer-events-auto relative flex w-full items-center justify-between space-x-4 overflow-hidden rounded-md border p-6 pr-8 shadow-lg transition-all data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-[var(--radix-toast-swipe-end-x)] data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[swipe=move]:transition-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[swipe=end]:animate-out data-[state=closed]:fade-out-80 data-[state=closed]:slide-out-to-right-full data-[state=open]:slide-in-from-top-full data-[state=open]:sm:slide-in-from-bottom-full',
+  'group pointer-events-auto relative flex w-full items-center justify-between space-x-4 overflow-hidden rounded-md border p-6 pr-8 shadow-lg transition-all data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-(--radix-toast-swipe-end-x) data-[swipe=move]:translate-x-(--radix-toast-swipe-move-x) data-[swipe=move]:transition-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[swipe=end]:animate-out data-[state=closed]:fade-out-80 data-[state=closed]:slide-out-to-right-full data-[state=open]:slide-in-from-top-full data-[state=open]:sm:slide-in-from-bottom-full',
   {
     variants: {
       variant: {
@@ -10088,7 +10088,7 @@ function TooltipContent({
         {...props}
       >
         {children}
-        <TooltipPrimitive.Arrow className="bg-foreground fill-foreground z-50 size-2.5 translate-y-[calc(-50%_-_2px)] rotate-45 rounded-[2px]" />
+        <TooltipPrimitive.Arrow className="bg-foreground fill-foreground z-50 size-2.5 translate-y-[calc(-50%-2px)] rotate-45 rounded-[2px]" />
       </TooltipPrimitive.Content>
     </TooltipPrimitive.Portal>
   )
