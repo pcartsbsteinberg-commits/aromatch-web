@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next'
 import { Cormorant_Garamond, Manrope, Playfair_Display } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { perfumes } from '@/lib/perfumes'
+import { SITE_INDEXABLE, SITE_URL } from '@/lib/site'
 import './globals.css'
 
 const cormorant = Cormorant_Garamond({ 
@@ -27,6 +28,11 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
+  // Interruptor único en src/lib/site.ts — hoy en `noindex` a propósito.
+  robots: SITE_INDEXABLE
+    ? { index: true, follow: true }
+    : { index: false, follow: false },
   title: 'AroMatch | Perfumes Árabes y de Nicho Originales',
   description: 'Descubrí el lujo árabe en perfumes 100% originales y sellados, con Batch Code garantizado. Encontrá tu fragancia ideal con nuestro AroMatch Quiz.',
   keywords: 'perfumes árabes originales, fragancias nicho argentina, Lattafa argentina, perfumes de lujo',
@@ -54,8 +60,8 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "AroMatch",
-    "url": "https://auradecant.ar",
-    "logo": "https://auradecant.ar/favicon.ico"
+    "url": SITE_URL,
+    "logo": `${SITE_URL}/favicon.ico`
   };
 
   const productListSchema = {
@@ -74,7 +80,7 @@ export default function RootLayout({
         },
         "description": perfume.description,
         "category": "Perfume",
-        "image": `https://auradecant.ar${perfume.image}`
+        "image": `${SITE_URL}${perfume.image}`
       }
     }))
   };
