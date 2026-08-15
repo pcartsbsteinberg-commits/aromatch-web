@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import { Cormorant_Garamond, Manrope, Playfair_Display } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import BackgroundVideo from '@/components/background-video'
 import { perfumes } from '@/lib/perfumes'
 import { SITE_INDEXABLE, SITE_URL } from '@/lib/site'
 import './globals.css'
@@ -37,10 +38,20 @@ export const metadata: Metadata = {
   description: 'Descubrí el lujo árabe en perfumes 100% originales y sellados, con Batch Code garantizado. Encontrá tu fragancia ideal con nuestro AroMatch Quiz.',
   keywords: 'perfumes árabes originales, fragancias nicho argentina, Lattafa argentina, perfumes de lujo',
   generator: 'Auradecant.ar',
+  // La og:image se genera por código en src/app/opengraph-image.tsx — Next la
+  // detecta sola y la inyecta acá (y también como twitter:image).
   openGraph: {
     title: 'AroMatch - Encuentra Tu Match Olfativo',
     description: 'Perfumes árabes y de nicho 100% originales. Experimenta fragancias de lujo a precios accesibles.',
     type: 'website',
+    siteName: 'AroMatch',
+    locale: 'es_AR',
+    url: SITE_URL,
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'AroMatch - Encuentra Tu Match Olfativo',
+    description: 'Perfumes árabes y de nicho 100% originales. Experimenta fragancias de lujo a precios accesibles.',
   },
   // El favicon se detecta automáticamente desde src/app/favicon.ico
 }
@@ -99,14 +110,7 @@ export default function RootLayout({
       </head>
       <body className="font-sans antialiased text-white min-h-screen">
         {/* ── Global Background Video ─────────────────────────────────────────── */}
-        <video
-          src="/videos/fondoaura.mp4"
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="fixed inset-0 w-full h-full object-cover -z-20"
-        />
+        <BackgroundVideo />
         {/* ── Radial Spotlight Overlay (gold centre → pure black edges) ─────── */}
         <div
           className="fixed inset-0 -z-10 pointer-events-none"

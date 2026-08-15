@@ -413,7 +413,8 @@ export default function AroMatchApp() {
   return (
     <section
       id="aromatch"
-      className={`relative px-6 overflow-hidden transition-all duration-500 ${
+      // Fondo sólido: fuera del hero el video le bajaba el contraste a las fichas.
+      className={`relative px-6 overflow-hidden transition-all duration-500 bg-[#0a0a0a] ${
         showResult ? 'py-16 md:py-24' : 'py-20 md:py-32'
       }`}
     >
@@ -456,7 +457,7 @@ export default function AroMatchApp() {
             >
               AroMatch
             </h2>
-            <p className="body-text text-white/45 max-w-lg mx-auto text-sm">
+            <p className="body-text text-white/85 max-w-lg mx-auto text-sm">
               Cinco preguntas de instinto para hallar el perfume perfecto.
             </p>
           </motion.div>
@@ -494,12 +495,13 @@ export default function AroMatchApp() {
                   {step > 1 && (
                     <button
                       onClick={handleBack}
-                      className="p-2 -ml-2 text-white/50 hover:text-white transition-colors"
+                      aria-label="Volver al paso anterior"
+                      className="-ml-2 flex items-center justify-center min-w-12 min-h-12 text-white/85 hover:text-white transition-colors"
                     >
                       <ArrowLeft className="w-5 h-5" />
                     </button>
                   )}
-                  <span className="text-sm text-white/50">Paso {step} de {TOTAL_STEPS}</span>
+                  <span className="text-sm text-white/85">Paso {step} de {TOTAL_STEPS}</span>
                 </div>
                 <span className="text-sm text-[#d4af37]">{Math.round((step / TOTAL_STEPS) * 100)}%</span>
               </div>
@@ -542,7 +544,7 @@ export default function AroMatchApp() {
                         onClick={() => handleSelect('gender', opt.id)}
                         onMouseEnter={() => setHoveredBg(opt.bgImage)}
                         onMouseLeave={() => setHoveredBg(null)}
-                        className={`p-6 rounded-xl flex flex-col items-center gap-3 transition-all duration-300
+                        className={`p-6 min-h-12 rounded-xl flex flex-col items-center gap-3 transition-all duration-300
                                    bg-white/4 backdrop-blur-xl border ${
                           selection.gender === opt.id
                             ? 'border-[#d4af37]/70 shadow-[0_0_20px_rgba(212,175,55,0.3)]'
@@ -552,7 +554,7 @@ export default function AroMatchApp() {
                         <opt.icon className="w-8 h-8" style={{ color: opt.color }} />
                         <span
                           className="label-eyebrow text-center leading-tight"
-                          style={{ color: 'rgba(255,255,255,0.8)', letterSpacing: '0.10em', fontSize: '0.65rem' }}
+                          style={{ color: 'rgba(255,255,255,0.85)', letterSpacing: '0.10em', fontSize: '0.75rem' }}
                         >{opt.label}</span>
                       </motion.button>
                     ))}
@@ -570,7 +572,7 @@ export default function AroMatchApp() {
                         onClick={() => handleSelect('occasion', opt.id)}
                         onMouseEnter={() => setHoveredBg(opt.bgImage)}
                         onMouseLeave={() => setHoveredBg(null)}
-                        className={`p-6 rounded-xl flex flex-col items-center gap-3 transition-all duration-300
+                        className={`p-6 min-h-12 rounded-xl flex flex-col items-center gap-3 transition-all duration-300
                                    bg-white/4 backdrop-blur-xl border ${
                           selection.occasion === opt.id
                             ? 'border-[#d4af37]/70 shadow-[0_0_20px_rgba(212,175,55,0.3)]'
@@ -580,7 +582,7 @@ export default function AroMatchApp() {
                         <opt.icon className="w-8 h-8" style={{ color: opt.color }} />
                         <span
                           className="label-eyebrow text-center leading-tight"
-                          style={{ color: 'rgba(255,255,255,0.8)', letterSpacing: '0.12em', fontSize: '0.65rem' }}
+                          style={{ color: 'rgba(255,255,255,0.85)', letterSpacing: '0.12em', fontSize: '0.75rem' }}
                         >{opt.label}</span>
                       </motion.button>
                     ))}
@@ -598,7 +600,7 @@ export default function AroMatchApp() {
                         onClick={() => handleSelect('season', opt.id)}
                         onMouseEnter={() => setHoveredBg(opt.bgImage)}
                         onMouseLeave={() => setHoveredBg(null)}
-                        className={`p-6 rounded-xl flex flex-col items-center gap-3 transition-all duration-300
+                        className={`p-6 min-h-12 rounded-xl flex flex-col items-center gap-3 transition-all duration-300
                                    bg-white/4 backdrop-blur-xl border ${
                           selection.season === opt.id
                             ? 'border-[#d4af37]/70 shadow-[0_0_20px_rgba(212,175,55,0.3)]'
@@ -626,7 +628,7 @@ export default function AroMatchApp() {
                             onClick={() => handleScentStyleToggle(opt.id)}
                             onMouseEnter={() => setHoveredBg(opt.bgImage)}
                             onMouseLeave={() => setHoveredBg(null)}
-                            className={`p-6 rounded-xl flex flex-col items-center justify-center gap-3 transition-all duration-300 relative
+                            className={`p-6 min-h-12 rounded-xl flex flex-col items-center justify-center gap-3 transition-all duration-300 relative
                                        bg-white/4 backdrop-blur-xl border ${
                               isSelected
                                 ? 'border-[#d4af37]/70 shadow-[0_0_20px_rgba(212,175,55,0.3)]'
@@ -645,7 +647,7 @@ export default function AroMatchApp() {
                             )}
                             <opt.icon className="w-10 h-10 mb-1" style={{ color: opt.color }} />
                             <span className="text-lg text-white font-medium text-center">{opt.label}</span>
-                            <span className="text-xs text-white/50 text-center uppercase tracking-widest">{opt.description}</span>
+                            <span className="text-xs text-white/75 text-center uppercase tracking-widest">{opt.description}</span>
                           </motion.button>
                         )
                       })}
@@ -684,7 +686,7 @@ export default function AroMatchApp() {
                         onClick={() => handleSelect('projection', opt.id)}
                         onMouseEnter={() => setHoveredBg(opt.bgImage)}
                         onMouseLeave={() => setHoveredBg(null)}
-                        className={`p-8 rounded-xl flex flex-col items-center gap-3 transition-all duration-300
+                        className={`p-8 min-h-12 rounded-xl flex flex-col items-center gap-3 transition-all duration-300
                                    bg-white/4 backdrop-blur-xl border ${
                           selection.projection === opt.id
                             ? 'border-[#d4af37]/70 shadow-[0_0_20px_rgba(212,175,55,0.3)]'
@@ -693,7 +695,7 @@ export default function AroMatchApp() {
                       >
                         <opt.icon className="w-10 h-10" style={{ color: opt.color }} />
                         <span className="text-lg text-white font-medium">{opt.label}</span>
-                        <span className="text-xs md:text-sm text-white/55 text-center leading-relaxed max-w-50">{opt.description}</span>
+                        <span className="text-xs md:text-sm text-white/85 text-center leading-relaxed max-w-50">{opt.description}</span>
                       </motion.button>
                     ))}
                   </div>
@@ -720,7 +722,7 @@ export default function AroMatchApp() {
                   <Sparkles className="absolute inset-0 m-auto w-8 h-8 text-[#d4af37]" />
                 </div>
                 <p className="text-xl font-serif text-white mb-2">Analizando tu perfil...</p>
-                <p className="text-sm text-white/40">Explorando nuestra colección de perfumes</p>
+                <p className="text-sm text-white/85">Explorando nuestra colección de perfumes</p>
               </motion.div>
             )}
 

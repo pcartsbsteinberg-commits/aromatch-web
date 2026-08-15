@@ -5,7 +5,17 @@ import { ChevronDown, Sparkles } from 'lucide-react'
 
 export default function HeroSection() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    // `100vh - 80px` porque <main> ya aporta los 80px de padding del nav fijo.
+    <section className="relative min-h-[calc(100vh-80px)] flex items-center justify-center overflow-hidden">
+      {/* ── Oscurecido sobre el video: sin esto el frasco compite con el texto ── */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            'linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.85) 100%)',
+        }}
+      />
+
       {/* ── Ambient glow orbs (layer on top of global video) ──────────────── */}
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#d4af37]/10 rounded-full blur-[120px] animate-pulse pointer-events-none" />
       <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-[#a08850]/8 rounded-full blur-[100px] animate-pulse delay-1000 pointer-events-none" />
@@ -73,7 +83,7 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="body-text text-lg text-white/55 max-w-2xl mx-auto mb-10 leading-relaxed"
+          className="body-text text-base md:text-lg text-white/85 max-w-2xl mx-auto mb-10 leading-relaxed"
         >
           Experimenta las mejores fragancias árabes y nicho del mundo a precios accesibles.
           Perfumes de lujo 100% originales seleccionados para el coleccionista exigente.
@@ -101,13 +111,13 @@ export default function HeroSection() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 1.2 }}
-          className="mt-16 flex flex-wrap items-center justify-center gap-10"
+          className="mt-10 md:mt-16 flex flex-wrap items-center justify-center gap-x-10 gap-y-4"
         >
-          {['100% Auténtico', 'Frasco Sellado', 'Envío Gratis'].map((badge, i) => (
+          {['100% Auténtico', 'Frasco Sellado', 'Envío gratis desde 2 unidades'].map((badge, i) => (
             <span
               key={badge}
               className="label-eyebrow flex items-center gap-2"
-              style={{ color: 'rgba(255,255,255,0.35)', fontSize: '0.65rem' }}
+              style={{ color: 'rgba(255,255,255,0.75)', fontSize: '0.75rem' }}
             >
               {i > 0 && <span className="divider-gold w-6 hidden sm:block" />}
               {badge}
@@ -121,12 +131,14 @@ export default function HeroSection() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 1.5 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2"
+        // Oculto en mobile: ahí el hero es más alto que el viewport y el indicador
+        // se superponía con los badges de confianza.
+        className="hidden md:block absolute bottom-10 left-1/2 -translate-x-1/2"
       >
         <motion.div
           animate={{ y: [0, 10, 0] }}
           transition={{ repeat: Infinity, duration: 2 }}
-          className="flex flex-col items-center gap-2 text-white/30"
+          className="flex flex-col items-center gap-2 text-white/75"
         >
           <span className="text-xs tracking-widest uppercase">Explorar</span>
           <ChevronDown className="w-5 h-5" />

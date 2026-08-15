@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from 'react'
+import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { 
   Sparkles, 
@@ -17,13 +18,15 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog"
 
+const WHATSAPP_URL = 'https://wa.me/5491162066609'
+
 const modalData: Record<string, { title: string, content: React.ReactNode }> = {
   envios: {
     title: 'Información de Envíos',
     content: (
       <div className="space-y-4 text-white/80">
         <p>Envíos a todo el país vía <span className="text-[#d4af37] font-medium">Correo Argentino</span> y <span className="text-[#d4af37] font-medium">Andreani</span>.</p>
-        <p>Envío <span className="text-[#d4af37] font-medium">gratis</span> a partir de la compra de <span className="text-white font-medium">2 unidades</span>.</p>
+        <p>Envío <span className="text-[#d4af37] font-medium">gratis desde 2 unidades</span>.</p>
         <p>Retiros en <span className="text-white font-medium">Vicente López</span> disponibles.</p>
       </div>
     )
@@ -90,20 +93,18 @@ export default function FooterSection() {
     setIsLoading(false)
   }
 
-  const footerLinks: Record<string, Array<{ name: string; href?: string; action?: string }>> = {
+  // Sólo links que llevan a algo real. Los modales de `modalData` (envíos,
+  // devoluciones, historia, FAQ) siguen escritos y funcionando: para volver a
+  // mostrarlos alcanza con agregar acá `{ name: '...', action: 'envios' }`.
+  const footerLinks: Record<string, Array<{ name: string; href?: string; action?: string; external?: boolean }>> = {
     shop: [
       { name: 'Todos los Perfumes', href: '#products' },
-      { name: 'Mas Vendidos', href: '#products' },
     ],
     support: [
-      { name: 'Info de Envios', action: 'envios' },
-      { name: 'Devoluciones', action: 'devoluciones' },
-      { name: 'Contactanos', href: '#' },
+      { name: 'Contactanos', href: WHATSAPP_URL, external: true },
     ],
     learn: [
-      { name: 'Guia de Fragancias', href: '#education' },
-      { name: 'Nuestra Historia', action: 'historia' },
-      { name: 'Preguntas Frecuentes', action: 'faq' },
+      { name: 'Guía de Fragancias', href: '#education' },
     ],
   }
 
@@ -122,21 +123,22 @@ export default function FooterSection() {
     },
   ]
 
-  const renderLink = (link: { name: string; href?: string; action?: string }) => {
+  const linkClass =
+    'flex items-center min-h-12 text-white/85 hover:text-[#d4af37] transition-colors text-sm text-left'
+
+  const renderLink = (link: { name: string; href?: string; action?: string; external?: boolean }) => {
     if (link.action) {
       return (
-        <button 
-          onClick={() => setActiveModal(link.action as string)}
-          className="text-white/40 hover:text-[#d4af37] transition-colors text-sm text-left"
-        >
+        <button onClick={() => setActiveModal(link.action as string)} className={linkClass}>
           {link.name}
         </button>
       )
     }
     return (
-      <a 
+      <a
         href={link.href}
-        className="text-white/40 hover:text-[#d4af37] transition-colors text-sm text-left"
+        {...(link.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+        className={linkClass}
       >
         {link.name}
       </a>
@@ -171,20 +173,20 @@ export default function FooterSection() {
             <h3 className="text-3xl md:text-4xl font-serif text-white mb-4">
               Unite al Club Exclusivo
             </h3>
-            <p className="text-white/50 max-w-md mx-auto mb-8">
+            <p className="text-white/85 max-w-md mx-auto mb-8">
               Suscribite para acceso anticipado a nuevos lanzamientos, ofertas exclusivas y consejos de fragancias de nuestros expertos.
             </p>
 
             {!isSubscribed ? (
               <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
                 <div className="relative flex-1">
-                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/30" />
+                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/50" />
                   <input
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Ingresa tu email"
-                    className="w-full pl-12 pr-4 py-4 glass rounded-full border border-white/10 focus:border-[#d4af37]/50 outline-none text-white placeholder:text-white/30 transition-colors bg-transparent"
+                    className="w-full pl-12 pr-4 py-4 glass rounded-full border border-white/10 focus:border-[#d4af37]/50 outline-none text-white placeholder:text-white/50 transition-colors bg-transparent"
                     required
                   />
                 </div>
@@ -218,7 +220,7 @@ export default function FooterSection() {
               </motion.div>
             )}
 
-            <p className="text-xs text-white/30 mt-4">
+            <p className="text-xs text-white/75 mt-4">
               Sin spam, nunca. Cancela cuando quieras.
             </p>
           </motion.div>
@@ -231,13 +233,13 @@ export default function FooterSection() {
           <div className="grid grid-cols-2 md:grid-cols-5 gap-8 md:gap-12">
             {/* Brand Column */}
             <div className="col-span-2">
-              <a href="#" className="flex items-center gap-2 mb-4">
+              <Link href="/" aria-label="AroMatch — inicio" className="inline-flex items-center gap-2 mb-4 min-h-12">
                 <Sparkles className="w-6 h-6 text-[#d4af37]" />
                 <span className="text-xl font-serif font-semibold text-white">
                   AroMatch<span className="text-[#d4af37]">.ar</span>
                 </span>
-              </a>
-              <p className="text-white/40 text-sm leading-relaxed mb-6 max-w-xs">
+              </Link>
+              <p className="text-white/85 text-sm leading-relaxed mb-6 max-w-xs">
                 Perfumes árabes y de nicho 100% originales. Experimentá fragancias de lujo sin el precio de lujo.
               </p>
               {/* Social Links */}
@@ -251,7 +253,7 @@ export default function FooterSection() {
                     className="p-3 glass rounded-full border border-white/10 hover:border-[#d4af37]/50 transition-colors"
                     aria-label={social.label}
                   >
-                    <social.icon className="w-5 h-5 text-white/70" />
+                    <social.icon className="w-5 h-5 text-white/85" />
                   </motion.a>
                 ))}
               </div>
@@ -294,20 +296,9 @@ export default function FooterSection() {
 
           {/* Bottom Bar */}
           <div className="mt-12 pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-white/30 text-sm text-center md:text-left">
+            <p className="text-white/75 text-sm text-center md:text-left">
               © {new Date().getFullYear()} AroMatch.ar. Todos los derechos reservados. Perfumes árabes y de nicho originales.
             </p>
-            <div className="flex gap-6 text-sm">
-              <a href="#" className="text-white/30 hover:text-white/60 transition-colors">
-                Política de Privacidad
-              </a>
-              <a href="#" className="text-white/30 hover:text-white/60 transition-colors">
-                Términos de Servicio
-              </a>
-              <a href="#" className="text-white/30 hover:text-white/60 transition-colors">
-                Cookies
-              </a>
-            </div>
           </div>
         </div>
       </div>

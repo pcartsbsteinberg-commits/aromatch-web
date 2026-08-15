@@ -60,7 +60,9 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 80px;
+  /* 80px de nav + 16px de aire, para que el título de la sección no quede pegado
+     al header al navegar por ancla. */
+  scroll-padding-top: 96px;
   background: #000;
 }
 
@@ -75,7 +77,15 @@ body {
 }
 
 section[id] {
-  scroll-margin-top: 80px;
+  scroll-margin-top: 96px;
+}
+
+/* Piso tipográfico — nada por debajo de 12px en ningún lado, y 14px para texto
+   de cuerpo en mobile (medido: la tipografía más chica del sitio era de 9.6px). */
+body { font-size: 1rem; }
+
+@media (max-width: 767px) {
+  .body-text { font-size: max(0.875rem, 1em); }
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -94,7 +104,7 @@ section[id] {
 .label-eyebrow {
   font-family: var(--font-body);
   font-weight: 400;
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   letter-spacing: 0.35em;
   text-transform: uppercase;
   color: var(--gold-mid);
@@ -148,6 +158,7 @@ section[id] {
    ═══════════════════════════════════════════════════════════════════════════ */
 
 .btn-gold {
+  min-height: 48px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -173,6 +184,7 @@ section[id] {
 }
 
 .btn-ghost {
+  min-height: 48px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -184,7 +196,7 @@ section[id] {
   font-weight: 400;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.65);
+  color: rgba(255,255,255,0.85);
   border: 0.5px solid rgba(212, 175, 55, 0.35);
   background: transparent;
   transition: color 0.3s ease, border-color 0.3s ease;
@@ -198,6 +210,7 @@ section[id] {
    ACTION BUTTONS — emerald (own stock / WhatsApp) · night (affiliate)
    ───────────────────────────────────────────────────────────────────────────── */
 .btn-emerald {
+  min-height: 48px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -221,6 +234,7 @@ section[id] {
 .btn-emerald:active { transform: translateY(0); }
 
 .btn-night {
+  min-height: 48px;
   display: inline-flex;
   align-items: center;
   justify-content: center;

@@ -265,12 +265,12 @@ function EduCard({
           {/* Badges */}
           <div className="mt-4 flex flex-wrap items-center gap-2">
             <span
-              className="rounded-full border px-2.5 py-1 text-[0.62rem] font-semibold uppercase tracking-[0.18em]"
+              className="rounded-full border px-2.5 py-1 text-xs font-semibold uppercase tracking-[0.18em]"
               style={{ color: level.color, backgroundColor: level.bg, borderColor: level.border }}
             >
               {level.label}
             </span>
-            <span className="rounded-full border border-white/10 bg-white/5 px-2.5 py-1 font-mono text-[0.62rem] tracking-wide text-white/55">
+            <span className="rounded-full border border-white/10 bg-white/5 px-2.5 py-1 font-mono text-xs tracking-wide text-white/85">
               ⏱ {topic.readTime}
             </span>
           </div>
@@ -283,7 +283,7 @@ function EduCard({
             <h3 className="font-serif text-xl font-semibold leading-snug text-[#f4d58d] md:text-[1.45rem]">
               {topic.title}
             </h3>
-            <p className="mt-2 text-sm leading-relaxed text-white/55">{topic.teaser}</p>
+            <p className="mt-2 text-sm leading-relaxed text-white/85">{topic.teaser}</p>
           </div>
         </div>
 
@@ -297,7 +297,7 @@ function EduCard({
               {topic.title}
             </h3>
             <span
-              className="shrink-0 rounded-full border px-2.5 py-1 text-[0.6rem] font-semibold uppercase tracking-[0.18em]"
+              className="shrink-0 rounded-full border px-2.5 py-1 text-xs font-semibold uppercase tracking-[0.18em]"
               style={{ color: level.color, backgroundColor: level.bg, borderColor: level.border }}
             >
               {level.label}
@@ -346,7 +346,7 @@ export default function EducationSection() {
   }
 
   return (
-    <section id="education" className="relative overflow-hidden bg-black px-6 py-20 md:py-32">
+    <section id="education" className="relative overflow-hidden bg-[#0a0a0a] px-6 py-20 md:py-32">
       {/* Estilos locales: drop cap, términos, comportamiento del panel */}
       <style>{`
         .edu-prose {
@@ -431,7 +431,7 @@ export default function EducationSection() {
         >
           <motion.span
             variants={headerWord}
-            className="mb-5 block text-[0.72rem] uppercase text-[#d4af37]"
+            className="mb-5 block text-xs uppercase text-[#d4af37]"
             style={{ fontFamily: "'DM Mono', ui-monospace, monospace", letterSpacing: '0.42em' }}
           >
             Aprende y Descubre
@@ -448,7 +448,7 @@ export default function EducationSection() {
 
           <motion.p
             variants={headerWord}
-            className="mx-auto mt-5 max-w-xl text-white/55"
+            className="mx-auto mt-5 max-w-xl text-white/85"
           >
             Todo lo que necesitás saber para elegir, usar y apreciar una fragancia de nivel superior.
           </motion.p>

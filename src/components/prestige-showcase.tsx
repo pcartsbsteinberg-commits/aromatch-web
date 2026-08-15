@@ -3,9 +3,8 @@
 import { useState, useRef } from 'react'
 import { motion, AnimatePresence, useInView } from 'framer-motion'
 import { perfumes, type Perfume, type MatchResult } from '@/lib/perfumes'
+import { buildPurchaseUrl, TRUST_LINE } from '@/lib/whatsapp'
 import { ArrowRight, RotateCcw, MessageCircle, Sparkles, ChevronDown, Mail, AlertCircle } from 'lucide-react'
-
-const WA_NUMBER = '5491162066609'
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Real perfume data — notas, perfil olfativo, ocasión y longevidad
@@ -79,10 +78,10 @@ function FeatureBlock({
           {title}
         </p>
         <p
-          className="text-white/45 leading-relaxed"
+          className="text-white/85 leading-relaxed"
           style={{
             fontFamily: 'var(--font-inter), sans-serif',
-            fontSize: 'clamp(0.68rem, 0.76vw, 0.75rem)',
+            fontSize: 'clamp(0.75rem, 0.9vw, 0.85rem)',
             letterSpacing: '0.01em',
           }}
         >
@@ -119,7 +118,7 @@ function CentralStage({ perfume, onWA }: { perfume: Perfume; onWA: () => void })
           {!imgErr ? (
             <img
               src={perfume.image}
-              alt={`${perfume.brand} — ${perfume.name}`}
+              alt={`${perfume.brand} ${perfume.name} EDP 100ml`}
               onError={() => setImgErr(true)}
               className="w-full h-full object-cover"
             />
@@ -141,7 +140,7 @@ function CentralStage({ perfume, onWA }: { perfume: Perfume; onWA: () => void })
                 {monogram}
               </span>
               <span
-                className="text-[9px] uppercase tracking-[0.28em]"
+                className="text-xs uppercase tracking-[0.28em]"
                 style={{ color: 'rgba(212,175,55,0.4)', fontFamily: 'var(--font-inter), sans-serif' }}
               >
                 Perfume Original
@@ -174,7 +173,7 @@ function CentralStage({ perfume, onWA }: { perfume: Perfume; onWA: () => void })
           >
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0" />
             <span
-              className="text-[10px] text-emerald-400 uppercase tracking-widest"
+              className="text-xs text-emerald-400 uppercase tracking-widest"
               style={{ fontFamily: 'var(--font-inter), sans-serif' }}
             >
               Disponible hoy
@@ -188,7 +187,7 @@ function CentralStage({ perfume, onWA }: { perfume: Perfume; onWA: () => void })
             style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.10)' }}
           >
             <span
-              className="text-[10px] text-white/35 uppercase tracking-widest"
+              className="text-xs text-white/75 uppercase tracking-widest"
               style={{ fontFamily: 'var(--font-inter), sans-serif' }}
             >
               Por encargo · 5–8 días
@@ -213,8 +212,9 @@ function CentralStage({ perfume, onWA }: { perfume: Perfume; onWA: () => void })
           className="shrink-0 flex items-center gap-2 rounded-full border border-[#d4af37]/40 hover:border-[#d4af37]/80 transition-all duration-300"
           style={{
             padding: '0.55rem 1.2rem',
+            minHeight: '48px',
             fontFamily: 'var(--font-inter), sans-serif',
-            fontSize: '0.72rem',
+            fontSize: '0.75rem',
             letterSpacing: '0.1em',
             textTransform: 'uppercase',
             color: 'rgba(255,255,255,0.75)',
@@ -241,10 +241,7 @@ function CentralStage({ perfume, onWA }: { perfume: Perfume; onWA: () => void })
 // WhatsApp CTA block — golden full-width button for conversion
 // ─────────────────────────────────────────────────────────────────────────────
 function WhatsAppCTA({ perfume, capturedEmail }: { perfume: Perfume; capturedEmail?: string }) {
-  const message = encodeURIComponent(
-    `Hola! Hice match con *${perfume.name}* y quiero consultar disponibilidad.${capturedEmail ? ` Mi email: ${capturedEmail}` : ''}`
-  )
-  const url = `https://wa.me/${WA_NUMBER}?text=${message}`
+  const url = buildPurchaseUrl(perfume, { email: capturedEmail })
 
   return (
     <motion.div
@@ -273,16 +270,16 @@ function WhatsAppCTA({ perfume, capturedEmail }: { perfume: Perfume; capturedEma
         }}
       >
         <MessageCircle className="w-5 h-5 shrink-0" />
-        Consultar Disponibilidad por WhatsApp
+        Comprar por WhatsApp
         <ArrowRight className="w-4 h-4 shrink-0" />
       </motion.a>
 
-      {/* Disclaimer */}
+      {/* Línea de confianza */}
       <p
-        className="text-white/28 text-[11px] text-center"
+        className="text-white/75 text-xs text-center"
         style={{ fontFamily: 'var(--font-inter), sans-serif', letterSpacing: '0.02em' }}
       >
-        Perfumes disponibles según stock. Sin costo por la consulta.
+        {TRUST_LINE}
       </p>
     </motion.div>
   )
@@ -330,7 +327,7 @@ function ElysianBanner({ perfume }: { perfume: Perfume }) {
         {/* RIGHT — description + CTA + thumbnails */}
         <div className="flex flex-col gap-5 shrink-0 md:max-w-xs xl:max-w-sm">
           <p
-            className="text-white/40 leading-relaxed"
+            className="text-white/85 leading-relaxed"
             style={{ fontFamily: 'var(--font-inter), sans-serif', fontSize: '0.84rem' }}
           >
             Sumérgete en el prestigio de ediciones limitadas, donde la artesanía
@@ -346,8 +343,9 @@ function ElysianBanner({ perfume }: { perfume: Perfume }) {
               className="shrink-0 flex items-center gap-2 rounded-full border border-[#d4af37]/40 hover:border-[#d4af37]/80 transition-all duration-300"
               style={{
                 padding: '0.6rem 1.35rem',
+                minHeight: '48px',
                 fontFamily: 'var(--font-inter), sans-serif',
-                fontSize: '0.73rem',
+                fontSize: '0.75rem',
                 letterSpacing: '0.1em',
                 textTransform: 'uppercase',
                 color: 'rgba(255,255,255,0.75)',
@@ -408,10 +406,7 @@ function AlternativeCard({
   const [imgErr, setImgErr] = useState(false)
   const [showDetails, setShowDetails] = useState(false)
   const { perfume, percentage, matchReasons } = result
-  const message = encodeURIComponent(
-    `Hola! Me interesa *${perfume.name}* de tu catálogo.${capturedEmail ? ` Mi email: ${capturedEmail}` : ''}`
-  )
-  const url = `https://wa.me/${WA_NUMBER}?text=${message}`
+  const url = buildPurchaseUrl(perfume, { email: capturedEmail })
   const detailRows = [
     { label: 'Notas de Salida', value: perfume.topNotes.join(', ') },
     { label: 'Notas de Corazón', value: perfume.heartNotes.join(', ') },
@@ -435,7 +430,7 @@ function AlternativeCard({
         {!imgErr ? (
           <img
             src={perfume.image}
-            alt={perfume.name}
+            alt={`${perfume.brand} ${perfume.name} EDP 100ml`}
             className="w-full h-full object-cover"
             onError={() => setImgErr(true)}
           />
@@ -462,7 +457,7 @@ function AlternativeCard({
         <div className="flex items-start justify-between gap-3 mb-2">
           <div className="min-w-0">
             <p
-              className="text-[#d4af37]/55 text-[10px] uppercase tracking-[0.12em] mb-0.5"
+              className="text-[#d4af37]/75 text-xs uppercase tracking-[0.12em] mb-0.5"
               style={{ fontFamily: 'var(--font-inter), sans-serif' }}
             >
               {perfume.brand}
@@ -475,7 +470,7 @@ function AlternativeCard({
             </p>
             {perfume.inStock && (
               <span
-                className="inline-flex items-center gap-1 text-[9px] px-1.5 py-0.5 rounded-full mt-1"
+                className="inline-flex items-center gap-1 text-xs px-1.5 py-0.5 rounded-full mt-1"
                 style={{
                   background: 'rgba(34,197,94,0.10)',
                   border: '1px solid rgba(34,197,94,0.25)',
@@ -511,7 +506,7 @@ function AlternativeCard({
           {matchReasons.slice(0, 3).map((reason, i) => (
             <span
               key={i}
-              className="text-[10px] px-2 py-0.5 rounded-full border border-white/8 text-white/40"
+              className="text-xs px-2 py-0.5 rounded-full border border-white/8 text-white/75"
               style={{ fontFamily: 'var(--font-inter), sans-serif', background: 'rgba(255,255,255,0.03)' }}
             >
               {reason}
@@ -523,8 +518,8 @@ function AlternativeCard({
           <button
             type="button"
             onClick={() => setShowDetails((v) => !v)}
-            className="inline-flex items-center gap-1.5 text-white/40 hover:text-white/70 transition-colors"
-            style={{ fontFamily: 'var(--font-inter), sans-serif', fontSize: '0.72rem', letterSpacing: '0.04em' }}
+            className="inline-flex items-center gap-1.5 min-h-12 text-white/75 hover:text-[#d4af37] transition-colors"
+            style={{ fontFamily: 'var(--font-inter), sans-serif', fontSize: '0.75rem', letterSpacing: '0.04em' }}
           >
             Ver detalles
             <ChevronDown
@@ -537,11 +532,11 @@ function AlternativeCard({
             target="_blank"
             rel="noopener noreferrer"
             whileHover={{ x: 2 }}
-            className="inline-flex items-center gap-1.5 text-white/40 hover:text-white/70 transition-colors"
-            style={{ fontFamily: 'var(--font-inter), sans-serif', fontSize: '0.72rem', letterSpacing: '0.04em' }}
+            className="inline-flex items-center gap-1.5 min-h-12 text-white/75 hover:text-[#d4af37] transition-colors"
+            style={{ fontFamily: 'var(--font-inter), sans-serif', fontSize: '0.75rem', letterSpacing: '0.04em' }}
           >
             <MessageCircle className="w-3.5 h-3.5 shrink-0" />
-            Consultar disponibilidad
+            Comprar por WhatsApp
             <ArrowRight className="w-3 h-3 shrink-0" />
           </motion.a>
         </div>
@@ -559,18 +554,18 @@ function AlternativeCard({
                 {detailRows.map((row) => (
                   <div key={row.label} className="flex gap-2">
                     <span
-                      className="text-[#d4af37]/60 text-[9px] uppercase tracking-widest shrink-0 pt-0.5 w-23"
+                      className="text-[#d4af37]/75 text-xs uppercase tracking-widest shrink-0 pt-0.5 w-23"
                       style={{ fontFamily: 'var(--font-inter), sans-serif' }}
                     >
                       {row.label}
                     </span>
-                    <span className="text-white/55 text-[11px] leading-relaxed" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>
+                    <span className="text-white/85 text-xs leading-relaxed" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>
                       {row.value}
                     </span>
                   </div>
                 ))}
                 <p
-                  className="text-white/45 text-[11px] leading-relaxed pt-1"
+                  className="text-white/85 text-xs leading-relaxed pt-1"
                   style={{ fontFamily: 'var(--font-playfair), serif' }}
                 >
                   {perfume.exhaustiveDescription}
@@ -624,7 +619,7 @@ function EmailOptInBlock({
         >
           <Mail className="w-5 h-5 text-[#d4af37]" />
         </div>
-        <p className="text-white/70 text-sm" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>
+        <p className="text-white/85 text-sm" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>
           ¡Listo! Te enviamos tu perfil olfativo a <span className="text-[#d4af37]">{email}</span>.
         </p>
       </motion.div>
@@ -639,7 +634,7 @@ function EmailOptInBlock({
       className="flex flex-col items-center text-center"
     >
       <p
-        className="text-white/60 text-sm mb-4 max-w-sm"
+        className="text-white/85 text-sm mb-4 max-w-sm"
         style={{ fontFamily: 'var(--font-inter), sans-serif' }}
       >
         ¿Querés recibir tu perfil olfativo completo por mail?
@@ -651,7 +646,7 @@ function EmailOptInBlock({
           onChange={(e) => { setEmail(e.target.value); setError('') }}
           placeholder="tu@correo.com"
           className="flex-1 px-4 py-3 rounded-xl bg-white/4 backdrop-blur-sm
-                      text-white placeholder-white/25 text-sm
+                      text-white placeholder-white/50 text-sm
                       transition-all duration-300
                       outline-none focus:ring-0"
           style={{
@@ -683,7 +678,7 @@ function EmailOptInBlock({
           {error}
         </p>
       )}
-      <p className="text-white/20 text-xs mt-3" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>
+      <p className="text-white/75 text-xs mt-3" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>
         Solo usamos tu correo para enviarte tu perfil olfativo. Sin spam.
       </p>
     </motion.div>
@@ -712,7 +707,7 @@ export default function PrestigeShowcase({
   const secondaryResults = results.slice(1)
 
   const { left, right } = getPoints(perfume)
-  const waUrl = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(`Hola! Hice match con *${perfume.name}* y quiero consultar disponibilidad.${capturedEmail ? ` Mi email: ${capturedEmail}` : ''}`)}`
+  const waUrl = buildPurchaseUrl(perfume, { email: capturedEmail })
 
   return (
     <motion.div
@@ -789,7 +784,7 @@ export default function PrestigeShowcase({
         {/* Right: subtitle + "Ver detalles completos" button + rings */}
         <div className="flex flex-col gap-4 shrink-0 md:max-w-70 xl:max-w-xs">
           <p
-            className="text-white/38 leading-relaxed"
+            className="text-white/85 leading-relaxed"
             style={{ fontFamily: 'var(--font-inter), sans-serif', fontSize: '0.8rem' }}
           >
             Develando el arte detrás de las creaciones atemporales,
@@ -803,9 +798,10 @@ export default function PrestigeShowcase({
               className="shrink-0 flex items-center gap-2 rounded-full"
               style={{
                 padding: '0.6rem 1.2rem',
+                minHeight: '48px',
                 background: '#d4af37',
                 fontFamily: 'var(--font-inter), sans-serif',
-                fontSize: '0.72rem',
+                fontSize: '0.75rem',
                 letterSpacing: '0.10em',
                 textTransform: 'uppercase',
                 color: '#000',
@@ -867,7 +863,7 @@ export default function PrestigeShowcase({
           {topResult.matchReasons.map((reason, i) => (
             <span
               key={i}
-              className="text-xs px-3.5 py-1.5 rounded-full border text-white/55"
+              className="text-xs px-3.5 py-1.5 rounded-full border text-white/85"
               style={{
                 fontFamily: 'var(--font-inter), sans-serif',
                 borderColor: 'rgba(212,175,55,0.20)',
@@ -895,7 +891,7 @@ export default function PrestigeShowcase({
           <div className="flex items-center gap-3 mb-6">
             <div className="h-px flex-1 bg-linear-to-r from-transparent via-[#d4af37]/18 to-transparent" />
             <p
-              className="text-[#d4af37]/50 text-[11px] uppercase tracking-[0.18em] shrink-0"
+              className="text-[#d4af37]/75 text-xs uppercase tracking-[0.18em] shrink-0"
               style={{ fontFamily: 'var(--font-inter), sans-serif' }}
             >
               También te puede gustar
@@ -923,7 +919,7 @@ export default function PrestigeShowcase({
         <button
           onClick={onReset}
           className="btn-ghost flex items-center gap-2"
-          style={{ fontSize: '0.72rem' }}
+          style={{ fontSize: '0.75rem' }}
         >
           <RotateCcw className="w-3.5 h-3.5" />
           Hacer el Quiz de Nuevo
