@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og'
 
 // Next detecta este archivo y emite og:image (y twitter:image) automáticamente.
-export const alt = 'AroMatch — Perfumes Árabes Originales'
+export const alt = 'AuraDecant — Perfumería árabe y de nicho'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
@@ -38,7 +38,7 @@ export default function OpengraphImage() {
 
         <div
           style={{
-            fontSize: 132,
+            fontSize: 118,
             fontFamily: 'serif',
             fontWeight: 700,
             color: '#d4af37',
@@ -47,7 +47,7 @@ export default function OpengraphImage() {
             display: 'flex',
           }}
         >
-          AroMatch
+          AuraDecant
         </div>
 
         {/* Divisor fino */}
@@ -71,7 +71,7 @@ export default function OpengraphImage() {
             display: 'flex',
           }}
         >
-          Perfumes Árabes Originales
+          Perfumería árabe y de nicho
         </div>
 
         <div
@@ -85,7 +85,7 @@ export default function OpengraphImage() {
             display: 'flex',
           }}
         >
-          auradecant.ar
+          auradecant.com.ar
         </div>
       </div>
     ),

@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next'
 import { perfumes } from '@/lib/perfumes'
+import { articles } from '@/lib/articles'
 import { SITE_INDEXABLE, SITE_URL } from '@/lib/site'
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -15,7 +16,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'daily' as const,
       priority: 1.0,
     },
+    {
+      url: `${SITE_URL}/aprende`,
+      lastModified,
+      changeFrequency: 'weekly' as const,
+      priority: 0.8,
+    },
   ]
+
+  // Un artículo educativo por URL — son las páginas con contenido indexable.
+  const articleRoutes = articles.map((article) => ({
+    url: `${SITE_URL}/aprende/${article.slug}`,
+    lastModified,
+    changeFrequency: 'monthly' as const,
+    priority: 0.7,
+  }))
 
   // Dynamic products (Perfumes)
   // Note: While we are a single-page app, listing these as distinct paths
@@ -27,5 +42,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }))
 
-  return [...routes, ...productRoutes]
+  return [...routes, ...articleRoutes, ...productRoutes]
 }

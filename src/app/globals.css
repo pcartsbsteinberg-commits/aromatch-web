@@ -84,6 +84,17 @@ section[id] {
    de cuerpo en mobile (medido: la tipografía más chica del sitio era de 9.6px). */
 body { font-size: 1rem; }
 
+/* Términos técnicos resaltados por renderRich(). Vive acá y no en el <style>
+   de education-section porque ahora lo usan también las páginas de /aprende. */
+.edu-term { color: #f4d58d; font-weight: 600; }
+
+/* Cuerpo de texto de los artículos de /aprende */
+.edu-prose-article {
+  font-size: 1rem;
+  line-height: 1.9;
+  color: rgba(255, 255, 255, 0.85);
+}
+
 @media (max-width: 767px) {
   .body-text { font-size: max(0.875rem, 1em); }
 }

@@ -34,24 +34,25 @@ export const metadata: Metadata = {
   robots: SITE_INDEXABLE
     ? { index: true, follow: true }
     : { index: false, follow: false },
-  title: 'AroMatch | Perfumes Árabes y de Nicho Originales',
-  description: 'Descubrí el lujo árabe en perfumes 100% originales y sellados, con Batch Code garantizado. Encontrá tu fragancia ideal con nuestro AroMatch Quiz.',
-  keywords: 'perfumes árabes originales, fragancias nicho argentina, Lattafa argentina, perfumes de lujo',
-  generator: 'Auradecant.ar',
+  // AuraDecant es la marca; AroMatch es el nombre del quiz, va subordinado.
+  title: 'AuraDecant | Perfumería Árabe y de Nicho Original',
+  description: 'Descubrí el lujo árabe en perfumes 100% originales y sellados, con Batch Code garantizado. Encontrá tu fragancia ideal con el AroMatch Quiz.',
+  keywords: 'perfumes árabes originales, fragancias nicho argentina, Lattafa argentina, perfumes de lujo, AuraDecant',
+  generator: 'AuraDecant',
   // La og:image se genera por código en src/app/opengraph-image.tsx — Next la
   // detecta sola y la inyecta acá (y también como twitter:image).
   openGraph: {
-    title: 'AroMatch - Encuentra Tu Match Olfativo',
-    description: 'Perfumes árabes y de nicho 100% originales. Experimenta fragancias de lujo a precios accesibles.',
+    title: 'AuraDecant | Perfumería Árabe y de Nicho Original',
+    description: 'Perfumes árabes y de nicho 100% originales. Encontrá tu fragancia ideal con el AroMatch Quiz.',
     type: 'website',
-    siteName: 'AroMatch',
+    siteName: 'AuraDecant',
     locale: 'es_AR',
     url: SITE_URL,
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'AroMatch - Encuentra Tu Match Olfativo',
-    description: 'Perfumes árabes y de nicho 100% originales. Experimenta fragancias de lujo a precios accesibles.',
+    title: 'AuraDecant | Perfumería Árabe y de Nicho Original',
+    description: 'Perfumes árabes y de nicho 100% originales. Encontrá tu fragancia ideal con el AroMatch Quiz.',
   },
   // El favicon se detecta automáticamente desde src/app/favicon.ico
 }
@@ -70,9 +71,10 @@ export default function RootLayout({
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "AroMatch",
+    "name": "AuraDecant",
     "url": SITE_URL,
-    "logo": `${SITE_URL}/favicon.ico`
+    "logo": `${SITE_URL}/favicon.ico`,
+    "sameAs": ["https://www.instagram.com/auradecant.ar"]
   };
 
   const productListSchema = {

@@ -12,4 +12,4 @@
 export const SITE_INDEXABLE = false
 
 /** Dominio de producción. Usado por sitemap, robots, Open Graph y JSON-LD. */
-export const SITE_URL = 'https://auradecant.ar'
+export const SITE_URL = 'https://auradecant.com.ar'

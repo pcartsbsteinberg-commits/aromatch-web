@@ -233,12 +233,18 @@ export default function FooterSection() {
           <div className="grid grid-cols-2 md:grid-cols-5 gap-8 md:gap-12">
             {/* Brand Column */}
             <div className="col-span-2">
-              <Link href="/" aria-label="AroMatch — inicio" className="inline-flex items-center gap-2 mb-4 min-h-12">
-                <Sparkles className="w-6 h-6 text-[#d4af37]" />
+              <Link href="/" aria-label="AuraDecant — inicio" className="inline-flex items-center gap-2.5 mb-2 min-h-12">
+                <Sparkles className="w-6 h-6 text-[#d4af37] shrink-0" />
                 <span className="text-xl font-serif font-semibold text-white">
-                  AroMatch<span className="text-[#d4af37]">.ar</span>
+                  Aura<span className="text-[#d4af37]">Decant</span>
                 </span>
               </Link>
+              <p
+                className="label-eyebrow mb-4"
+                style={{ color: 'rgba(255,255,255,0.75)', fontSize: '0.75rem', letterSpacing: '0.18em' }}
+              >
+                Perfumería árabe y de nicho
+              </p>
               <p className="text-white/85 text-sm leading-relaxed mb-6 max-w-xs">
                 Perfumes árabes y de nicho 100% originales. Experimentá fragancias de lujo sin el precio de lujo.
               </p>

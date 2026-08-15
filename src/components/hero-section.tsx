@@ -53,7 +53,7 @@ export default function HeroSection() {
         >
           <span className="divider-gold w-8" />
           <span className="label-eyebrow">
-            Auradecant.ar
+            Auradecant.com.ar
           </span>
           <span className="divider-gold w-8" />
         </motion.div>
@@ -64,17 +64,26 @@ export default function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
           style={{ fontFamily: 'var(--font-display)' }}
-          className="text-5xl md:text-7xl lg:text-8xl font-bold uppercase tracking-widest mb-6 text-balance"
+          className="mb-6 text-balance"
         >
-          <span className="text-white drop-shadow-[0_2px_12px_rgba(255,255,255,0.2)]">
-            Descubre Tu
-          </span>
-          <br />
+          {/* El H1 arranca con la marca: AuraDecant es el nombre real del negocio. */}
           <span
-            className="text-gradient-gold"
-            style={{ filter: 'drop-shadow(0 2px 28px rgba(212,175,55,0.50))' }}
+            className="block text-2xl md:text-3xl font-semibold tracking-[0.22em] uppercase text-[#d4af37] mb-3"
+            style={{ filter: 'drop-shadow(0 2px 18px rgba(212,175,55,0.45))' }}
           >
-            Aroma Distintivo
+            AuraDecant
+          </span>
+          <span className="block text-5xl md:text-7xl lg:text-8xl font-bold uppercase tracking-widest">
+            <span className="text-white drop-shadow-[0_2px_12px_rgba(255,255,255,0.2)]">
+              Descubre Tu
+            </span>
+            <br />
+            <span
+              className="text-gradient-gold"
+              style={{ filter: 'drop-shadow(0 2px 28px rgba(212,175,55,0.50))' }}
+            >
+              Aroma Distintivo
+            </span>
           </span>
         </motion.h1>
 
