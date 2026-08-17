@@ -31,15 +31,6 @@ const modalData: Record<string, { title: string, content: React.ReactNode }> = {
       </div>
     )
   },
-  devoluciones: {
-    title: 'Política de Devoluciones',
-    content: (
-      <div className="space-y-4 text-white/80 text-sm leading-relaxed">
-        <p>Por cuestiones de higiene y la naturaleza del producto, los perfumes no tienen devolución una vez despachados.</p>
-        <p>Si tu pedido llega dañado, contactanos dentro de las 24hs con fotos y resolveremos el inconveniente de inmediato.</p>
-      </div>
-    )
-  },
   historia: {
     title: 'Nuestra Historia',
     content: (
@@ -94,8 +85,8 @@ export default function FooterSection() {
   }
 
   // Sólo links que llevan a algo real. Los modales de `modalData` (envíos,
-  // devoluciones, historia, FAQ) siguen escritos y funcionando: para volver a
-  // mostrarlos alcanza con agregar acá `{ name: '...', action: 'envios' }`.
+  // historia, FAQ) siguen escritos y funcionando: para volver a mostrarlos
+  // alcanza con agregar acá `{ name: '...', action: 'envios' }`.
   const footerLinks: Record<string, Array<{ name: string; href?: string; action?: string; external?: boolean }>> = {
     shop: [
       { name: 'Todos los Perfumes', href: '#products' },
@@ -105,6 +96,11 @@ export default function FooterSection() {
     ],
     learn: [
       { name: 'Guía de Fragancias', href: '#education' },
+    ],
+    legal: [
+      { name: 'Botón de Arrepentimiento', href: '/arrepentimiento' },
+      { name: 'Términos y Condiciones', href: '/terminos' },
+      { name: 'Política de Privacidad', href: '/privacidad' },
     ],
   }
 
@@ -132,6 +128,15 @@ export default function FooterSection() {
         <button onClick={() => setActiveModal(link.action as string)} className={linkClass}>
           {link.name}
         </button>
+      )
+    }
+    // Rutas internas (empiezan con "/") navegan client-side; anclas de la
+    // misma página (#products) y links externos van con <a> normal.
+    if (link.href?.startsWith('/')) {
+      return (
+        <Link href={link.href} className={linkClass}>
+          {link.name}
+        </Link>
       )
     }
     return (
@@ -230,7 +235,7 @@ export default function FooterSection() {
       {/* Main Footer */}
       <div className="py-12 md:py-16 px-6">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-8 md:gap-12">
+          <div className="grid grid-cols-2 md:grid-cols-6 gap-8 md:gap-12">
             {/* Brand Column */}
             <div className="col-span-2">
               <Link href="/" aria-label="AuraDecant — inicio" className="inline-flex items-center gap-2.5 mb-2 min-h-12">
@@ -292,6 +297,17 @@ export default function FooterSection() {
               <h4 className="text-white font-medium mb-4">Aprende</h4>
               <ul className="space-y-3 flex flex-col">
                 {footerLinks.learn.map((link) => (
+                  <li key={link.name}>
+                    {renderLink(link)}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="col-span-2 md:col-span-1">
+              <h4 className="text-white font-medium mb-4">Legal</h4>
+              <ul className="space-y-3 flex flex-col">
+                {footerLinks.legal.map((link) => (
                   <li key={link.name}>
                     {renderLink(link)}
                   </li>

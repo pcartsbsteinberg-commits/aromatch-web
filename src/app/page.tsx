@@ -4,6 +4,7 @@ import HeroSection from '@/components/hero-section'
 import AroMatchApp from '@/components/aromatch-app'
 import EducationSection from '@/components/education-section'
 import ProductsSection from '@/components/products-section'
+import HowToBuySection from '@/components/how-to-buy-section'
 import FooterSection from '@/components/footer-section'
 
 export default function Home() {
@@ -16,6 +17,7 @@ export default function Home() {
       <AroMatchApp />
       <EducationSection />
       <ProductsSection />
+      <HowToBuySection />
       <FooterSection />
     </main>
   )

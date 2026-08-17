@@ -56,39 +56,60 @@ export default function AprendePage() {
                 key={article.slug}
                 href={`/aprende/${article.slug}`}
                 className="group relative flex h-full flex-col overflow-hidden rounded-2xl border
-                           border-[#d4af37]/14 bg-[#0a0800] p-6 transition-all duration-300
+                           border-[#d4af37]/14 bg-[#0a0800] transition-all duration-300
                            hover:border-[#d4af37]/45 hover:shadow-[0_18px_48px_-20px_rgba(0,0,0,0.85)]"
               >
-                <div className="flex items-start justify-between">
-                  <span className="flex h-12 w-12 items-center justify-center rounded-xl border border-[#d4af37]/25 bg-[#d4af37]/10">
-                    <Icon className="h-6 w-6" style={{ color: article.iconColor }} />
-                  </span>
-                  <span className="font-serif text-5xl font-semibold leading-none text-white/10">
-                    {article.order}
-                  </span>
+                <div className="relative aspect-video w-full shrink-0 overflow-hidden">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={article.image}
+                    alt=""
+                    aria-hidden="true"
+                    loading="lazy"
+                    decoding="async"
+                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div
+                    className="pointer-events-none absolute inset-0"
+                    style={{
+                      background:
+                        'linear-gradient(to top, rgba(10,8,0,0.95) 0%, rgba(10,8,0,0.1) 65%, rgba(10,8,0,0) 100%)',
+                    }}
+                  />
                 </div>
 
-                <div className="mt-4 flex flex-wrap items-center gap-2">
-                  <span
-                    className="rounded-full border px-2.5 py-1 text-xs font-semibold uppercase tracking-[0.18em]"
-                    style={{ color: level.color, backgroundColor: level.bg, borderColor: level.border }}
-                  >
-                    {level.label}
-                  </span>
-                  <span className="rounded-full border border-white/10 bg-white/5 px-2.5 py-1 font-mono text-xs tracking-wide text-white/85">
-                    ⏱ {article.readTime}
+                <div className="flex flex-1 flex-col p-6">
+                  <div className="flex items-start justify-between">
+                    <span className="flex h-12 w-12 items-center justify-center rounded-xl border border-[#d4af37]/25 bg-[#d4af37]/10">
+                      <Icon className="h-6 w-6" style={{ color: article.iconColor }} />
+                    </span>
+                    <span className="font-serif text-5xl font-semibold leading-none text-white/10">
+                      {article.order}
+                    </span>
+                  </div>
+
+                  <div className="mt-4 flex flex-wrap items-center gap-2">
+                    <span
+                      className="rounded-full border px-2.5 py-1 text-xs font-semibold uppercase tracking-[0.18em]"
+                      style={{ color: level.color, backgroundColor: level.bg, borderColor: level.border }}
+                    >
+                      {level.label}
+                    </span>
+                    <span className="rounded-full border border-white/10 bg-white/5 px-2.5 py-1 font-mono text-xs tracking-wide text-white/85">
+                      ⏱ {article.readTime}
+                    </span>
+                  </div>
+
+                  <h2 className="mt-5 font-serif text-xl font-semibold leading-snug text-[#f4d58d]">
+                    {article.title}
+                  </h2>
+                  <p className="mt-2 text-sm leading-relaxed text-white/85">{article.teaser}</p>
+
+                  <span className="mt-5 inline-flex items-center gap-2 text-xs uppercase tracking-[0.18em] text-white/75 transition-colors group-hover:text-[#d4af37]">
+                    Leer artículo
+                    <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
                   </span>
                 </div>
-
-                <h2 className="mt-5 font-serif text-xl font-semibold leading-snug text-[#f4d58d]">
-                  {article.title}
-                </h2>
-                <p className="mt-2 text-sm leading-relaxed text-white/85">{article.teaser}</p>
-
-                <span className="mt-5 inline-flex items-center gap-2 text-xs uppercase tracking-[0.18em] text-white/75 transition-colors group-hover:text-[#d4af37]">
-                  Leer artículo
-                  <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-                </span>
               </Link>
             )
           })}

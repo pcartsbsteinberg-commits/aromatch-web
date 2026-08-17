@@ -1,12 +1,31 @@
 "use client"
 
+import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { ChevronDown, Sparkles } from 'lucide-react'
+import { ChevronDown, Sparkles, Undo2 } from 'lucide-react'
 
 export default function HeroSection() {
   return (
     // `100vh - 80px` porque <main> ya aporta los 80px de padding del nav fijo.
     <section className="relative min-h-[calc(100vh-80px)] flex items-center justify-center overflow-hidden">
+      {/* ── Botón de Arrepentimiento — posicionado fuera del bloque de contenido
+          centrado a propósito: si viviera adentro, sumaría alto y podría volver
+          a chocar con el indicador de scroll (ver fix de altura más abajo). ── */}
+      <motion.div
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 1 }}
+        className="absolute top-4 right-4 md:top-6 md:right-6 z-20"
+      >
+        <Link
+          href="/arrepentimiento"
+          className="inline-flex min-h-12 items-center gap-2 rounded-full border border-[#d4af37]/35 bg-black/50 px-4 text-xs uppercase tracking-[0.06em] text-white/85 backdrop-blur-sm transition-colors hover:border-[#d4af37]/70 hover:text-[#d4af37]"
+        >
+          <Undo2 className="h-4 w-4 shrink-0" />
+          <span>Botón de Arrepentimiento</span>
+        </Link>
+      </motion.div>
+
       {/* ── Oscurecido sobre el video: sin esto el frasco compite con el texto ── */}
       <div
         className="absolute inset-0 pointer-events-none"
@@ -66,13 +85,9 @@ export default function HeroSection() {
           style={{ fontFamily: 'var(--font-display)' }}
           className="mb-6 text-balance"
         >
-          {/* El H1 arranca con la marca: AuraDecant es el nombre real del negocio. */}
-          <span
-            className="block text-2xl md:text-3xl font-semibold tracking-[0.22em] uppercase text-[#d4af37] mb-3"
-            style={{ filter: 'drop-shadow(0 2px 18px rgba(212,175,55,0.45))' }}
-          >
-            AuraDecant
-          </span>
+          {/* La marca ya aparece en el logo del header y en el kicker de arriba
+              ("Auradecant.com.ar"): un tercer bloque grande acá era redundante,
+              así que el titular pasa a ser lo primero grande que se lee. */}
           <span className="block text-5xl md:text-7xl lg:text-8xl font-bold uppercase tracking-widest">
             <span className="text-white drop-shadow-[0_2px_12px_rgba(255,255,255,0.2)]">
               Descubre Tu
@@ -140,9 +155,12 @@ export default function HeroSection() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 1.5 }}
-        // Oculto en mobile: ahí el hero es más alto que el viewport y el indicador
-        // se superponía con los badges de confianza.
-        className="hidden md:block absolute bottom-10 left-1/2 -translate-x-1/2"
+        // Oculto salvo que haya alto de viewport suficiente: por debajo de ~900px
+        // de alto (mobile, o desktop con ventana angosta en alto) el indicador,
+        // anclado a bottom-10 de la sección, se superpone con la fila de badges
+        // de confianza. El corte es por altura, no por ancho: a 1920/1440/1280px
+        // de ancho el problema es el mismo si el alto es bajo.
+        className="hidden [@media(min-width:768px)_and_(min-height:950px)]:block absolute bottom-10 left-1/2 -translate-x-1/2"
       >
         <motion.div
           animate={{ y: [0, 10, 0] }}

@@ -62,8 +62,6 @@ export interface Article {
   relatedNote: string
 }
 
-const UNSPLASH = (id: string) => `https://images.unsplash.com/${id}?w=800&q=80&auto=format&fit=crop`
-
 export const articles: Article[] = [
   // ───────────────────────────────────────────────────────────────────────────
   {
@@ -77,7 +75,7 @@ export const articles: Article[] = [
       'Oriental, floral, fresco y amaderado: la guía para entender cómo se clasifican los perfumes y predecir cómo huele uno antes de probarlo.',
     icon: Flower2,
     iconColor: '#f4d58d',
-    image: UNSPLASH('photo-1465146344425-f00d5f5c8f07'),
+    image: '/aprende/familias-olfativas.webp',
     level: 'basico',
     readTime: '2 min',
     intro:
@@ -129,7 +127,7 @@ export const articles: Article[] = [
       'Por qué el calor amplifica la proyección y el frío la suprime, y cómo elegir la fragancia correcta para cada estación del año.',
     icon: ThermometerSun,
     iconColor: '#f4d58d',
-    image: UNSPLASH('photo-1418985991508-e47386d96a71'),
+    image: '/aprende/temperatura-y-estacion.webp',
     level: 'basico',
     readTime: '2 min',
     intro:
@@ -164,7 +162,7 @@ export const articles: Article[] = [
       'Qué significan EDC, EDT, EDP y Parfum, cuánto dura cada concentración y por qué casi toda la perfumería árabe se produce como Eau de Parfum.',
     icon: FlaskConical,
     iconColor: '#f4d58d',
-    image: UNSPLASH('photo-1594035910387-fea47794261f'),
+    image: '/aprende/edp-vs-edt-vs-parfum.webp',
     level: 'basico',
     readTime: '2 min',
     intro:
@@ -216,7 +214,7 @@ export const articles: Article[] = [
       'Cómo evoluciona un perfume en tu piel hora a hora, y por qué nunca deberías juzgar una fragancia en el primer spray.',
     icon: Activity,
     iconColor: '#f4d58d',
-    image: UNSPLASH('photo-1547887538-e3a2f32cb1cc'),
+    image: '/aprende/notas-de-salida-corazon-y-fondo.webp',
     level: 'intermedio',
     readTime: '2 min',
     intro:
@@ -260,7 +258,7 @@ export const articles: Article[] = [
       'Por qué el mismo perfume huele distinto en cada persona: pH, temperatura corporal e hidratación, y cómo hacer que dure más en tu piel.',
     icon: Droplets,
     iconColor: '#f4d58d',
-    image: UNSPLASH('photo-1559825481-12a05cc00344'),
+    image: '/aprende/ph-de-la-piel.webp',
     level: 'intermedio',
     readTime: '2 min',
     intro:
@@ -304,7 +302,7 @@ export const articles: Article[] = [
       'Packaging, frasco, batch code, drydown y precio: cinco señales para verificar que una fragancia sea auténtica antes de comprarla.',
     icon: ShieldCheck,
     iconColor: '#f4d58d',
-    image: UNSPLASH('photo-1592945403244-b3fbafd7f539'),
+    image: '/aprende/como-detectar-un-perfume-original.webp',
     level: 'intermedio',
     readTime: '2 min',
     intro:
@@ -352,7 +350,7 @@ export const articles: Article[] = [
       'Qué es el sillage, en qué se diferencia de la longevidad y cuándo conviene Beast Mode o una proyección moderada según el contexto.',
     icon: Wind,
     iconColor: '#f4d58d',
-    image: UNSPLASH('photo-1495195129352-aeb325a55b65'),
+    image: '/aprende/proyeccion-y-estela.webp',
     level: 'avanzado',
     readTime: '2 min',
     intro:
@@ -383,7 +381,7 @@ export const articles: Article[] = [
       'El arte de superponer fragancias: qué combinaciones funcionan, cuáles conviene evitar y cómo el layering extiende la duración.',
     icon: Layers,
     iconColor: '#f4d58d',
-    image: UNSPLASH('photo-1541643600914-78b084683601'),
+    image: '/aprende/layering-como-combinar-perfumes.webp',
     level: 'avanzado',
     readTime: '2 min',
     intro:

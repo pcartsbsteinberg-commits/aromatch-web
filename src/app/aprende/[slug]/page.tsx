@@ -112,7 +112,19 @@ export default async function ArticlePage({
 
           <div className="mt-6 h-px w-28 bg-linear-to-r from-[#d4af37] to-transparent" />
 
-          <p className="mt-6 text-lg leading-relaxed text-white/85">{renderRich(article.intro)}</p>
+          <div className="relative mt-8 aspect-video w-full overflow-hidden rounded-2xl border border-[#d4af37]/15">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={article.image}
+              alt=""
+              aria-hidden="true"
+              loading="lazy"
+              decoding="async"
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+          </div>
+
+          <p className="mt-8 text-lg leading-relaxed text-white/85">{renderRich(article.intro)}</p>
         </header>
 
         {/* ── Cuerpo ─────────────────────────────────────────────────────── */}
